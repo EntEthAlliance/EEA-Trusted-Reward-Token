@@ -54,3 +54,25 @@ Reputation tokens are created based on the earned reward tokens. The reputation 
 
 * Reputation Tokens of an Organnization = Sum of all earned rewards tokens of the employees of an organization participating in EEA activities
 * Reputation Token of an individual =  Sum of all earned rewards tokens of an individual participating in EEA activities
+
+
+## Token Questions
+
+|    Question   |    Process    |  Answer  |
+| --- | --- | --- |
+| Who controls a token, when, how and where?  | Sharing  | **Who:** EEA Member; **When:** Any time;  **How:** Sharing request to other member org; **Where:** No specific location required |
+| Who issues a token, when, how and where?  | Issuance  | **Who:** EEA SIG/TWG chair on behalf of the EEA;  **When:** Upon completion of activity by EEA Member; **How:** EEA members completes or does not complete committed to activity; **Where:** SIGs/TWGs/Projects |
+| Who redeems a token, when, how and where? | Redemption | **Who:** EEA Member; **When:** At Membership Anniversary (within a certain time frame e.g. 1 month); **How:** Redemption request to EEA Secretary; **Where:** On extension/close-out of EEA membership |
+| Who liquidates a token, when, how and where? | Redemption | See Answer for Redemption process |
+| What, if any, are the restrictions on token control, issuance, redemption, and liquidation? | All Proccesses | Token rules governing all processes and financial accounting are controlled by the EEA Steering Committee and follow the established Change Control process of the EEA. See the Token Model for control and restriction details |
+| What are the Legal triggers to be considered? (money transfer regulation, securities trigger, gift card regulation, …)? | All Proccesses | Token design is such that the EEA token is not a security (Is not used to raise money, is not promoted as an investment, will be issued on existing platform, is not freely exchangable, can only be used for one purpose, does not represent any interest in an entity) and cannot be traded except OTC through sharing and within the EEA ecosystem which is permissioned through the EEA membership rules. The EEA is using its established banking relationships to fullfill all applicable banking and money transfer law requirements. |
+| Are there token usage fees? | Redemption | There is a fee through an exchange rate to cover the EEA administrative costs of the token |
+| If there are token usage fees, what is the fee schedule by value exchange? | Redemption | Fee schedule is still TBD but will be fixed |
+| Where and how is the economic value capture taking place and who are the participants? | Token Economics | **Where:** EEA SIGs and TWGs and Projects; **How:** Recording of EEA Member participation and contributions; **Who:** EEA Members, EEA Chairs, EEA Secretary|
+| Where, how and through whom is economic value entering and leaving? | Token Economics | **Where:** EEA Secretary; **How:** Redemption Requests from Members: **Through Whom:** EEA Member and EEA Secretary |
+| Are tokens treated as a GAAP liability or as a private currency? | N/A | GAAP Liability on EEA Balance Sheet |
+| How are tokens financially accounted for? | N/A | Onchain in the token contract and offchain through a liability/credit on the EEA Balancesheet |
+| Who is responsible for the financial accounting of tokens? | N/A | EEA Secreatary |
+| What are the currency controls both qualitative and quantitative such as liquidity/supply requirements, exchange rates? | Relevant for a private currency only | Fixed exchange rate to account for EEA accounting costs. Redemption rules ensure that tokens can only be redeemed at the rate that membership dues are received. |
+| Who or what sets those controls? | Relevant for a private currency only | EEA Steering Committee |
+| Who or what implements them? | Relevant for a private currency only | Token SIG + Testnet TWG |
