@@ -76,3 +76,15 @@ Reputation tokens are created based on the earned reward tokens. The reputation 
 | What are the currency controls both qualitative and quantitative such as liquidity/supply requirements, exchange rates? | Relevant for a private currency only | Fixed exchange rate to account for EEA accounting costs. Redemption rules ensure that tokens can only be redeemed at the rate that membership dues are received. |
 | Who or what sets those controls? | Relevant for a private currency only | EEA Steering Committee |
 | Who or what implements them? | Relevant for a private currency only | Token SIG + Testnet TWG |
+
+
+
+## Role Based Access Control
+
+Looking to implement Role Based Access Control (RBAC) for the token system.
+Roles include:
+ * EEA Secretary: Distributes tokens
+ * EEA Organizations
+ * EEA Members
+
+Structure could follow something like [this](https://entethalliance.github.io/client-spec/spec.html#sec-example-permissioning-bespoke)
