@@ -18,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/EntEthAlliance/Trusted-Token/issues"
   },
-  "homepage": "https://github.com/EntEthAlliance/Trusted-Token#readme"
+  "homepage": "https://github.com/EntEthAlliance/Trusted-Token#readme",
+  "dependencies": {
+    "dotenv": "^8.0.0"
+  }
 }
