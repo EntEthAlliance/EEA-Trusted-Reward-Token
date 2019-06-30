@@ -51,6 +51,7 @@ module.exports = {
       gasPrice: 0,
       gas: 4500000,
       /* type: 'quorum' // Use this property for Quorum environments */
+    }
   },
 
   // Set default mocha options here, use special reporters etc.
