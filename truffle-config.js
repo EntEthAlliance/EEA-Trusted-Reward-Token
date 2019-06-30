@@ -23,6 +23,9 @@
 //
 // const fs = require('fs');
 // const mnemonic = fs.readFileSync(".secret").toString().trim();
+const HTTPProviderRateLimitRetry = require('./lib/http-provider-rate-limit-retry')
+
+require('dotenv').config();
 
 module.exports = {
   /**
