@@ -30,12 +30,22 @@ contract('EEAOperator', function(accounts) {
   })
 
   it("check that minting of rewards and penalties works", async () => {
+    //Mint rewards checks
     let rewardsBalance1 = await rewardToken.balanceOf(member1);
     let rewardsAmount = 10;
     expect(rewardsBalance1.toNumber()).equal(0);
-    await operator.addRewards(member1, rewardsAmount);
+    await operator.mintRewards(member1, rewardsAmount);
     let rewardsBalance2 = await rewardToken.balanceOf(member1);
     expect(rewardsBalance2.toNumber()).equal(rewardsBalance1.toNumber() + rewardsAmount);
+
+    //Mint penalties
+    let penaltiesBalance1 = await penaltyToken.balanceOf(member1);
+    let penaltiesAmount = 10;
+    expect(penaltiesBalance1.toNumber()).equal(0);
+    await operator.mintPenalties(member1, penaltiesAmount);
+    let penaltiesBalance2 = await penaltyToken.balanceOf(member1);
+    expect(penaltiesBalance2.toNumber()).equal(penaltiesBalance1.toNumber() + penaltiesAmount);
+
   })
 
 

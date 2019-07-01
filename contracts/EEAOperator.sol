@@ -24,7 +24,7 @@ contract EEAOperator is Ownable {
     rewardToken = new RewardToken(defaultOperators);
   }
 
-  function addRewards(address account, uint256 amount)
+  function mintRewards(address account, uint256 amount)
     external
     onlyOwner
  {
@@ -32,7 +32,7 @@ contract EEAOperator is Ownable {
    //TODO - emit an event here
  }
 
- function addPenalties(address account, uint amount)
+ function mintPenalties(address account, uint amount)
    external
    onlyOwner
  {
