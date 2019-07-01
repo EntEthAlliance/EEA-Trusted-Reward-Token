@@ -4,14 +4,14 @@ import "openzeppelin-solidity/contracts/token/ERC777/ERC777.sol";
 
 
 /**
- * @title EEA Reward Token
+ * @title EEA Penalty Token
  */
-contract RewardToken is ERC777 {
+contract PenaltyToken is ERC777 {
 
     /**
      * @dev Constructor that sets default operators.
      */
-    constructor(address[] memory defaultOperators) public ERC777("RewardToken", "EEAR", defaultOperators) {
+    constructor(address[] memory defaultOperators) public ERC777("PenaltyToken", "EEAP", defaultOperators) {
     }
 
     /**
