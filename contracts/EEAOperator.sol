@@ -24,4 +24,21 @@ contract EEAOperator is Ownable {
     rewardToken = new RewardToken(defaultOperators);
   }
 
+  function addRewards(address account, uint256 amount)
+    external
+    onlyOwner
+ {
+   rewardToken.operatorMint(account, amount, 'rewards', 'rewards');
+   //TODO - emit an event here
+ }
+
+ function addPenalties(address account, uint amount)
+   external
+   onlyOwner
+ {
+   penaltyToken.operatorMint(account, amount, 'penalties', 'penalties');
+    //TODO - emit an event here
+ }
+
+
 }
