@@ -13,6 +13,20 @@ contract EEAOperator is Ownable {
   PenaltyToken public penaltyToken;
   RewardToken public rewardToken;
 
+  event RewardsMinted(
+      address indexed account,
+      uint256 amount,
+      bytes data,
+      bytes operatorData
+  );
+
+  event PenaltiesMinted(
+      address indexed account,
+      uint256 amount,
+      bytes data,
+      bytes operatorData
+  );
+
 
   constructor() public {
     address[] memory defaultOperators = new address[](2);
@@ -29,16 +43,17 @@ contract EEAOperator is Ownable {
     onlyOwner
  {
    rewardToken.operatorMint(account, amount, 'rewards', 'rewards');
-   //TODO - emit an event here
+
+   emit RewardsMinted(account, amount, 'rewards', 'rewards');
  }
 
- function mintPenalties(address account, uint amount)
+ function mintPenalties(address account, uint256 amount)
    external
    onlyOwner
  {
    penaltyToken.operatorMint(account, amount, 'penalties', 'penalties');
-    //TODO - emit an event here
- }
 
+   emit PenaltiesMinted(account, amount, 'penalties', 'penalties');
+ }
 
 }

@@ -45,9 +45,21 @@ contract('EEAOperator', function(accounts) {
     await operator.mintPenalties(member1, penaltiesAmount);
     let penaltiesBalance2 = await penaltyToken.balanceOf(member1);
     expect(penaltiesBalance2.toNumber()).equal(penaltiesBalance1.toNumber() + penaltiesAmount);
-
   })
 
+  // it("should mint rewards and emit RewardsMinted event", async () => {
+  //   let rewardsTrx = await operator.mintRewards(member2, 10, {from: eeaAdmin});
+  //   console.log("rewardsTrx logs = ", rewardsTrx.logs.length);
+  //
+  //   //check that there were events emitted
+  //   rewardsTrx.logs.length.should.be.gt(0);
+  //
+  //   //tested event is the last one in the array of events
+  //   let testedEvent = rewardsTrx.logs[rewardsTrx.logs.length - 1];
+  //   testedEvent.event.should.be.equal('RewardsMinted');
+  //   testedEvent.args.account.should.be.equal(member2);
+  //   testedEvent.args.amount.should.be.equal(10);
+  // });
 
 
 })
