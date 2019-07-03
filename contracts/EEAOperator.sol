@@ -24,37 +24,37 @@ contract EEAOperator is Ownable {
   event RewardsMinted(
       address indexed account,
       uint256 amount,
-      bytes data,
       bytes operatorData
   );
 
   event PenaltiesMinted(
       address indexed account,
       uint256 amount,
-      bytes data,
       bytes operatorData
-  );
-
-  event PenaltiesBurned(
-    address indexed account,
-    uint256 amount
-  );
-
-  event RewardsBurned(
-    address indexed account,
-    uint256 amount
   );
 
   event ReputationMinted(
       address indexed account,
       uint256 amount,
-      bytes data,
       bytes operatorData
+  );
+
+  event PenaltiesBurned(
+    address indexed account,
+    uint256 amount,
+    bytes operatorData
+  );
+
+  event RewardsBurned(
+    address indexed account,
+    uint256 amount,
+    bytes operatorData
   );
 
   event ReputationBurned(
     address indexed account,
-    uint256 amount
+    uint256 amount,
+    bytes operatorData
   );
 
   constructor(uint256 _penaltiesToReputation, uint256 _rewardsToReputation) public {
@@ -73,50 +73,47 @@ contract EEAOperator is Ownable {
     reputationToken = new ReputationToken(defaultOperators);
   }
 
-  function mintRewards(address account, uint256 amount)
+  function mintRewards(address account, uint256 amount, bytes calldata operatorData)
     external
     onlyOwner
  {
-   rewardToken.operatorMint(account, amount, '', '');
-   reputationToken.operatorMint(account, rewardsToReputation.mul(amount), '', '');
-   emit ReputationMinted(account, amount, '', '');
-   emit RewardsMinted(account, amount, '', '');
+   rewardToken.operatorMint(account, amount, '', operatorData);
+   reputationToken.operatorMint(account, rewardsToReputation.mul(amount), '', operatorData);
+   // Emit events
+   emit RewardsMinted(account, amount, operatorData);
+   emit ReputationMinted(account, amount, operatorData);
  }
 
- function mintPenalties(address account, uint256 amount)
+ function mintPenalties(address account, uint256 amount, bytes calldata operatorData)
    external
    onlyOwner
  {
-   penaltyToken.operatorMint(account, amount, '', '');
+   penaltyToken.operatorMint(account, amount, '', operatorData);
 
    // Update reputation balance
    uint256 reputationFee = penaltiesToReputation.mul(amount);
    uint256 reputationBalance = reputationToken.balanceOf(account);
-   if (reputationFee > reputationBalance) {
-      reputationToken.operatorBurn(account, reputationBalance, '', '');
-      emit ReputationBurned(account, reputationBalance);
-   } else {
-      reputationToken.operatorBurn(account, reputationFee, '', '');
-      emit ReputationBurned(account, reputationFee);
-   }
-
-   emit PenaltiesMinted(account, amount, '', '');
+   uint256 reputationPenalty = reputationFee > reputationBalance ? reputationBalance : reputationFee;
+   reputationToken.operatorBurn(account, reputationPenalty, '', operatorData);
+   //Emit events
+   emit PenaltiesMinted(account, amount, operatorData);
+   emit ReputationBurned(account, reputationPenalty, operatorData);
  }
 
- function burnPenalties(address account, uint256 amount)
+ function burnPenalties(address account, uint256 amount, bytes memory operatorData)
    public
    onlyOwner
  {
-   penaltyToken.operatorBurn(account, amount, '', '');
-   emit PenaltiesBurned(account, amount);
+   penaltyToken.operatorBurn(account, amount, '', operatorData);
+   emit PenaltiesBurned(account, amount, operatorData);
  }
 
- function burnRewards(address account, uint256 amount)
+ function burnRewards(address account, uint256 amount, bytes memory operatorData)
    public
    onlyOwner
  {
-   rewardToken.operatorBurn(account, amount, '', '');
-   emit RewardsBurned(account, amount);
+   rewardToken.operatorBurn(account, amount, '', operatorData);
+   emit RewardsBurned(account, amount, operatorData);
  }
 
  /// At the end of membership year EEA secretary can burn all tokens using them towards membership fee or credits
@@ -125,8 +122,8 @@ contract EEAOperator is Ownable {
    external
    onlyOwner
  {
-   burnPenalties(account, penaltyToken.balanceOf(account));
-   burnRewards(account, rewardToken.balanceOf(account));
+   burnPenalties(account, penaltyToken.balanceOf(account), 'membership renewal');
+   burnRewards(account, rewardToken.balanceOf(account), 'membership renewal');
  }
 
  function balance(address account)
