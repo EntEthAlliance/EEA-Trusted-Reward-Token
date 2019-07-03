@@ -45,7 +45,17 @@ contract EEAOperator is Ownable {
     uint256 amount
   );
 
-  event AllTokensBurned(address indexed account);
+  event ReputationMinted(
+      address indexed account,
+      uint256 amount,
+      bytes data,
+      bytes operatorData
+  );
+
+  event ReputationBurned(
+    address indexed account,
+    uint256 amount
+  );
 
   constructor(uint256 _penaltiesToReputation, uint256 _rewardsToReputation) public {
     //initialize default operators array
@@ -69,6 +79,7 @@ contract EEAOperator is Ownable {
  {
    rewardToken.operatorMint(account, amount, '', '');
    reputationToken.operatorMint(account, rewardsToReputation.mul(amount), '', '');
+   emit ReputationMinted(account, amount, '', '');
    emit RewardsMinted(account, amount, '', '');
  }
 
@@ -83,8 +94,10 @@ contract EEAOperator is Ownable {
    uint256 reputationBalance = reputationToken.balanceOf(account);
    if (reputationFee > reputationBalance) {
       reputationToken.operatorBurn(account, reputationBalance, '', '');
+      emit ReputationBurned(account, reputationBalance);
    } else {
       reputationToken.operatorBurn(account, reputationFee, '', '');
+      emit ReputationBurned(account, reputationFee);
    }
 
    emit PenaltiesMinted(account, amount, '', '');
@@ -106,14 +119,14 @@ contract EEAOperator is Ownable {
    emit RewardsBurned(account, amount);
  }
 
- /// At the end of membership year EEA secretary can burn all tokens and use them towards membership fee or credits
+ /// At the end of membership year EEA secretary can burn all tokens using them towards membership fee or credits
+ /// Reputation tokens stay intact
  function burnAll(address account)
    external
    onlyOwner
  {
    burnPenalties(account, penaltyToken.balanceOf(account));
    burnRewards(account, rewardToken.balanceOf(account));
-   emit AllTokensBurned(account);
  }
 
  function balance(address account)
