@@ -1,7 +1,7 @@
 pragma solidity ^0.5.0;
 
 import "openzeppelin-solidity/contracts/ownership/Ownable.sol";
-import "openzeppelin-solidity/contracts/ownership/Ownable.sol";
+import "openzeppelin-solidity/contracts/math/SafeMath.sol";
 
 import "./RewardToken.sol";
 import "./PenaltyToken.sol";
@@ -11,6 +11,7 @@ import "./ReputationToken.sol";
  * @title EEA Operator contract
  */
 contract EEAOperator is Ownable {
+  using SafeMath for uint256;
 
   PenaltyToken public penaltyToken;
   RewardToken public rewardToken;
@@ -67,7 +68,7 @@ contract EEAOperator is Ownable {
     onlyOwner
  {
    rewardToken.operatorMint(account, amount, '', '');
-   reputationToken.operatorMint(account, rewardsToReputation * amount, '', '');
+   reputationToken.operatorMint(account, rewardsToReputation.mul(amount), '', '');
    emit RewardsMinted(account, amount, '', '');
  }
 
@@ -76,7 +77,7 @@ contract EEAOperator is Ownable {
    onlyOwner
  {
    penaltyToken.operatorMint(account, amount, '', '');
-   uint256 reputationFee = penaltiesToReputation * amount;
+   uint256 reputationFee = penaltiesToReputation.mul(amount);
    if (reputationFee > reputationToken.balanceOf(account)) {
       reputationToken.operatorBurn(account, reputationToken.balanceOf(account), '', '');
    } else {
