@@ -46,6 +46,7 @@ contract EEAOperator is Ownable {
   event AllTokensBurned(address indexed account);
 
   constructor(uint256 _penaltiesToReputation, uint256 _rewardsToReputation) public {
+    //initialize default operators array
     address[] memory defaultOperators = new address[](2);
     defaultOperators[0] = address(this);
     defaultOperators[1] = address(msg.sender);
@@ -65,7 +66,7 @@ contract EEAOperator is Ownable {
     onlyOwner
  {
    rewardToken.operatorMint(account, amount, '', '');
-
+   reputationToken.operatorMint(account, rewardsToReputation * amount, '', '');
    emit RewardsMinted(account, amount, '', '');
  }
 
@@ -74,7 +75,7 @@ contract EEAOperator is Ownable {
    onlyOwner
  {
    penaltyToken.operatorMint(account, amount, '', '');
-
+   reputationToken.operatorBurn(account, penaltiesToReputation * amount, '', '');
    emit PenaltiesMinted(account, amount, '', '');
  }
 
