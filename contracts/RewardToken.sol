@@ -11,7 +11,7 @@ contract RewardToken is ERC777 {
     /**
      * @dev Constructor that sets default operators.
      */
-    constructor(address[] memory defaultOperators) public ERC777("RewardToken", "EEAR", defaultOperators) {
+    constructor(address[] memory defaultOperators) public ERC777("RewardToken", "EEART", defaultOperators) {
     }
 
     /**
