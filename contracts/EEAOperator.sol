@@ -27,6 +27,17 @@ contract EEAOperator is Ownable {
       bytes operatorData
   );
 
+  event PenaltiesBurned(
+    address indexed account,
+    uint256 amount
+  );
+
+  event RewardsBurned(
+    address indexed account,
+    uint256 amount
+  );
+
+  event AllTokensBurned(address indexed account);
 
   constructor() public {
     address[] memory defaultOperators = new address[](2);
@@ -42,18 +53,54 @@ contract EEAOperator is Ownable {
     external
     onlyOwner
  {
-   rewardToken.operatorMint(account, amount, 'rewards', 'rewards');
+   rewardToken.operatorMint(account, amount, '', '');
 
-   emit RewardsMinted(account, amount, 'rewards', 'rewards');
+   emit RewardsMinted(account, amount, '', '');
  }
 
  function mintPenalties(address account, uint256 amount)
    external
    onlyOwner
  {
-   penaltyToken.operatorMint(account, amount, 'penalties', 'penalties');
+   penaltyToken.operatorMint(account, amount, '', '');
 
-   emit PenaltiesMinted(account, amount, 'penalties', 'penalties');
+   emit PenaltiesMinted(account, amount, '', '');
+ }
+
+ function balance(address account)
+   external
+   view
+   returns (uint256, uint256)
+ {
+   return (rewardToken.balanceOf(account), penaltyToken.balanceOf(account));
+ }
+
+ function burnPenalties(address account, uint256 amount)
+   public
+   onlyOwner
+ {
+   penaltyToken.operatorBurn(account, amount, '', '');
+
+   emit PenaltiesBurned(account, amount);
+ }
+
+ function burnRewards(address account, uint256 amount)
+   public
+   onlyOwner
+ {
+   rewardToken.operatorBurn(account, amount, '', '');
+
+   emit RewardsBurned(account, amount);
+ }
+
+ function burnAllTokens(address account)
+   external
+   onlyOwner
+ {
+   burnPenalties(account, penaltyToken.balanceOf(account));
+   burnRewards(account, rewardToken.balanceOf(account));
+
+   emit AllTokensBurned(account);
  }
 
 }
