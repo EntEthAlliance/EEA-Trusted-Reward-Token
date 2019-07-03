@@ -1,6 +1,7 @@
 pragma solidity ^0.5.0;
 
 import "openzeppelin-solidity/contracts/ownership/Ownable.sol";
+import "openzeppelin-solidity/contracts/ownership/Ownable.sol";
 
 import "./RewardToken.sol";
 import "./PenaltyToken.sol";
@@ -75,7 +76,12 @@ contract EEAOperator is Ownable {
    onlyOwner
  {
    penaltyToken.operatorMint(account, amount, '', '');
-   reputationToken.operatorBurn(account, penaltiesToReputation * amount, '', '');
+   uint256 reputationFee = penaltiesToReputation * amount;
+   if (reputationFee > reputationToken.balanceOf(account)) {
+      reputationToken.operatorBurn(account, reputationToken.balanceOf(account), '', '');
+   } else {
+      reputationToken.operatorBurn(account, reputationFee, '', '');
+   }
    emit PenaltiesMinted(account, amount, '', '');
  }
 
@@ -92,7 +98,6 @@ contract EEAOperator is Ownable {
    onlyOwner
  {
    penaltyToken.operatorBurn(account, amount, '', '');
-
    emit PenaltiesBurned(account, amount);
  }
 
@@ -101,17 +106,16 @@ contract EEAOperator is Ownable {
    onlyOwner
  {
    rewardToken.operatorBurn(account, amount, '', '');
-
    emit RewardsBurned(account, amount);
  }
 
+ /// At the end of membership year EEA secretary can burn all tokens and use them towards membership fee or credits
  function burnAllTokens(address account)
    external
    onlyOwner
  {
    burnPenalties(account, penaltyToken.balanceOf(account));
    burnRewards(account, rewardToken.balanceOf(account));
-
    emit AllTokensBurned(account);
  }
 

@@ -10,5 +10,5 @@ module.exports = async function (deployer, network, accounts) {
     await singletons.ERC1820Registry(accounts[0]);
   }
 
-  await deployer.deploy(EEAOperator);
+  await deployer.deploy(EEAOperator, 1, 1);
 };
