@@ -77,21 +77,17 @@ contract EEAOperator is Ownable {
    onlyOwner
  {
    penaltyToken.operatorMint(account, amount, '', '');
+
+   // Update reputation balance
    uint256 reputationFee = penaltiesToReputation.mul(amount);
-   if (reputationFee > reputationToken.balanceOf(account)) {
-      reputationToken.operatorBurn(account, reputationToken.balanceOf(account), '', '');
+   uint256 reputationBalance = reputationToken.balanceOf(account);
+   if (reputationFee > reputationBalance) {
+      reputationToken.operatorBurn(account, reputationBalance, '', '');
    } else {
       reputationToken.operatorBurn(account, reputationFee, '', '');
    }
-   emit PenaltiesMinted(account, amount, '', '');
- }
 
- function balance(address account)
-   external
-   view
-   returns (uint256, uint256)
- {
-   return (rewardToken.balanceOf(account), penaltyToken.balanceOf(account));
+   emit PenaltiesMinted(account, amount, '', '');
  }
 
  function burnPenalties(address account, uint256 amount)
@@ -111,13 +107,21 @@ contract EEAOperator is Ownable {
  }
 
  /// At the end of membership year EEA secretary can burn all tokens and use them towards membership fee or credits
- function burnAllTokens(address account)
+ function burnAll(address account)
    external
    onlyOwner
  {
    burnPenalties(account, penaltyToken.balanceOf(account));
    burnRewards(account, rewardToken.balanceOf(account));
    emit AllTokensBurned(account);
+ }
+
+ function balance(address account)
+   external
+   view
+   returns (uint256, uint256, uint256)
+ {
+   return (rewardToken.balanceOf(account), penaltyToken.balanceOf(account), reputationToken.balanceOf(account));
  }
 
 }
