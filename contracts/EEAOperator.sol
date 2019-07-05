@@ -58,19 +58,18 @@ contract EEAOperator is Ownable {
   );
 
   constructor(uint256 _penaltiesToReputation, uint256 _rewardsToReputation) public {
-    //initialize default operators array
-    address[] memory defaultOperators = new address[](2);
-    defaultOperators[0] = address(this);
-    defaultOperators[1] = address(msg.sender);
-
     //set indexes for reputation tokens calculation
     penaltiesToReputation = _penaltiesToReputation;
     rewardsToReputation = _rewardsToReputation;
+  }
 
-    //Create token smart contracts;
-    penaltyToken = new PenaltyToken(defaultOperators);
-    rewardToken = new RewardToken(defaultOperators);
-    reputationToken = new ReputationToken(defaultOperators);
+  function registerTokens(address _penaltyToken, address _rewardToken, address _reputationToken)
+    external
+    onlyOwner
+  {
+    penaltyToken = PenaltyToken(_penaltyToken);
+    rewardToken = RewardToken(_rewardToken);
+    reputationToken = ReputationToken(_reputationToken);
   }
 
   function mintRewards(address account, uint256 amount, bytes calldata operatorData)
