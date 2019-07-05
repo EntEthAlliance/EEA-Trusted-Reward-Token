@@ -46,7 +46,7 @@ contract('EEAOperator', function(accounts) {
     let rewardsBalance2 = await rewardToken.balanceOf(member1);
     let reputationBalance2 = await reputationToken.balanceOf(member1);
     expect(rewardsBalance2.toNumber()).equal(rewardsBalance1.toNumber() + rewardsAmount);
-    expect(reputationBalance2.toNumber()).equal(reputationBalance1.toNumber() + rewardsAmount);
+    expect(reputationBalance2.toNumber()).equal(reputationBalance1.toNumber() + (await operator.rewardsToReputation()) * rewardsAmount);
 
     //Mint penalties
     let penaltiesBalance1 = await penaltyToken.balanceOf(member1);
@@ -54,7 +54,9 @@ contract('EEAOperator', function(accounts) {
     expect(penaltiesBalance1.toNumber()).equal(0);
     await operator.mintPenalties(member1, penaltiesAmount, '0x0');
     let penaltiesBalance2 = await penaltyToken.balanceOf(member1);
+    let reputationBalance3 = await reputationToken.balanceOf(member1);
     expect(penaltiesBalance2.toNumber()).equal(penaltiesBalance1.toNumber() + penaltiesAmount);
+    expect(reputationBalance3.toNumber()).equal(reputationBalance2.toNumber() - (await operator.penaltiesToReputation()) * penaltiesAmount);
   })
 
   // it("should mint rewards and emit RewardsMinted event", async () => {
