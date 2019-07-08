@@ -59,6 +59,10 @@ contract('EEAOperator', function(accounts) {
     expect(reputationBalance3.toNumber()).equal(reputationBalance2.toNumber() - (await operator.penaltiesToReputation()) * penaltiesAmount);
   })
 
+  // let penaltyTx = await penaltyToken.transfer(member2, 2, {from: member1});
+  // console.log("penaltyTx = ", penaltyTx);
+  // console.log("Member2 balance = ", (await penaltyToken.balanceOf(member2)).toNumber());
+
   // it("should mint rewards and emit RewardsMinted event", async () => {
   //   let rewardsTrx = await operator.mintRewards(member2, 10, {from: eeaAdmin});
   //   console.log("rewardsTrx logs = ", rewardsTrx.logs.length);

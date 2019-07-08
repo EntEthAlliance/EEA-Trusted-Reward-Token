@@ -8,6 +8,9 @@ import "openzeppelin-solidity/contracts/token/ERC777/ERC777.sol";
  */
 contract PenaltyToken is ERC777 {
 
+    event ForbiddenOperation(bytes name, address indexed from, address indexed operator, uint256 amount, bytes data);
+
+
     /**
      * @dev Constructor that sets default operators.
      */
@@ -32,7 +35,8 @@ contract PenaltyToken is ERC777 {
      * Also emits a `Transfer` event for ERC20 compatibility.
      */
     function send(address recipient, uint256 amount, bytes calldata data) external {
-        revert("You cannot transfer penalties");
+      emit ForbiddenOperation('send', msg.sender, recipient, amount, data);
+      revert("You cannot transfer penalties");
     }
 
     /**
@@ -44,6 +48,7 @@ contract PenaltyToken is ERC777 {
      * Also emits a `Sent` event.
      */
     function transfer(address recipient, uint256 amount) external returns (bool) {
+      emit ForbiddenOperation('transfer', msg.sender, recipient, amount, '');
       revert("You cannot transfer penalties");
     }
 
@@ -57,6 +62,7 @@ contract PenaltyToken is ERC777 {
     * Emits `Sent`, `Transfer` and `Approval` events.
     */
     function transferFrom(address holder, address recipient, uint256 amount) external returns (bool) {
+      emit ForbiddenOperation('transferFrom', holder, recipient, amount, '');
       revert("You cannot transfer penalties");
     }
 
@@ -66,6 +72,7 @@ contract PenaltyToken is ERC777 {
      * Note that accounts cannot have allowance issued by their operators.
      */
     function approve(address spender, uint256 value) external returns (bool) {
+      emit ForbiddenOperation('approve', msg.sender, spender, value, '');
       revert("You cannot transfer penalties");
     }
 
@@ -75,6 +82,7 @@ contract PenaltyToken is ERC777 {
      * Also emits a `Transfer` event for ERC20 compatibility.
      */
     function burn(uint256 amount, bytes calldata data) external {
+      emit ForbiddenOperation('burn', msg.sender, address(0), amount, data);
       revert("You cannot burn penalties");
     }
 
@@ -82,6 +90,7 @@ contract PenaltyToken is ERC777 {
      * @dev See `IERC777.authorizeOperator`.
      */
     function authorizeOperator(address operator) external {
+      emit ForbiddenOperation('authorizeOperator', msg.sender, operator, 0, '');
       revert("You cannot change operators of penalties");
     }
 
@@ -89,6 +98,7 @@ contract PenaltyToken is ERC777 {
      * @dev See `IERC777.revokeOperator`.
      */
     function revokeOperator(address operator) external {
+      emit ForbiddenOperation('revokeOperator', msg.sender, operator, 0, '');
       revert("You cannot change operators of penalties");
     }
 
