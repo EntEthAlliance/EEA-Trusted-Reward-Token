@@ -83,4 +83,15 @@ contract('EEAOperator', function(accounts) {
     await catchRevert(penaltyToken.revokeOperator(member3, {from: member1}), 'You cannot change operators of penalties');
   });
 
+  it("check that balance sensitive methods are disabled for Reputation token", async () => {
+    await operator.mintRewards(member1, 10, '0x0');
+    await catchRevert(reputationToken.transfer(member2, 2, {from: member1}), 'revert You cannot transfer penalties');
+    await catchRevert(reputationToken.send(member2, 2, '0x0', {from: member1}), 'revert You cannot transfer penalties');
+    await catchRevert(reputationToken.transferFrom(member1, member2, 2, {from: member1}), 'revert You cannot transfer penalties');
+    await catchRevert(reputationToken.approve(member2, 2, {from: member1}), 'revert You cannot transfer penalties');
+    await catchRevert(reputationToken.burn(2, '0x0', {from: member1}), 'revert You cannot burn penalties');
+    await catchRevert(reputationToken.authorizeOperator(member3, {from: member1}), 'You cannot change operators of penalties');
+    await catchRevert(reputationToken.revokeOperator(member3, {from: member1}), 'You cannot change operators of penalties');
+  });
+
 })
