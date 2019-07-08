@@ -4,7 +4,7 @@ import "openzeppelin-solidity/contracts/token/ERC777/ERC777.sol";
 
 
 /**
- * @title EEA member Reputation Token
+ * @title EEA Reputation Token
  */
 contract ReputationToken is ERC777 {
 
