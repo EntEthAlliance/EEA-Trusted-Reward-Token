@@ -3,17 +3,29 @@ const RewardToken = artifacts.require('./RewardToken.sol');
 const PenaltyToken = artifacts.require('./PenaltyToken.sol');
 const ReputationToken = artifacts.require('./ReputationToken.sol');
 
+async function catchRevert(promise, message) {
+    try {
+        await promise;
+        throw null;
+    }
+    catch (error) {
+      assert(error.message.includes(message));
+    }
+};
+
 contract('EEAOperator', function(accounts) {
 
   const zeroAddress = '0x0000000000000000000000000000000000000000';
 
   beforeEach("should prepare", async () => {
-    assert.isAtLeast(accounts.length, 3);
+    assert.isAtLeast(accounts.length, 4);
 
     //eea roles
     this.eeaAdmin = accounts[0];
     this.member1 = accounts[1];
     this.member2 = accounts[2];
+    this.member3 = accounts[3];
+
 
     //init eea operator
     this.operator = await EEAOperator.new(1, 1);
@@ -59,23 +71,16 @@ contract('EEAOperator', function(accounts) {
     expect(reputationBalance3.toNumber()).equal(reputationBalance2.toNumber() - (await operator.penaltiesToReputation()) * penaltiesAmount);
   })
 
-  // let penaltyTx = await penaltyToken.transfer(member2, 2, {from: member1});
-  // console.log("penaltyTx = ", penaltyTx);
-  // console.log("Member2 balance = ", (await penaltyToken.balanceOf(member2)).toNumber());
 
-  // it("should mint rewards and emit RewardsMinted event", async () => {
-  //   let rewardsTrx = await operator.mintRewards(member2, 10, {from: eeaAdmin});
-  //   console.log("rewardsTrx logs = ", rewardsTrx.logs.length);
-  //
-  //   //check that there were events emitted
-  //   rewardsTrx.logs.length.should.be.gt(0);
-  //
-  //   //tested event is the last one in the array of events
-  //   let testedEvent = rewardsTrx.logs[rewardsTrx.logs.length - 1];
-  //   testedEvent.event.should.be.equal('RewardsMinted');
-  //   testedEvent.args.account.should.be.equal(member2);
-  //   testedEvent.args.amount.should.be.equal(10);
-  // });
-
+  it("check that balance sensitive methods are disabled for Penalty token", async () => {
+    await operator.mintPenalties(member1, 10, '0x0');
+    await catchRevert(penaltyToken.transfer(member2, 2, {from: member1}), 'revert You cannot transfer penalties');
+    await catchRevert(penaltyToken.send(member2, 2, '0x0', {from: member1}), 'revert You cannot transfer penalties');
+    await catchRevert(penaltyToken.transferFrom(member1, member2, 2, {from: member1}), 'revert You cannot transfer penalties');
+    await catchRevert(penaltyToken.approve(member2, 2, {from: member1}), 'revert You cannot transfer penalties');
+    await catchRevert(penaltyToken.burn(2, '0x0', {from: member1}), 'revert You cannot burn penalties');
+    await catchRevert(penaltyToken.authorizeOperator(member3, {from: member1}), 'You cannot change operators of penalties');
+    await catchRevert(penaltyToken.revokeOperator(member3, {from: member1}), 'You cannot change operators of penalties');
+  });
 
 })

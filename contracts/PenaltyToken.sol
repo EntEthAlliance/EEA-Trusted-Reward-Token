@@ -27,7 +27,7 @@ contract PenaltyToken is ERC777 {
       _mint(msg.sender, account, amount, data, operatorData);
     }
 
-    /// RESTRICTED METHODS, TOKEN HOLDERS ARE NOT ALLOWED TO BE CALL THEM
+    /// RESTRICTED METHODS, TOKEN HOLDERS ARE NOT ALLOWED TO CALL THEM
 
     /**
      * @dev See `IERC777.send`.
