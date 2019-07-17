@@ -10,7 +10,7 @@ const { singletons } = require('openzeppelin-test-helpers');
 module.exports = async function (deployer, network, accounts) {
   let eeaAdmin = accounts[0];
 
-  if (network === 'dev') {
+  if (network === 'dev' || network == 'kaleido') {
     // In a test environment an ERC777 token requires deploying an ERC1820 registry
     await singletons.ERC1820Registry(eeaAdmin);
   }
