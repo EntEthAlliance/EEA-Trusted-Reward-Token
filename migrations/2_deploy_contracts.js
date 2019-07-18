@@ -3,8 +3,12 @@ const RewardToken = artifacts.require("RewardToken");
 const PenaltyToken = artifacts.require("PenaltyToken");
 const ReputationToken = artifacts.require("ReputationToken");
 
-require('openzeppelin-test-helpers/configure')({ web3 });
+const DidRegistryContract = require('ethr-did-registry');
+const Contract = require("truffle-contract");
+const Web3 = require('web3');
+const truffleConfig = require("../truffle-config");
 
+require('openzeppelin-test-helpers/configure')({ web3 });
 const { singletons } = require('openzeppelin-test-helpers');
 
 module.exports = async function (deployer, network, accounts) {
@@ -14,6 +18,17 @@ module.exports = async function (deployer, network, accounts) {
     // In a test environment an ERC777 token requires deploying an ERC1820 registry
     await singletons.ERC1820Registry(eeaAdmin);
   }
+
+  let DidReg = Contract(DidRegistryContract);
+
+  if (network === 'dev') {
+    DidReg.setProvider(new Web3.providers.HttpProvider('http://localhost:8545'));
+  }
+
+  if (network === 'kaleido') {
+    DidReg.setProvider(truffleConfig.networks.kaleido.provider());
+  }
+  let didReg = await DidReg.new({from: eeaAdmin});
 
 
   let operator = await deployer.deploy(EEAOperator, 1, 1, {from: eeaAdmin});
