@@ -22,8 +22,10 @@
   "homepage": "https://github.com/EntEthAlliance/Trusted-Token#readme",
   "dependencies": {
     "dotenv": "^8.0.0",
+    "ethr-did-registry": "0.0.3",
     "openzeppelin-solidity": "^2.3.0",
     "openzeppelin-test-helpers": "^0.4.0",
-    "retry": "^0.12.0"
+    "retry": "^0.12.0",
+    "truffle-contract": "^4.0.25"
   }
 }
