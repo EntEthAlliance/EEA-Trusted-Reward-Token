@@ -20,6 +20,7 @@ contract RewardToken is ERC777 {
      * Emits `Minted` and `Transfer` events.
      */
     function operatorMint(address account, uint256 amount, bytes calldata data, bytes calldata operatorData) external {
+       require(msg.sender != account, "Error: caller cannot be holder");
        require(isOperatorFor(msg.sender, account), "ERC777: caller is not an operator for holder");
       _mint(msg.sender, account, amount, data, operatorData);
     }
