@@ -159,7 +159,7 @@ contract EEAOperator is Ownable {
  }
 
  function _memberCheck(address member) internal view returns (bool) {
-        bytes32 claim = claimsRegistry.getClaim(msg.sender, member, keccak256(abi.encodePacked("membership")));
+        bytes32 claim = claimsRegistry.getClaim(eeaIssuer, member, keccak256(abi.encodePacked("membership")));
         if (claim == keccak256(abi.encodePacked("true"))){
             return true;
         }
