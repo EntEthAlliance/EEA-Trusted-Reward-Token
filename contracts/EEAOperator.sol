@@ -3,6 +3,8 @@ pragma solidity ^0.5.0;
 import "node_modules/openzeppelin-solidity/contracts/ownership/Ownable.sol";
 import "node_modules/openzeppelin-solidity/contracts/math/SafeMath.sol";
 
+import "./EthereumClaimsRegistry.sol";
+import "./EthereumDIDRegistry.sol";
 import "./RewardToken.sol";
 import "./PenaltyToken.sol";
 import "./ReputationToken.sol";
@@ -16,6 +18,8 @@ contract EEAOperator is Ownable {
   PenaltyToken public penaltyToken;
   RewardToken public rewardToken;
   ReputationToken public reputationToken;
+  EthereumDIDRegistry public didRegistry;
+  EthereumClaimsRegistry public claimsRegistry;
 
   uint256 public penaltiesToReputation;
   uint256 public rewardsToReputation;
@@ -57,10 +61,14 @@ contract EEAOperator is Ownable {
     bytes operatorData
   );
 
-  constructor(uint256 _penaltiesToReputation, uint256 _rewardsToReputation) public {
+  constructor(uint256 _penaltiesToReputation, uint256 _rewardsToReputation, address _didRegistry, address _claimsRegistry) public {
     //set indexes for reputation tokens calculation
     penaltiesToReputation = _penaltiesToReputation;
     rewardsToReputation = _rewardsToReputation;
+
+    //set registries
+    didRegistry = EthereumDIDRegistry(_didRegistry);
+    claimsRegistry = EthereumClaimsRegistry(_claimsRegistry);
   }
 
   function registerTokens(address _penaltyToken, address _rewardToken, address _reputationToken)
