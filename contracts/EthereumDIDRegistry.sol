@@ -13,7 +13,7 @@ contract EthereumDIDRegistry {
   mapping(address => uint) public nonce;
 
   modifier onlyOwner(address identity, address actor) {
-    require (actor == identityOwner(identity));
+    require (actor == identityOwner(identity), "Error: Owner only function");
     _;
   }
 
@@ -49,7 +49,7 @@ contract EthereumDIDRegistry {
 
   function checkSignature(address identity, uint8 sigV, bytes32 sigR, bytes32 sigS, bytes32 hash) internal returns(address) {
     address signer = ecrecover(hash, sigV, sigR, sigS);
-    require(signer == identityOwner(identity));
+    require(signer == identityOwner(identity), "Error: Signer is not Owner");
     nonce[signer]++;
     return signer;
   }
@@ -74,7 +74,8 @@ contract EthereumDIDRegistry {
     changeOwner(identity, checkSignature(identity, sigV, sigR, sigS, hash), newOwner);
   }
 
-  function addDelegate(address identity, address actor, bytes32 delegateType, address delegate, uint validity) internal onlyOwner(identity, actor) {
+  function addDelegate(address identity, address actor, bytes32 delegateType, address delegate, uint validity
+  ) internal onlyOwner(identity, actor) {
     delegates[identity][keccak256(abi.encodePacked(delegateType))][delegate] = now + validity;
     emit DIDDelegateChanged(identity, delegateType, delegate, now + validity, changed[identity]);
     changed[identity] = block.number;
@@ -84,8 +85,10 @@ contract EthereumDIDRegistry {
     addDelegate(identity, msg.sender, delegateType, delegate, validity);
   }
 
-  function addDelegateSigned(address identity, uint8 sigV, bytes32 sigR, bytes32 sigS, bytes32 delegateType, address delegate, uint validity) public {
-    bytes32 hash = keccak256(abi.encodePacked(byte(0x19), byte(0), this, nonce[identityOwner(identity)], identity, "addDelegate", delegateType, delegate, validity));
+  function addDelegateSigned(address identity, uint8 sigV, bytes32 sigR, bytes32 sigS, bytes32 delegateType, address delegate, uint validity
+  ) public {
+    bytes32 hash = keccak256(abi.encodePacked(byte(0x19), byte(0), this, nonce[identityOwner(identity)],
+    identity, "addDelegate", delegateType, delegate, validity));
     addDelegate(identity, checkSignature(identity, sigV, sigR, sigS, hash), delegateType, delegate, validity);
   }
 
@@ -100,7 +103,8 @@ contract EthereumDIDRegistry {
   }
 
   function revokeDelegateSigned(address identity, uint8 sigV, bytes32 sigR, bytes32 sigS, bytes32 delegateType, address delegate) public {
-    bytes32 hash = keccak256(abi.encodePacked(byte(0x19), byte(0), this, nonce[identityOwner(identity)], identity, "revokeDelegate", delegateType, delegate));
+    bytes32 hash = keccak256(abi.encodePacked(byte(0x19), byte(0), this, nonce[identityOwner(identity)],
+    identity, "revokeDelegate", delegateType, delegate));
     revokeDelegate(identity, checkSignature(identity, sigV, sigR, sigS, hash), delegateType, delegate);
   }
 
@@ -114,7 +118,8 @@ contract EthereumDIDRegistry {
   }
 
   function setAttributeSigned(address identity, uint8 sigV, bytes32 sigR, bytes32 sigS, bytes32 name, bytes memory value, uint validity) public {
-    bytes32 hash = keccak256(abi.encodePacked(byte(0x19), byte(0), this, nonce[identityOwner(identity)], identity, "setAttribute", name, value, validity));
+    bytes32 hash = keccak256(abi.encodePacked(byte(0x19), byte(0), this, nonce[identityOwner(identity)],
+    identity, "setAttribute", name, value, validity));
     setAttribute(identity, checkSignature(identity, sigV, sigR, sigS, hash), name, value, validity);
   }
 
@@ -128,7 +133,8 @@ contract EthereumDIDRegistry {
   }
 
  function revokeAttributeSigned(address identity, uint8 sigV, bytes32 sigR, bytes32 sigS, bytes32 name, bytes memory value) public {
-    bytes32 hash = keccak256(abi.encodePacked(byte(0x19), byte(0), this, nonce[identityOwner(identity)], identity, "revokeAttribute", name, value)); 
+    bytes32 hash = keccak256(abi.encodePacked(byte(0x19), byte(0), this, nonce[identityOwner(identity)],
+    identity, "revokeAttribute", name, value)); 
     revokeAttribute(identity, checkSignature(identity, sigV, sigR, sigS, hash), name, value);
   }
 
