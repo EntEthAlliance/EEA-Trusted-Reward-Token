@@ -1,0 +1,32 @@
+{
+    "comment startTime":            "06/01/2018 @ 12:00am (GMT)",
+    "startTime":                    1527811200,
+    "comment endTime":              "06/01/2020 @ 12:00am (CET)",
+    "endTime":                      1590969600,
+    "comment cap":                  "Will be calculated to 100000000 * 10**18 in migration script",
+    "cap":                          100000000,
+    "comment confirmationPeriod":   "confirmation period in days",
+    "confirmationPeriod":           30,
+    "comment rateTokenPerUsd":      "ratio tokens per USD in pennies",
+    "rateTokenPerUsd":              50,
+    "comment rateWeiPerUsd":        "ratio wei per USD",
+    "rateWeiPerUsd":                3e15,
+    "comment usdPerETh":            "ratio USD per ETH",
+    "usdPerETh":                    1200,
+    "networks": {
+        "develop": {
+            "host": "localhost",
+            "port": 9545,
+            "chainId": 4447,
+            "gas": "0x100000",
+            "gasPrice": "0x02"
+        },
+        "coverage": {
+            "host": "localhost",
+            "port": 8555,
+            "chainId": 4447,
+            "gas": "0x100000",
+            "gasPrice": "0x02"
+        }
+    }
+}

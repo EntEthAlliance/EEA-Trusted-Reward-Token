@@ -3,32 +3,93 @@
   "version": "1.0.0",
   "description": "EEA Trusted Token ",
   "main": "truffle-config.js",
+  "engines": {
+    "node": "^10.16.3"
+  },
   "directories": {
     "test": "test"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "rm -rf node_modules/*/.git/"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/EntEthAlliance/Trusted-Token.git"
   },
-  "author": "Antonina Norair",
+  "author": "Antonina Norair & Mike Alonso",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/EntEthAlliance/Trusted-Token/issues"
   },
   "homepage": "https://github.com/EntEthAlliance/Trusted-Token#readme",
+
+  "scripts": {
+    "build": "rm -rf node_modules/*/.git/",
+    "postinstall": "node ./tools/hashChecker.js",
+    "start": "yarn run develop",
+    "compile": "truffle compile --all",
+    "migrate": "yarn run migrate-dev",
+    "migrate-dev": "truffle migrate --reset --compile-all --network develop",
+    "test": "yarn run test-dev",
+    "test-runner-dev": "babel-node ./tools/test-procedure.js",
+    "test-dev": "truffle test --network develop",
+    "migrate-ropsten": "truffle migrate --reset -f 2 --compile-all --network ropsten",
+    "migrate-rinkeby": "truffle migrate --reset -f 2 --compile-all --network rinkeby",
+    "migrate-kovan": "truffle migrate --reset -f 2 --compile-all --network kovan",
+    "test-ropsten": "truffle test --compile-all --network ropsten",
+    "test-rinkeby": "truffle test --compile-all --network rinkeby",
+    "faucet": "babel-node --ignore 'node_modules/(?!@validitylabs/js-utils)' tools/leechFaucet.js",
+    "coverage": "solidity-coverage",
+    "dev": "truffle develop",
+    "console": "truffle console --network shipperNode",
+    "geth": "geth --datadir geth-db --networkid 4447 --ws --wsport 8546 --wsorigins '' --rpc --rpcport 8545 --rpccorsdomain '' --nodiscover console",
+    "testrpc": "truffle develop --log",
+    "debug": "truffle debug --network develop",
+    "jsdoc": "jsdoc -c jsdoc.cnf.json",
+    "clean": "shx rm -fr db geth-db dist build bin coverage coverage.json",
+    "reset": "npm run clean; shx rm -fr  node_modules",
+    "upgrade": "yarn run reset; yarn upgrade"
+  },
   "dependencies": {
-    "dotenv": "^8.0.0",
-    "ethr-did-registry": "0.0.3",
+    "chalk": "^2.4.1",
+    "moment": "^2.24.0",
     "openzeppelin-solidity": "^2.3.0",
-    "openzeppelin-test-helpers": "^0.4.0",
-    "retry": "^0.12.0",
-    "truffle-contract": "^4.0.25"
+    "truffle-contract": "^4.0.29",
+    "web3": "^1.2.1",
+    "winston": "^3.2.0",
+    "crypto-js": "^3.1.8",
+    "utf8": "^3.0.0",
+    "xhr2": "^0.1.4",
+    "xmlhttprequest": "^1.8.0",
+    "bignumber.js": "git+https://github.com/frozeman/bignumber.js-nolookahead.git#57692b3ecfc98bbdd6b3a516cb2353652ea49934"
   },
   "devDependencies": {
-    "chai": "^4.2.0"
+    "dotenv": "^8.0.0",
+    "ethr-did-registry": "0.0.3",
+    "openzeppelin-test-helpers": "^0.4.0",
+    "retry": "^0.12.0",
+    "babel-cli": "^6.26.0",
+    "babel-eslint": "^10.0.1",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-register": "^6.26.0",
+    "chai": "^4.2.0",
+    "chai-as-promised": "^7.1.1",
+    "chai-bignumber": "^3.0.0",
+    "colors": "^1.3.2",
+    "eslint": "^6.1.0",
+    "eslint-config-xo": "^0.25.0",
+    "eslint-plugin-babel": "^5.2.1",
+    "ganache-core": "^2.7.0",
+    "jsdoc": "^3.6.3",
+    "keythereum": "^1.0.4",
+    "shelljs": "^0.8.3",
+    "shx": "^0.3.2",
+    "solc": "0.5.11",
+    "solcpiler": "^1.0.0-beta.9",
+    "solidity-coverage": "^0.6.4",
+    "superagent": "^5.1.0",
+    "truffle": "^5.0.32",
+    "truffle-hdwallet-provider": "1.0.16"
+  },
+  "optionalDevDependencies": {
+    "fsevents": "*"
   }
 }
