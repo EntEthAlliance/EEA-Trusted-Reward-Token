@@ -15,6 +15,7 @@ import "./ReputationToken.sol";
 
 
 
+
 contract EEAOperator is Ownable {
   using SafeMath for uint256;
 
@@ -82,87 +83,85 @@ contract EEAOperator is Ownable {
     reputationToken = ReputationToken(_reputationToken);
   }
 
-  function mintRewards(address account, uint256 amount, bytes calldata operatorData) external onlyOwner
- {
-   address organization = didRegistry.identityOwner(account);
-   require (_memberCheck(organization), "Error: Not EEA member");
+  function mintRewards(address organization, address account, uint256 amount, bytes calldata operatorData) external onlyOwner
+  {
+    require (_orgCheck(account, organization), "Error: Member is not employee of org");
+    require (_memberCheck(organization), "Error: Not EEA member");
 
-   // Mint reputation for Employee
-   reputationToken.operatorMint(account, amount, '', operatorData);
+    // Mint reputation for Employee
+    reputationToken.operatorMint(account, amount, '', operatorData);
 
-   // Mint for Organizations
-   rewardToken.operatorMint(organization, amount, '', operatorData);
-   reputationToken.operatorMint(organization, amount, '', operatorData);
+    // Mint for Organizations
+    rewardToken.operatorMint(organization, amount, '', operatorData);
+    reputationToken.operatorMint(organization, amount, '', operatorData);
 
-   // Emit events
-   emit ReputationMinted(account, amount, operatorData);
-   emit RewardsMinted(organization, amount, operatorData);
-   emit ReputationMinted(organization, amount, operatorData);
- }
+    // Emit events
+    emit ReputationMinted(account, amount, operatorData);
+    emit RewardsMinted(organization, amount, operatorData);
+    emit ReputationMinted(organization, amount, operatorData);
+  }
 
- function mintPenalties(address account, uint256 amount, bytes calldata operatorData) external onlyOwner
- {
-   // Get Organization
-   address organization = didRegistry.identityOwner(account);
-   require (_memberCheck(organization), "Error: Not EEA member");
 
-   penaltyToken.operatorMint(organization, amount, '', operatorData);
+  function mintPenalties(address organization, address account, uint256 amount, bytes calldata operatorData) external onlyOwner
+  {
+    require (_orgCheck(account, organization), "Error: Member is not employee of org");
+    require (_memberCheck(organization), "Error: Not EEA member");
 
-   // Update user reputation balance
-   uint256 reputationBalance = reputationToken.balanceOf(account);
-   uint256 reputationPenalty = amount > reputationBalance ? reputationBalance : amount;
-   reputationToken.operatorBurn(account, reputationPenalty, '', operatorData);
+    penaltyToken.operatorMint(organization, amount, '', operatorData);
 
-   // Update org reputation balance
-   uint256 orgReputationBalance = reputationToken.balanceOf(organization);
-   uint256 orgReputationPenalty = amount > orgReputationBalance ? orgReputationBalance : amount;
-   reputationToken.operatorBurn(organization, orgReputationPenalty, '', operatorData);
+    // Update user reputation balance
+    uint256 reputationBalance = reputationToken.balanceOf(account);
+    uint256 reputationPenalty = amount > reputationBalance ? reputationBalance : amount;
+    reputationToken.operatorBurn(account, reputationPenalty, '', operatorData);
 
-   //Emit events
-   emit PenaltiesMinted(organization, amount, operatorData);
-   emit ReputationBurned(organization, orgReputationPenalty, operatorData);
-   emit ReputationBurned(account, reputationPenalty, operatorData);
- }
+    // Update org reputation balance
+    uint256 orgReputationBalance = reputationToken.balanceOf(organization);
+    uint256 orgReputationPenalty = amount > orgReputationBalance ? orgReputationBalance : amount;
+    reputationToken.operatorBurn(organization, orgReputationPenalty, '', operatorData);
 
- function burnPenalties(address organization, uint256 amount, bytes memory operatorData)
-   public
-   onlyOwner
- {
-   penaltyToken.operatorBurn(organization, amount, '', operatorData);
-   emit PenaltiesBurned(organization, amount, operatorData);
- }
+    //Emit events
+    emit PenaltiesMinted(organization, amount, operatorData);
+    emit ReputationBurned(organization, orgReputationPenalty, operatorData);
+    emit ReputationBurned(account, reputationPenalty, operatorData);
+  }
 
- function burnRewards(address organization, uint256 amount, bytes memory operatorData)
-   public
-   onlyOwner
- {
-   rewardToken.operatorBurn(organization, amount, '', operatorData);
-   emit RewardsBurned(organization, amount, operatorData);
- }
+  function burnPenalties(address organization, uint256 amount, bytes memory operatorData) public onlyOwner
+  {
+    penaltyToken.operatorBurn(organization, amount, '', operatorData);
+    emit PenaltiesBurned(organization, amount, operatorData);
+  }
 
- /// At the end of membership year EEA secretary can burn all tokens using them towards membership fee or credits
- /// Reputation tokens stay intact
- function burnAll(address organization)
-   external
-   onlyOwner
- {
-   burnPenalties(organization, penaltyToken.balanceOf(organization), 'membership renewal');
-   burnRewards(organization, rewardToken.balanceOf(organization), 'membership renewal');
- }
+  function burnRewards(address organization, uint256 amount, bytes memory operatorData) public onlyOwner
+  {
+    rewardToken.operatorBurn(organization, amount, '', operatorData);
+    emit RewardsBurned(organization, amount, operatorData);
+  }
 
- function balance(address account)
-   external
-   view
-   returns (uint256, uint256, uint256)
- {
-   return (rewardToken.balanceOf(account), penaltyToken.balanceOf(account), reputationToken.balanceOf(account));
- }
+  /// At the end of membership year EEA secretary can burn all tokens using them towards membership fee or credits
+  /// Reputation tokens stay intact
+  function burnAll(address organization) external onlyOwner
+  {
+    burnPenalties(organization, penaltyToken.balanceOf(organization), 'membership renewal');
+    burnRewards(organization, rewardToken.balanceOf(organization), 'membership renewal');
+  }
 
- function _memberCheck(address member) internal view returns (bool) {
-        bytes32 claim = claimsRegistry.getClaim(eeaIssuer, member, keccak256(abi.encodePacked("membership")));
-        if (claim == keccak256(abi.encodePacked("true"))){
-            return true;
-        }
-    }
+  function balance(address account) external view returns (uint256, uint256, uint256)
+  {
+    return (rewardToken.balanceOf(account), penaltyToken.balanceOf(account), reputationToken.balanceOf(account));
+  }
+
+
+  function _memberCheck(address member) internal view returns (bool) {
+      bytes32 claim = claimsRegistry.getClaim(eeaIssuer, member, keccak256(abi.encodePacked("membership")));
+      if (claim == keccak256(abi.encodePacked("true"))){
+          return true;
+      }
+  }
+
+  function _orgCheck(address member, address organization) internal view returns (bool) {
+      if (didRegistry.validDelegate(organization, keccak256(abi.encodePacked("employee")), member)){
+          return true;
+      }
+  }
 
 }
