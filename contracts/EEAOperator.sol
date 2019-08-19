@@ -8,6 +8,7 @@ import "./EthereumDIDRegistry.sol";
 import "./RewardToken.sol";
 import "./PenaltyToken.sol";
 import "./ReputationToken.sol";
+import "./EEAClaimsIssuer.sol";
 
 /**
  * @title EEA Operator contract
@@ -24,8 +25,7 @@ contract EEAOperator is Ownable {
   ReputationToken public reputationToken;
   EthereumDIDRegistry public didRegistry;
   EthereumClaimsRegistry public claimsRegistry;
-
-  address public eeaIssuer; //TODO: Create EEA issuer SC
+  EEAClaimsIssuer public eeaIssuer;
 
 
   event RewardsMinted(
@@ -71,7 +71,7 @@ contract EEAOperator is Ownable {
     //set registries and EEA Issuer address
     didRegistry = EthereumDIDRegistry(_didRegistry);
     claimsRegistry = EthereumClaimsRegistry(_claimsRegistry);
-    eeaIssuer = _eeaIssuer;
+    eeaIssuer = EEAClaimsIssuer(_eeaIssuer);
   }
 
   function registerTokens(address _penaltyToken, address _rewardToken, address _reputationToken)
@@ -188,7 +188,7 @@ contract EEAOperator is Ownable {
 
 
   function _memberCheck(address member) internal view returns (bool) {
-      bytes32 claim = claimsRegistry.getClaim(eeaIssuer, member, keccak256(abi.encodePacked("membership")));
+      bytes32 claim = claimsRegistry.getClaim(address(eeaIssuer), member, keccak256(abi.encodePacked("membership")));
       if (claim == keccak256(abi.encodePacked("true"))){
           return true;
       }
