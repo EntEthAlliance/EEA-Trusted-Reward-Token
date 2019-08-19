@@ -83,7 +83,25 @@ contract EEAOperator is Ownable {
     reputationToken = ReputationToken(_reputationToken);
   }
 
-  function mintRewards(address organization, address account, uint256 amount, bytes calldata operatorData) external onlyOwner
+
+  function batchMintRewards(address[] memory _organization, address[] memory _account, uint256[] memory _amount)
+  public onlyOwner
+    {
+        require(_organization.length == _account.length && _account.length == _amount.length, "Error: Mismatched array length");
+        address organization;
+        address account;
+        uint256 amount;
+        for (uint256 c; c < _organization.length; c = c.add(1)) {
+            organization = _organization[c]; // gas optimization
+            account = _account[c]; // gas optimization
+            amount = _amount[c]; // gas optimization
+            if(_orgCheck(account, organization) && _memberCheck(organization)) {
+              mintRewards(organization, account, amount, '');
+            }
+        }
+    }
+
+  function mintRewards(address organization, address account, uint256 amount, bytes memory operatorData) public onlyOwner
   {
     require (_orgCheck(account, organization), "Error: Member is not employee of org");
     require (_memberCheck(organization), "Error: Not EEA member");
@@ -102,7 +120,25 @@ contract EEAOperator is Ownable {
   }
 
 
-  function mintPenalties(address organization, address account, uint256 amount, bytes calldata operatorData) external onlyOwner
+
+  function batchMintPeanaltiess(address[] memory _organization, address[] memory _account, uint256[] memory _amount)
+  public onlyOwner
+    {
+        require(_organization.length == _account.length && _account.length == _amount.length, "Error: Mismatched array length");
+        address organization;
+        address account;
+        uint256 amount;
+        for (uint256 c; c < _organization.length; c = c.add(1)) {
+            organization = _organization[c]; // gas optimization
+            account = _account[c]; // gas optimization
+            amount = _amount[c]; // gas optimization
+            if(_orgCheck(account, organization) && _memberCheck(organization)) {
+              mintPenalties(organization, account, amount, '');
+            }
+        }
+    }
+
+  function mintPenalties(address organization, address account, uint256 amount, bytes memory operatorData) public onlyOwner
   {
     require (_orgCheck(account, organization), "Error: Member is not employee of org");
     require (_memberCheck(organization), "Error: Not EEA member");
