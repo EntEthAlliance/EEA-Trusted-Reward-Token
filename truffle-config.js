@@ -23,58 +23,58 @@
 //
 // const fs = require('fs');
 // const mnemonic = fs.readFileSync(".secret").toString().trim();
-const HTTPProviderRateLimitRetry = require('./lib/http-provider-rate-limit-retry')
+const HTTPProviderRateLimitRetry = require('./lib/http-provider-rate-limit-retry');
 
 require('dotenv').config();
 
 module.exports = {
-  /**
-   * Networks define how you connect to your ethereum client and let you set the
-   * defaults web3 uses to send transactions. If you don't specify one truffle
-   * will spin up a development blockchain for you on port 9545 when you
-   * run `develop` or `test`. You can ask a truffle command to use a specific
-   * network from the command line, e.g
-   *
-   * $ truffle test --network <network-name>
-   */
+    /**
+     * Networks define how you connect to your ethereum client and let you set the
+     * defaults web3 uses to send transactions. If you don't specify one truffle
+     * will spin up a development blockchain for you on port 9545 when you
+     * run `develop` or `test`. You can ask a truffle command to use a specific
+     * network from the command line, e.g
+     *
+     * $ truffle test --network <network-name>
+     */
 
-  networks: {
-    dev: {
-      host: "localhost",
-      port: 8545,
-      network_id: "*"
+    networks: {
+        dev: {
+            host: "localhost",
+            port: 8545,
+            network_id: "*"
+        },
+        kaleido: {
+            provider: () => {
+                const appCred = process.env.KALEIDO_APP_CREDENTIALS; // from application credential widget
+                const connectionURL = process.env.KALEIDO_CONNECTION_URL; // without protocol (https://)
+                return new HTTPProviderRateLimitRetry(`https://${appCred}@${connectionURL}`, 100000);
+            },
+            network_id: "*", // Match any network id
+            gasPrice: 0,
+            gas: 4500000,
+            /* Type: 'quorum' // Use this property for Quorum environments */
+        }
     },
-    kaleido: {
-      provider: () => {
-        const appCred = process.env.KALEIDO_APP_CREDENTIALS; // from application credential widget
-        const connectionURL = process.env.KALEIDO_CONNECTION_URL; // without protocol (https://)
-        return new HTTPProviderRateLimitRetry(`https://${appCred}@${connectionURL}`, 100000);
-      },
-      network_id: "*", // Match any network id
-      gasPrice: 0,
-      gas: 4500000,
-      /* type: 'quorum' // Use this property for Quorum environments */
-    }
-  },
 
-  // Set default mocha options here, use special reporters etc.
-  mocha: {
+    // Set default mocha options here, use special reporters etc.
+    mocha: {
     // timeout: 100000
-  },
+    },
 
-  // Configure your compilers
- compilers: {
-  solc: {
-    // version: "0.5.1",    // Fetch exact version from solc-bin (default: truffle's version)
-    // docker: true,        // Use "0.5.1" you've installed locally with docker (default: false)
-   settings: {          // See the solidity docs for advice about optimization and evmVersion
-     optimizer: {
-       enabled: true,
-       runs: 200
-     },
-    //  evmVersion: "byzantium"
-   }
-  }
-},
+    // Configure your compilers
+    compilers: {
+        solc: {
+        // version: "0.5.1",    // Fetch exact version from solc-bin (default: truffle's version)
+        // docker: true,        // Use "0.5.1" you've installed locally with docker (default: false)
+            settings: {         // See the solidity docs for advice about optimization and evmVersion
+                optimizer: {
+                    enabled: true,
+                    runs: 200
+                }
+                //  evmVersion: "byzantium"
+            }
+        }
+    }
 
-}
+};
