@@ -21,7 +21,6 @@ module.exports = async function (deployer, network, accounts) {
         await singletons.ERC1820Registry(eeaAdmin);
     }
     
-
     let DidReg = Contract(DidRegistryContract);
 
     if (network === 'dev') {
