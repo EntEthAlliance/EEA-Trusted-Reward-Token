@@ -122,6 +122,77 @@ cd <project base directory>
 yarn install
 ```
 
+
+## Contract Deployment Order
+
+The correct deployment order is already set in `2_deploy_contracts.js` under `migrations.` However, the deployment order follows:
+
+1. Deploy `ERC1820Registry` to contract address: `0x1820a4B7618BdE71Dce8cdc73aAB6C95905faD24`
+@see https://github.com/0xjac/ERC1820
+
+2. Deploy `EthereumDIDRegistry` contact (ERC1056)
+@see https://github.com/uport-project/ethr-did-registry
+
+3. Deploy `EthereumClaimsRegistry` contract (ERC780)
+@see https://github.com/uport-project/ethereum-claims-registry
+
+4. Deploy `EEAClaimsIssuer` contract with address of `EthereumClaimsRegistry` as the EEA Admin
+
+5. Deploy `EEAOperator` contract with addresses of (`EthereumDIDRegistry`, `EthereumClaimsRegistry`, `EEAClaimsIssuer`) as the EEA Admin
+
+6. Deploy `ReputationToken` contract with address of `EEAOperator` as default operator. Can be deployed by any address.
+
+7. Deploy `PenaltyToken` contract with address of `EEAOperator` as default operator. Can be deployed by any address.
+
+8. Deploy `RewardToken` contract with addresses (`[(EEAOperator)]`, `EthereumDIDRegistry`, `EthereumClaimsRegistry`, `EEAClaimsIssuer`). Can be deployed by any address.
+
+9. We now have to register all token contracts in the `EEAOperator` contract.
+`function registerTokens(address _penaltyToken, address _rewardToken, address _reputationToken)` This must be called by the EEA Admin.
+
+
+### EEA membership claims
+
+EEA members must be registered **onchain** as EEA members to receive tokens. To do this we use the `EthereumClaimsRegistry` (ERC780) contract to set the claim. The `EthereumClaimsRegistry` uses a mapping of `mapping(address => mapping(address => mapping(bytes32 => bytes32))) public registry;` to set claims. The function call to set claims in `EthereumClaimsRegistry` is `function setClaim(address subject, bytes32 key, bytes32 value)`. Since `bytes32 key` and `bytes32 value` must be exactly the same and the `issuer` must be similar, it is best to hardcode the information we need to set the claim. 
+
+This is why we need `EEAClaimsIssuer`; it hardcodes `bytes32 key` and `bytes32 value` to `keccak256(abi.encodePacked("membership"))` and `keccak256(abi.encodePacked("true"))`, respectively. Note: these values are actually `0xe4d89b09a6eb94125ee9c6123f55fbaef99eabb81fcefd76640abb9269a84805` and `6273151f959616268004b58dbb21e5c851b7b8d04498b4aabee12291d22fc034`, respectively. 
+It also standardizes the issuer of the claim as `EEAClaimsIssuer` is `msg.sender` and becomes the issuer. This means we can swap out EEA admin addresses, if required, but keep the same issuer address. 
+
+To set EEA membership claims call:
+`function setMembershipClaim(address organization)` as the owner of the contract, which should be the EEA admin
+
+To revoke membership:
+`function revokeMembership(address organization)`
+
+The `EEAClaimsIssuer` can also set/remove any other claim through `setClaim` and `removeClaim`.
+
+
+
+
+### Register Employees as delegates of an Organization 
+
+To complete our network, organizations (the EEA member) must set their employees as delegates of the organization. This allows employees, or delegates, to act on behalf of the organization, own their own address, and set their own reputation. 
+
+**An organization must set the employees as delegates for delegates and organizations to receive tokens**
+
+To do this we leverage `EthereumDIDRegistry` to set delegates for an organization.
+
+The function to do this is: `function addDelegate(address identity, bytes32 delegateType, address delegate, uint validity)`
+This function **MUST** be called by the organization with:
+1.  `identity` set to the employees address
+2.  `delegateType` set to:
+
+`keccak256("employee")`, or `0x863480501959a73cc3fea35fb3cf3402b6489ac34f0a59336a628ff703cd693e`
+NOTE: if `delegateType` is set to anything else, the delegate will not be considered registered within the smart contract ecosystem.
+3. `validity` set to some number in seconds for how long the claim is valid for (e.g., 31536000 = 1 year).
+Note: the validity can be set to large numbers to ensure the claim is valid for the forseeable future (e.g., 3153600000 = 100 years)
+
+That is it, once all of these steps are complete, the EEA Admin can start issuing rewards and penalties.
+
+
+### Calls for the EEA Admin
+
+
+
 ### Compile, migrate and run unit tests
 To deploy the smart contracts, go into the projects root directory, and change into the truffle development console.
 ```
