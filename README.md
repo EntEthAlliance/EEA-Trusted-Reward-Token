@@ -14,19 +14,19 @@ The first use case is an EEA trusted reward token to incentivize EEA membership 
 
 ## Token Description
 
-The EEA Reward token is used to incentivize participation of EEA member organizations and their employees in EEA SIGs and TWGs. Tokens are issued as "Options" for participation in EEA activities such as working group calls, deliverables or F2F meetings. The larger the committment a member organization to perform an activity make the higher potential reward in the option. The option can also have a potential negative reward if the commitment is not followed through. 
+The EEA Reward token is used to incentivize participation of EEA member organizations and their employees in EEA SIGs and TWGs. Tokens are issued as "Grants" for participation in EEA activities such as working group calls, deliverables or F2F meetings. The larger the committment a member organization to perform an activity make the higher potential reward in the grant. The grant can also have a potential negative reward if the commitment is not followed through. 
 
-The Token option vests during the membership year cycle where the Tokens transition into **two** tokens, one that is Redemable and the other a Reputation token which is a "Lifetime" score of reputation for an individual within the EEA. The Redemable token is transferable and can be spent, or burned, towards annual membership dues. The Reputation token is non-transferable.
+The Token grant vests during the membership year cycle where the Tokens transition into **two** tokens, one that is Redemable and the other a Reputation token which is a "Lifetime" score of reputation for an individual within the EEA. The Redemable token is transferable and can be spent, or burned, towards annual membership dues. The Reputation token is non-transferable.
 
-Vesting of the option issues Redemable tokens to the organization and the Reputation tokens to the organization's contributors.
+Vesting of the grant issues Redemable tokens to the organization and the Reputation tokens to the organization's contributors.
 
-Initial issuance of Token Options are based on "potential" activity the member commits to. Delivery of the commitment will allow the option to fully vest into its positive value. Failure to deliver on a option commitment will result in the negative value. The value of the option, positive or negative effects the overall Redemable and Reputation balances.
+Initial issuance of Token grants are based on "potential" activity the member commits to. Delivery of the commitment will allow the grant to fully vest into its positive value. Failure to deliver on a grant commitment will result in the negative value. The value of the grant, positive or negative effects the overall Redemable and Reputation balances.
 
 Redemable Tokens can be shared between members and can be used for financial credits against their membership, lowering an organization's annual membershp fee. At the same time, a negative balance will lead to an increase in either the renewal or the current annual membership fee. The normal token accounting period is the anniversary cycle of a membership organization (1 year -- not one calendar year).
 
-Reputation Tokens are issued, upon vesting, to an organization's contributors establishing an individuals reputation. The token option should be adjusted when commitments are met or before vesting to split the percentage of reputation points to the contributors in the option. The reputation split between contributors is finalized when the option vests. The reputation score of an organization is the sum of their contributors balances.
+Reputation Tokens are issued, upon vesting, to an organization's contributors establishing an individuals reputation. The token grant should be adjusted when commitments are met or before vesting to split the percentage of reputation points to the contributors in the grant. The reputation split between contributors is finalized when the grant vests. The reputation score of an organization is the sum of their contributors balances.
 
-For example, if an organization's contributors collect options worth 10,000 tokens during its annual membership cycle, the organization can redeem the tokens for say a $10,000 credit to its membership or simply accumulate. In addition, if the organizations reputation score was 100,000 at the beginning of the membership cycle it would be 110,000 at the end of the cycle. In addition, 10,000 reputation points would issue according to the percentages in the option for the organization's contributors.
+For example, if an organization's contributors collect grants worth 10,000 tokens during its annual membership cycle, the organization can redeem the tokens for say a $10,000 credit to its membership or simply accumulate. In addition, if the organizations reputation score was 100,000 at the beginning of the membership cycle it would be 110,000 at the end of the cycle. In addition, 10,000 reputation points would issue according to the percentages in the grant for the organization's contributors.
 
 ### Redemption
 
@@ -40,9 +40,9 @@ EEA Tokens that have not been redeemed can be transfered to any member organizat
 
 Initial token amount is 0. No tokens are initially distributed. Tokens are created or destroyed (burned) based on validated submission of (not) completed actions.
 
-### Setting the Option Values
+### Setting the Grant Values
 
-Any defined EAA activity that is deemed appropriate to earn tokens can create a Token Option. The option has initial settings for positive and negative vesting.
+Any defined EAA activity that is deemed appropriate to earn tokens can create a Token grant. The grant has initial settings for positive and negative vesting.
 
 Initial Suggested List: 
 
@@ -66,9 +66,9 @@ Reputation tokens are created based on the earned reward tokens. The reputation 
 
 |    Question   |    Process    |  Answer  |
 | --- | --- | --- |
-| Who controls a token option, when, how and where?  | Sharing  | **Who:** EEA Member; **When:** Any time;  **How:** Sharing request to other member org; **Where:** No specific location required |
-| Who issues a token option, when, how and where?  | Issuance  | **Who:** EEA SIG/TWG chair on behalf of the EEA;  **When:** Upon commitment of activity by EEA Member; **How:** EEA members completes or does not complete committed to activity; **Where:** SIGs/TWGs/Projects |
-| Who redeems a token, when, how and where? | Redemption | **Who:** EEA Member; **When:** At Membership Anniversary (within a certain time frame e.g. 1 month) the token option will vest; **How:** Redemption request to EEA Secretary; **Where:** On extension/close-out of EEA membership |
+| Who controls a token grant, when, how and where?  | Sharing  | **Who:** EEA Member; **When:** Any time;  **How:** Sharing request to other member org; **Where:** No specific location required |
+| Who issues a token grant, when, how and where?  | Issuance  | **Who:** EEA SIG/TWG chair on behalf of the EEA;  **When:** Upon commitment of activity by EEA Member; **How:** EEA members completes or does not complete committed to activity; **Where:** SIGs/TWGs/Projects |
+| Who redeems a token, when, how and where? | Redemption | **Who:** EEA Member; **When:** At Membership Anniversary (within a certain time frame e.g. 1 month) the token grant will vest; **How:** Redemption request to EEA Secretary; **Where:** On extension/close-out of EEA membership |
 | Who liquidates a token, when, how and where? | Redemption | See Answer for Redemption process |
 | What, if any, are the restrictions on token control, issuance, redemption, and liquidation? | All Proccesses | Token rules governing all processes and financial accounting are controlled by the EEA Steering Committee and follow the established Change Control process of the EEA. See the Token Model for control and restriction details |
 | What are the Legal triggers to be considered? (money transfer regulation, securities trigger, gift card regulation, …)? | All Proccesses | Token design is such that the EEA token is not a security (Is not used to raise money, is not promoted as an investment, will be issued on existing platform, is not freely exchangable, can only be used for one purpose, does not represent any interest in an entity) and cannot be traded except OTC through sharing and within the EEA ecosystem which is permissioned through the EEA membership rules. The EEA is using its established banking relationships to fullfill all applicable banking and money transfer law requirements. |
