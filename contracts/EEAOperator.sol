@@ -128,9 +128,7 @@ contract EEAOperator is Ownable {
     emit ReputationMinted(organization, amount, operatorData);
   }
 
-
-
-  function batchMintPeanaltiess(address[] memory _organization, address[] memory _account, uint256[] memory _amount)
+  function batchMintPenalties(address[] memory _organization, address[] memory _account, uint256[] memory _amount)
   public onlyOwner
     {
         require(_organization.length == _account.length && _account.length == _amount.length, "Error: Mismatched array length");
@@ -142,7 +140,10 @@ contract EEAOperator is Ownable {
             account = _account[c]; // gas optimization
             amount = _amount[c]; // gas optimization
             if(_orgCheck(account, organization) && _memberCheck(organization)) {
-              mintPenalties(organization, account, amount, '');
+              mintPenalties(organization, account, amount, '0x0');
+            }
+            else {
+              emit batchMintError(organization, account, amount);
             }
         }
     }
