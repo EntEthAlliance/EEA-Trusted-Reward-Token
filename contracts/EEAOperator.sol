@@ -80,6 +80,7 @@ contract EEAOperator is Ownable {
     eeaIssuer = EEAClaimsIssuer(_eeaIssuer);
   }
 
+
   function registerTokens(address _penaltyToken, address _rewardToken, address _reputationToken)
     external
     onlyOwner
@@ -90,25 +91,30 @@ contract EEAOperator is Ownable {
   }
 
 
+
   function batchMintRewards(address[] memory _organization, address[] memory _account, uint256[] memory _amount)
   public onlyOwner
-    {
-        require(_organization.length == _account.length && _account.length == _amount.length, "Error: Mismatched array length");
-        address organization;
-        address account;
-        uint256 amount;
-        for (uint256 c; c < _organization.length; c = c.add(1)) {
-            organization = _organization[c]; // gas optimization
-            account = _account[c]; // gas optimization
-            amount = _amount[c]; // gas optimization
-            if(_orgCheck(account, organization) && _memberCheck(organization)){
-              mintRewards(organization, account, amount, '0x0');
-            }
-            else {
-              emit batchMintError(organization, account, amount);
-            }
-        }
-    }
+  {
+      require(_organization.length == _account.length && _account.length == _amount.length, "Error: Mismatched array length");
+      address organization;
+      address account;
+      uint256 amount;
+      for (uint256 c; c < _organization.length; c = c.add(1)) {
+          organization = _organization[c]; // gas optimization
+          account = _account[c]; // gas optimization
+          amount = _amount[c]; // gas optimization
+          if(_orgCheck(account, organization) && _memberCheck(organization)){
+            mintRewards(organization, account, amount, '0x0');
+          }
+          else {
+            emit batchMintError(organization, account, amount);
+          }
+      }
+  }
+
+
+
+  // TODO: Make internal
 
   function mintRewards(address organization, address account, uint256 amount, bytes memory operatorData) public onlyOwner
   {
@@ -130,24 +136,27 @@ contract EEAOperator is Ownable {
 
   function batchMintPenalties(address[] memory _organization, address[] memory _account, uint256[] memory _amount)
   public onlyOwner
-    {
-        require(_organization.length == _account.length && _account.length == _amount.length, "Error: Mismatched array length");
-        address organization;
-        address account;
-        uint256 amount;
-        for (uint256 c; c < _organization.length; c = c.add(1)) {
-            organization = _organization[c]; // gas optimization
-            account = _account[c]; // gas optimization
-            amount = _amount[c]; // gas optimization
-            if(_orgCheck(account, organization) && _memberCheck(organization)) {
-              mintPenalties(organization, account, amount, '0x0');
-            }
-            else {
-              emit batchMintError(organization, account, amount);
-            }
-        }
-    }
+  {
+      require(_organization.length == _account.length && _account.length == _amount.length, "Error: Mismatched array length");
+      address organization;
+      address account;
+      uint256 amount;
+      for (uint256 c; c < _organization.length; c = c.add(1)) {
+          organization = _organization[c]; // gas optimization
+          account = _account[c]; // gas optimization
+          amount = _amount[c]; // gas optimization
+          if(_orgCheck(account, organization) && _memberCheck(organization)) {
+            mintPenalties(organization, account, amount, '0x0');
+          }
+          else {
+            emit batchMintError(organization, account, amount);
+          }
+      }
+  }
 
+
+
+  // TODO: Make internal
   function mintPenalties(address organization, address account, uint256 amount, bytes memory operatorData) public onlyOwner
   {
     require (_orgCheck(account, organization), "Error: Member is not employee of org");
@@ -171,17 +180,20 @@ contract EEAOperator is Ownable {
     emit ReputationBurned(account, reputationPenalty, operatorData);
   }
 
+
   function burnPenalties(address organization, uint256 amount, bytes memory operatorData) public onlyOwner
   {
     penaltyToken.operatorBurn(organization, amount, '', operatorData);
     emit PenaltiesBurned(organization, amount, operatorData);
   }
 
+
   function burnRewards(address organization, uint256 amount, bytes memory operatorData) public onlyOwner
   {
     rewardToken.operatorBurn(organization, amount, '', operatorData);
     emit RewardsBurned(organization, amount, operatorData);
   }
+
 
   /// At the end of membership year EEA secretary can burn all tokens using them towards membership fee or credits
   /// Reputation tokens stay intact
