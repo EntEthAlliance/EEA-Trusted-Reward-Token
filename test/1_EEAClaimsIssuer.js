@@ -80,25 +80,95 @@ contract('EEAClaimsIssuer', (accounts) => {
         eeaIssuerAddress = await eeaIssuerInstance.address;
     });
 
-
-
-
     it('EEA Claims Issuer contract insantiated correctly', async () => {
-        const setPenaltyTokenAdd = await eeaOperatorInstance.penaltyToken();
-        const setReputationTokenAdd = await eeaOperatorInstance.reputationToken();
-        const setRewardsTokenAdd = await eeaOperatorInstance.rewardToken();
-        const setDidReg = await eeaOperatorInstance.didRegistry();
-        const setClaimReg = await eeaOperatorInstance.claimsRegistry();
-        const setIssuer = await eeaOperatorInstance.eeaIssuer();
-        const owner = await eeaOperatorInstance.owner();
+        const claimsRegistryContract = await eeaIssuerInstance.claimsRegistry();
+        const owner = await eeaIssuerInstance.owner();
 
-        setPenaltyTokenAdd.should.be.equal(zeroAddress);
-        setReputationTokenAdd.should.be.equal(zeroAddress);
-        setRewardsTokenAdd.should.be.equal(zeroAddress);
-        expect(setDidReg).equal(etherDidAddress);
-        expect(setClaimReg).equal(claimsRegAddress);
-        expect(setIssuer).equal(eeaIssuerAddress);
+        claimsRegistryContract.should.be.equal(claimsRegAddress);
         expect(owner).equal(eeaAdmin);
+    });
+
+
+
+
+
+
+    describe('set Membership Claim', function () {
+        const org1 = organization1;
+        const org2 = organization2;
+        describe('when the sender is the EEA Issuer', function () {
+            describe('When the recipient is an EEA member', function () {
+                describe('but sets the wrong organization/employee', function () {
+                    it('reverts', async function () {
+                        await expectThrow(eeaOperatorInstance.mintRewards(organization2, to, amount, '0x0', {
+                            from: eeaAdmin
+                        }));
+                    });
+                });
+                describe('mints reputation for employee/organization and rewards for organization', function () {
+                    it('succeeds', async function () {
+                        await eeaOperatorInstance.mintRewards(org, to, amount, '0x0', {
+                            from: eeaAdmin
+                        });
+                        const memberBalanceRep = await reputationTokenInstance.balanceOf(to);
+                        const memberBalanceRewards = await rewardTokenInstance.balanceOf(to);
+                        const orgBalanceRep = await reputationTokenInstance.balanceOf(org);
+                        const orgBalanceRewards = await rewardTokenInstance.balanceOf(org);
+
+                        assert.equal(memberBalanceRep.toString(), amount.toString());
+                        assert.equal(memberBalanceRewards.toString(), zero.toString());
+                        assert.equal(orgBalanceRep.toString(), amount.toString());
+                        assert.equal(orgBalanceRewards.toString(), amount.toString());
+                    });
+                    it('and emits a "ReputationMinted" and "RewardsMinted" event', async function () {
+                        const tx = await eeaOperatorInstance.mintRewards(org, to, amount, '0x0', {
+                            from: eeaAdmin
+                        });
+                        // Test the event
+
+                        const event1 = getEvents(tx, 'ReputationMinted');
+                        const event2 = getEvents(tx, 'RewardsMinted');
+
+                        assert.equal(event1[0].account, to, 'To address does not match');
+                        (event1[0].amount.toString()).should.be.equal(amount.toString());
+                        assert.equal(event1[0].operatorData, '0x00', 'Data does not match');
+
+                        assert.equal(event1[1].account, org, 'To address does not match');
+                        (event1[1].amount.toString()).should.be.equal(amount.toString());
+                        assert.equal(event1[1].operatorData, '0x00', 'Data does not match');
+
+                        assert.equal(event2[0].account, org, 'To address does not match');
+                        (event2[0].amount.toString()).should.be.equal(amount.toString());
+                        assert.equal(event2[0].operatorData, '0x00', 'Data does not match');
+                    });
+                });
+            });
+            describe('when the recipient is not an EEA member', function () {
+                const to = unauthorizedMember;
+                const amount = hundredTokens;
+                it('reverts', async function () {
+                    await expectThrow(eeaOperatorInstance.mintRewards(to, to, amount, '0x0', {
+                        from: eeaAdmin
+                    }));
+                });
+            });
+            describe('when the recipient is the zero address', function () {
+                const to = zeroAddress;
+                const amount = hundredTokens;
+                it('reverts', async function () {
+                    await expectThrow(eeaOperatorInstance.mintRewards(organization1, to, amount, '0x0', {
+                        from: eeaAdmin
+                    }));
+                });
+            });
+        });
+        describe('when the sender is not the EEA issuer', function () {
+            it('reverts', async function () {
+                await expectThrow(eeaOperatorInstance.mintRewards(org, to, amount, '0x0', {
+                    from: unauthorizedMember
+                }));
+            });
+        });
     });
 
 
