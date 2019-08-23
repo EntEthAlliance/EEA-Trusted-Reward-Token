@@ -152,15 +152,36 @@ The correct deployment order is already set in `2_deploy_contracts.js` under `mi
 
 ### EEA membership claims
 
-EEA members must be registered **onchain** as EEA members to receive tokens. To do this we use the `EthereumClaimsRegistry` (ERC780) contract to set the claim. The `EthereumClaimsRegistry` uses a mapping of `mapping(address => mapping(address => mapping(bytes32 => bytes32))) public registry;` to set claims. The function call to set claims in `EthereumClaimsRegistry` is `function setClaim(address subject, bytes32 key, bytes32 value)`. Since `bytes32 key` and `bytes32 value` must be exactly the same and the `issuer` must be similar, it is best to hardcode the information we need to set the claim. 
+EEA members must be registered **onchain** as EEA members to receive tokens. To do this we use the `EthereumClaimsRegistry` (ERC780) contract to set the claim. The `EthereumClaimsRegistry` uses the mapping: 
 
-This is why we need `EEAClaimsIssuer`; it hardcodes `bytes32 key` and `bytes32 value` to `keccak256(abi.encodePacked("membership"))` and `keccak256(abi.encodePacked("true"))`, respectively. Note: these values are actually `0xe4d89b09a6eb94125ee9c6123f55fbaef99eabb81fcefd76640abb9269a84805` and `6273151f959616268004b58dbb21e5c851b7b8d04498b4aabee12291d22fc034`, respectively. 
+`mapping(address => mapping(address => mapping(bytes32 => bytes32))) public registry;` 
+
+The function call to set claims in `EthereumClaimsRegistry` is: 
+
+`function setClaim(address subject, bytes32 key, bytes32 value)` 
+
+Since `bytes32 key` and `bytes32 value` must be exactly the same and the `issuer` must be similar, it is best to hardcode the information we need to set the claim. 
+
+This is why we need `EEAClaimsIssuer`; it hardcodes `bytes32 key` and `bytes32 value` to: 
+
+`keccak256(abi.encodePacked("membership"))` and `keccak256(abi.encodePacked("true"))`, respectively. 
+
+Note: these values are actually:
+
+ `0xe4d89b09a6eb94125ee9c6123f55fbaef99eabb81fcefd76640abb9269a84805` 
+ and 
+ `6273151f959616268004b58dbb21e5c851b7b8d04498b4aabee12291d22fc034`
+
 It also standardizes the issuer of the claim as `EEAClaimsIssuer` is `msg.sender` and becomes the issuer. This means we can swap out EEA admin addresses, if required, but keep the same issuer address. 
 
 To set EEA membership claims call:
-`function setMembershipClaim(address organization)` as the owner of the contract, which should be the EEA admin
+
+`function setMembershipClaim(address organization)` 
+
+as the owner of the contract, which should be the EEA admin
 
 To revoke membership:
+
 `function revokeMembership(address organization)`
 
 The `EEAClaimsIssuer` can also set/remove any other claim through `setClaim` and `removeClaim`.
@@ -176,13 +197,20 @@ To complete our network, organizations (the EEA member) must set their employees
 
 To do this we leverage `EthereumDIDRegistry` to set delegates for an organization.
 
-The function to do this is: `function addDelegate(address identity, bytes32 delegateType, address delegate, uint validity)`
+The function to do this is: 
+
+`function addDelegate(address identity, bytes32 delegateType, address delegate, uint validity)`
+
 This function **MUST** be called by the organization with:
+
 1.  `identity` set to the employees address
+
 2.  `delegateType` set to:
 
 `keccak256("employee")`, or `0x863480501959a73cc3fea35fb3cf3402b6489ac34f0a59336a628ff703cd693e`
+
 NOTE: if `delegateType` is set to anything else, the delegate will not be considered registered within the smart contract ecosystem.
+
 3. `validity` set to some number in seconds for how long the claim is valid for (e.g., 31536000 = 1 year).
 Note: the validity can be set to large numbers to ensure the claim is valid for the forseeable future (e.g., 3153600000 = 100 years)
 
@@ -191,7 +219,7 @@ That is it, once all of these steps are complete, the EEA Admin can start issuin
 
 ### Calls for the EEA Admin
 
-
+TODO: 
 
 ### Compile, migrate and run unit tests
 To deploy the smart contracts, go into the projects root directory, and change into the truffle development console.
