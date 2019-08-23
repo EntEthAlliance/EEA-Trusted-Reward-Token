@@ -38,7 +38,7 @@
     "faucet": "babel-node --ignore 'node_modules/(?!@validitylabs/js-utils)' tools/leechFaucet.js",
     "coverage": "solidity-coverage",
     "dev": "truffle develop",
-    "console": "truffle console --network shipperNode",
+    "console": "truffle console --network kaleido",
     "geth": "geth --datadir geth-db --networkid 4447 --ws --wsport 8546 --wsorigins '' --rpc --rpcport 8545 --rpccorsdomain '' --nodiscover console",
     "testrpc": "truffle develop --log",
     "debug": "truffle debug --network develop",

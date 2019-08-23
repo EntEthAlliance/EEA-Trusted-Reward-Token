@@ -64,6 +64,12 @@ contract EEAOperator is Ownable {
     bytes operatorData
   );
 
+  event batchMintError(
+    address organization,
+    address account,
+    uint256 amount
+  );
+
   constructor(address _didRegistry,
     address _claimsRegistry,
     address _eeaIssuer) public {
@@ -95,8 +101,11 @@ contract EEAOperator is Ownable {
             organization = _organization[c]; // gas optimization
             account = _account[c]; // gas optimization
             amount = _amount[c]; // gas optimization
-            if(_orgCheck(account, organization) && _memberCheck(organization)) {
-              mintRewards(organization, account, amount, '');
+            if(_orgCheck(account, organization) && _memberCheck(organization)){
+              mintRewards(organization, account, amount, '0x0');
+            }
+            else {
+              emit batchMintError(organization, account, amount);
             }
         }
     }
@@ -119,9 +128,7 @@ contract EEAOperator is Ownable {
     emit ReputationMinted(organization, amount, operatorData);
   }
 
-
-
-  function batchMintPeanaltiess(address[] memory _organization, address[] memory _account, uint256[] memory _amount)
+  function batchMintPenalties(address[] memory _organization, address[] memory _account, uint256[] memory _amount)
   public onlyOwner
     {
         require(_organization.length == _account.length && _account.length == _amount.length, "Error: Mismatched array length");
@@ -133,7 +140,10 @@ contract EEAOperator is Ownable {
             account = _account[c]; // gas optimization
             amount = _amount[c]; // gas optimization
             if(_orgCheck(account, organization) && _memberCheck(organization)) {
-              mintPenalties(organization, account, amount, '');
+              mintPenalties(organization, account, amount, '0x0');
+            }
+            else {
+              emit batchMintError(organization, account, amount);
             }
         }
     }
