@@ -87,7 +87,8 @@
     "solidity-coverage": "^0.6.4",
     "superagent": "^5.1.0",
     "truffle": "^5.0.32",
-    "truffle-hdwallet-provider": "1.0.16"
+    "truffle-hdwallet-provider": "1.0.16",
+    "truffle-security": "1.5.5"
   },
   "optionalDevDependencies": {
     "fsevents": "*"
