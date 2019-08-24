@@ -1,3 +1,4 @@
+/* eslint-disable quotes */
 /**
  * Use this file to configure your truffle project. It's seeded with some
  * common settings for different networks and features like migrations,
@@ -30,6 +31,9 @@ require('babel-polyfill');
 require('dotenv').config();
 
 module.exports = {
+
+  plugins: ["truffle-security"],
+
     /**
      * Networks define how you connect to your ethereum client and let you set the
      * defaults web3 uses to send transactions. If you don't specify one truffle
@@ -54,8 +58,15 @@ module.exports = {
             },
             network_id: "*", // Match any network id
             gasPrice: 0,
-            gas: 4500000,
+            gas: 4500000
             /* Type: 'quorum' // Use this property for Quorum environments */
+        },
+        coverage: {
+            host: "localhost",
+            network_id: "*",
+            port: 8555,         // <-- If you change this, also set the port option in .solcover.js.
+            gas: 0xfffffffffff, // <-- Use this high gas value
+            gasPrice: 0x01      // <-- Use this low gas price
         }
     },
 
@@ -69,7 +80,8 @@ module.exports = {
         solc: {
         // version: "0.5.1",    // Fetch exact version from solc-bin (default: truffle's version)
         // docker: true,        // Use "0.5.1" you've installed locally with docker (default: false)
-            settings: {         // See the solidity docs for advice about optimization and evmVersion
+            settings: {
+                // See the solidity docs for advice about optimization and evmVersion
                 optimizer: {
                     enabled: true,
                     runs: 200

@@ -628,12 +628,6 @@ contract('EEAOperator', (accounts) => {
         const to = employeeOrg2;
         const org = organization2;
         it('it successfully burns what is available', async function () {
-            const oldRepBalanceEmployee = await reputationTokenInstance.balanceOf(to);
-            const oldRepBalanceOrg = await reputationTokenInstance.balanceOf(org);
-            console.log(oldRepBalanceEmployee);
-            console.log(oldRepBalanceOrg);
-        });
-        it('it successfully burns what is available', async function () {
             // We need to mint 1 token of reputation since balance is 0
             await eeaOperatorInstance.mintRewards(org, to, oneToken, '0x0', {
                 from: eeaAdmin
