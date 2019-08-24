@@ -217,9 +217,62 @@ Note: the validity can be set to large numbers to ensure the claim is valid for 
 That is it, once all of these steps are complete, the EEA Admin can start issuing rewards and penalties.
 
 
-### Calls for the EEA Admin
+### Callable functions
 
-TODO: 
+**As EEA Admin**
+
+For `EEAOperator` the callable functions are:
+
+1. `function batchMintRewards(address[] memory _organization, address[] memory _account, uint256[] memory _amount)`
+
+2. `function batchMintPenalties(address[] memory _organization, address[] memory _account, uint256[] memory _amount)`
+
+3. `function burnPenalties(address organization, uint256 amount, bytes memory operatorData)`
+
+4. `function burnRewards(address organization, uint256 amount, bytes memory operatorData)`
+
+5. `function burnAll(address organization)`
+
+
+For `EEAClaimsIssuer` the callable functions are:
+
+1. `function setMembershipClaim(address organization)`
+
+2. `function revokeMembership(address organization)`
+
+3. `function setClaim(address subject, bytes32 key, bytes32 value)`
+
+4. `function removeClaim(address subject, bytes32 key)`
+
+
+** As an Organization **
+
+For `RewardToken` the only callable functions are:
+
+1. `function send(address recipient, uint256 amount, bytes memory data)`
+
+2. `function transfer(address recipient, uint256 amount)`
+
+3. `function transferFrom(address holder, address recipient, uint256 amount)`
+
+4. `function approve(address spender, uint256 value) external returns (bool)`
+
+
+** Callable by any **
+
+For `EEA Operator` the only callable function is:
+
+1. `function balance(address account) external view returns (uint256, uint256, uint256)`
+
+
+
+All `EthereumClaimsRegistry` functions are callable; this is a public contract.
+
+All `EthereumClaimsRegistry` functions are callable; this is a public contract.
+
+All token **ReadOnly** functions are public functions.
+
+
 
 ### Compile, migrate and run unit tests
 To deploy the smart contracts, go into the projects root directory, and change into the truffle development console.
