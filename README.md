@@ -14,7 +14,7 @@ The first use case is an EEA trusted reward token to incentivize EEA membership 
 
 ## Token Description
 
-The **EEA Reward Token** is used to incentivize participation of EEA member organizations and their employees in EEA SIGs and TWGs. Tokens are issued as "Grants" for participation in EEA activities such as working group calls, deliverables or F2F meetings. The larger committment to perform and contribute towards an activity by an organization, the higher potential reward in the grant. The grant also has a potential negative reward if the commitment is not followed through. 
+The **EEA Reward Token** is used to incentivize participation of EEA member organizations and their employees in EEA SIGs and TWGs. Tokens are issued as "Grants" for participation in EEA activities such as working group calls, deliverables or F2F meetings. The **EEA Reward Token Grant** represents the potential reward that can be earned by following through with the commitment that the grant represents. The larger committment to perform and contribute towards an activity by an organization, the higher potential reward in the grant. The grant also has a potential negative reward if the commitment is not followed through.  
 
 The token grant vests at the end of the organization's membership year where the token grant transitions or spawns into **two** different tokens, one that is Redemable and the other a Reputation.  The reputation token is a "Lifetime" score of reputation for an individual within the EEA. The Redemable token is transferable and can be spent, or burned, towards annual membership dues. The Reputation token is non-transferable.
 
