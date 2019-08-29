@@ -14,17 +14,17 @@ The first use case is an EEA trusted reward token to incentivize EEA membership 
 
 ## Token Description
 
-The EEA Reward token is used to incentivize participation of EEA member organizations and their employees in EEA SIGs and TWGs. Tokens are issued as "Grants" for participation in EEA activities such as working group calls, deliverables or F2F meetings. The larger the committment a member organization to perform an activity make the higher potential reward in the grant. The grant can also have a potential negative reward if the commitment is not followed through. 
+The **EEA Reward Token** is used to incentivize participation of EEA member organizations and their employees in EEA SIGs and TWGs. Tokens are issued as "Grants" for participation in EEA activities such as working group calls, deliverables or F2F meetings. The larger committment to perform and contribute towards an activity by an organization, the higher potential reward in the grant. The grant also has a potential negative reward if the commitment is not followed through. 
 
-The Token grant vests during the membership year cycle where the Tokens transition into **two** tokens, one that is Redemable and the other a Reputation token which is a "Lifetime" score of reputation for an individual within the EEA. The Redemable token is transferable and can be spent, or burned, towards annual membership dues. The Reputation token is non-transferable.
+The token grant vests at the end of the organization's membership year where the token grant transitions or spawns into **two** different tokens, one that is Redemable and the other a Reputation.  The reputation token is a "Lifetime" score of reputation for an individual within the EEA. The Redemable token is transferable and can be spent, or burned, towards annual membership dues. The Reputation token is non-transferable.
 
 Vesting of the grant issues Redemable tokens to the organization and the Reputation tokens to the organization's contributors.
 
-Initial issuance of Token grants are based on "potential" activity the member commits to. Delivery of the commitment will allow the grant to fully vest into its positive value. Failure to deliver on a grant commitment will result in the negative value. The value of the grant, positive or negative effects the overall Redemable and Reputation balances.
+Initial issuance of token grants are based on "potential" activity the member commits to. Delivery of the commitment will allow the grant to vest at 100% into its positive value. Failure to deliver on a grant commitment will result in the negative value. The value of the grant, positive or negative, effects the overall Redemable and Reputation balances.
 
 Redemable Tokens can be shared between members and can be used for financial credits against their membership, lowering an organization's annual membershp fee. At the same time, a negative balance will lead to an increase in either the renewal or the current annual membership fee. The normal token accounting period is the anniversary cycle of a membership organization (1 year -- not one calendar year).
 
-Reputation Tokens are issued, upon vesting, to an organization's contributors establishing an individuals reputation. The token grant should be adjusted when commitments are met or before vesting to split the percentage of reputation points to the contributors in the grant. The reputation split between contributors is finalized when the grant vests. The reputation score of an organization is the sum of their contributors balances.
+Reputation Tokens are issued, upon vesting, to an organization's contributors establishing an individuals reputation. The token grant should be adjusted when commitments are met or before vesting, to split reputation tokens by percentage to the contributors listed in the grant. The reputation split between contributors is finalized when the grant vests. The reputation score of an organization is the sum of their contributors balances.
 
 For example, if an organization's contributors collect grants worth 10,000 tokens during its annual membership cycle, the organization can redeem the tokens for say a $10,000 credit to its membership or simply accumulate. In addition, if the organizations reputation score was 100,000 at the beginning of the membership cycle it would be 110,000 at the end of the cycle. In addition, 10,000 reputation points would issue according to the percentages in the grant for the organization's contributors.
 
@@ -38,11 +38,11 @@ EEA Tokens that have not been redeemed can be transfered to any member organizat
 
 ### Initial Reward Token Distribution
 
-Initial token amount is 0. No tokens are initially distributed. Tokens are created or destroyed (burned) based on validated submission of (not) completed actions.
+Initial token amount is 0. No tokens are initially distributed. Tokens are created or destroyed (burned) based on validated total contributions against initial grant committments.
 
 ### Setting the Grant Values
 
-Any defined EAA activity that is deemed appropriate to earn tokens can create a Token grant. The grant has initial settings for positive and negative vesting.
+Any defined EAA activity that is deemed appropriate to earn tokens can create a token grant. The grant has initial settings for positive and negative vesting.
 
 Initial Suggested List: 
 
