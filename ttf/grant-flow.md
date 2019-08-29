@@ -1,4 +1,4 @@
-# Sequence diagram for the EEA Token Reward Gran
+# Sequence diagram for the EEA Token Reward Grant
 
 A grant is created for each organization contributing to an EEA Working Group or Special Interest Group.  The chair or co-chair will create the grant request from a template form indicating the reward amount, organization, commitment description, commitment outcome, the organization's contributors with expected contribution percentages equal to 100%.
 
@@ -15,7 +15,7 @@ Assumptions:
 ## CreateGrant
 
 ```plantuml
-@startuml
+@startuml component
     actor creator #blue
     actor chair #green
     entity grant #red
@@ -30,12 +30,14 @@ Assumptions:
 @enduml
 ```
 
+![grant-create](images/grant-create.png)
+
 ## AdjustGrant
 
 Prior to vesting, the grant should be adjusted for actual percentage of contribution and the vesting amount.
 
 ```plantuml
-@startuml
+@startuml component
     actor chair #green
     entity grant #red
     entity organization #orange
@@ -48,10 +50,12 @@ Prior to vesting, the grant should be adjusted for actual percentage of contribu
 @enduml
 ```
 
+![grant-create](images/grant-set.png)
+
 ## VestGrant
 
 ```plantuml
-@startuml
+@startuml component
     actor chair #blue
     entity grant #red
     entity redeemtionToken #green
@@ -60,7 +64,8 @@ Prior to vesting, the grant should be adjusted for actual percentage of contribu
     chair ->  grant: vest
     grant -> redeemtionToken: createTokens(amount, organization)
     grant -> reputationToken: createTokens(amount, contributor)
-    grant -> grant: burn(this)
+    grant -> grant: burn
 @enduml
 ```
 
+![grant-create](images/grant-vest.png)

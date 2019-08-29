@@ -8,9 +8,11 @@ The first use case is an EEA trusted reward token to incentivize EEA membership 
 
 ## Workflows and High-level Architecture
 
-[Token Flow](https://drive.google.com/file/d/1X1UHYsrOzYmEa2gLKGc2mpj6IXViD2o5/view)
+[Token Sequence Diagrams](ttf/grant-flow.md)
 
-[Token Model](https://docs.google.com/spreadsheets/d/1w1mtxifcpfeqjQk-vJFFGBjtH7UgcSrNj0urp6VXMbM/edit#gid=0)
+[TTF EEA Grant Specification](ttf/eea-grant-spec.json)
+[TTF EEA Reward Specification](ttf/eea-reward-spec.json)
+[TTF EEA Reputation Specification](ttf/eea-reputation-spec.json)
 
 ## Token Description
 
