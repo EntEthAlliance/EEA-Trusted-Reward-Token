@@ -5,11 +5,11 @@ const assert = require('assert');
 // Valid hashes using Keccak-256
 
 const contracts = {
-    SafeMath      : fs.readFileSync('node_modules/zeppelin-solidity/contracts/math/SafeMath.sol'),
-    Pausable      : fs.readFileSync('node_modules/zeppelin-solidity/contracts/lifecycle/Pausable.sol'),
-    Ownable       : fs.readFileSync('node_modules/zeppelin-solidity/contracts/ownership/Ownable.sol'),
-    ERC20         : fs.readFileSync('node_modules/zeppelin-solidity/contracts/token/ERC20/ERC20.sol'),    
-    MintableToken : fs.readFileSync('node_modules/zeppelin-solidity/contracts/token/ERC20/ERC20Mintable.sol'),
+    SafeMath      : fs.readFileSync('node_modules/openzeppelin-solidity/contracts/math/SafeMath.sol'),
+    Pausable      : fs.readFileSync('node_modules/openzeppelin-solidity/contracts/lifecycle/Pausable.sol'),
+    Ownable       : fs.readFileSync('node_modules/openzeppelin-solidity/contracts/ownership/Ownable.sol'),
+    ERC20         : fs.readFileSync('node_modules/openzeppelin-solidity/contracts/token/ERC20/ERC20.sol'),    
+    MintableToken : fs.readFileSync('node_modules/openzeppelin-solidity/contracts/token/ERC20/ERC20Mintable.sol'),
 };
 
 const hashes = {

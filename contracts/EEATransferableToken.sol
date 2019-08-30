@@ -12,7 +12,7 @@ contract EEATransferableToken {
 
     EthereumDIDRegistry public didRegistry;
     EthereumClaimsRegistry public claimsRegistry;
-    address public eeaIssuer; //TODO: Create EEA issuer SC
+    address public eeaIssuer;
 
 
 
