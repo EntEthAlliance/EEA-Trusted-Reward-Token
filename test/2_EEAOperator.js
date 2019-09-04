@@ -163,6 +163,7 @@ contract('EEAOperator', (accounts) => {
         });
     });
 
+    /*
     describe('mint rewards', function () {
         const to = employeeOrg1;
         const amount = hundredTokens;
@@ -241,14 +242,23 @@ contract('EEAOperator', (accounts) => {
             });
         });
     });
+
+    */
     describe('batch mint rewards', function () {
         const amountArray = [oneToken, oneToken, oneToken];
         const toArray = [employeeOrg1, employee2Org1, employeeOrg2];
         const orgArray = [organization1, organization1, organization2];
         describe('when the sender is the EEA issuer', function () {
             describe('When the recipients are EEA members', function () {
+                describe('but the array lengths do not match', function () {
+                    it('reverts', async function () {
+                        await expectThrow(eeaOperatorInstance.batchMintRewards(orgArray, toArray, [oneToken, oneToken], {
+                            from: eeaAdmin
+                        }));
+                    });
+                });
                 describe('but the organizations/employees are mismatched ', function () {
-                    it('tokens are not mint but emit a "batchMintError" event', async function () {
+                    it('tokens are not mint but emit "EmployeeNotRegistered" & "BatchMintError" events', async function () {
                         const bungledOrgArray = [organization2, organization2, organization1];
                         const oldBalance1 = await reputationTokenInstance.balanceOf(employeeOrg1);
                         const oldBalance2 = await reputationTokenInstance.balanceOf(employee2Org1);
@@ -266,7 +276,8 @@ contract('EEAOperator', (accounts) => {
 
                         // Test the event
 
-                        const event1 = getEvents(tx, 'batchMintError');
+                        const event1 = getEvents(tx, 'BatchMintError');
+                        const event2 = getEvents(tx, 'EmployeeNotRegistered');
 
                         assert.equal(event1[0].organization, organization2, 'address does not match');
                         assert.equal(event1[0].account, employeeOrg1, 'address does not match');
@@ -279,6 +290,15 @@ contract('EEAOperator', (accounts) => {
                         assert.equal(event1[2].organization, organization1, 'address does not match');
                         assert.equal(event1[2].account, employeeOrg2, 'address does not match');
                         (event1[2].amount.toString()).should.be.equal(oneToken.toString());
+
+                        assert.equal(event2[0].organization, organization2, 'address does not match');
+                        assert.equal(event2[0].account, employeeOrg1, 'address does not match');
+
+                        assert.equal(event2[1].organization, organization2, 'address does not match');
+                        assert.equal(event2[1].account, employee2Org1, 'address does not match');
+
+                        assert.equal(event2[2].organization, organization1, 'address does not match');
+                        assert.equal(event2[2].account, employeeOrg2, 'address does not match');
                     });
                 });
                 describe('and reputation is minted for employees/organizations and rewards for organization', function () {
@@ -298,15 +318,15 @@ contract('EEAOperator', (accounts) => {
                         const org1RewardBal = await rewardTokenInstance.balanceOf(organization1);
                         const org2RewardBal = await rewardTokenInstance.balanceOf(organization2);
 
-                        assert.equal(employee1RepBal.toString(), '201000000000000000000');
+                        assert.equal(employee1RepBal.toString(), oneToken.toString());
                         assert.equal(employee2RepBal.toString(), oneToken.toString());
                         assert.equal(employee3RepBal.toString(), oneToken.toString());
                         assert.equal(employee1RewardBal.toString(), zero.toString());
                         assert.equal(employee2RewardBal.toString(), zero.toString());
                         assert.equal(employee3RewardBal.toString(), zero.toString());
-                        assert.equal(org1RepBal.toString(), '202000000000000000000');
+                        assert.equal(org1RepBal.toString(), '2000000000000000000');
                         assert.equal(org2RepBal.toString(), oneToken.toString());
-                        assert.equal(org1RewardBal.toString(), '202000000000000000000');
+                        assert.equal(org1RewardBal.toString(), '2000000000000000000');
                         assert.equal(org2RewardBal.toString(), oneToken.toString());
                     });
                     it('emits a "ReputationMinted" and "RewardsMinted" event', async function () {
@@ -352,7 +372,7 @@ contract('EEAOperator', (accounts) => {
                 const toArray = [unauthorizedMember, unauthorizedMember, unauthorizedMember];
                 const amountArray = [hundredTokens, hundredTokens, hundredTokens];
                 const orgArray = [unauthorizedMember, unauthorizedMember, unauthorizedMember];
-                it('does not mint tokens but emits a "batchMintError" event', async function () {
+                it('does not mint tokens but emits "OrgNotMember" and "BatchMintError" event', async function () {
                     const oldRepBalance = await reputationTokenInstance.balanceOf(unauthorizedMember);
                     const oldRewardsBalance = await rewardTokenInstance.balanceOf(unauthorizedMember);
                     const tx = await eeaOperatorInstance.batchMintRewards(orgArray, toArray, amountArray, {
@@ -367,7 +387,8 @@ contract('EEAOperator', (accounts) => {
 
                     // Test the event
 
-                    const event1 = getEvents(tx, 'batchMintError');
+                    const event1 = getEvents(tx, 'BatchMintError');
+                    const event2 = getEvents(tx, 'OrgNotMember');
 
                     assert.equal(event1[0].organization, unauthorizedMember, 'address does not match');
                     assert.equal(event1[0].account, unauthorizedMember, 'address does not match');
@@ -380,6 +401,10 @@ contract('EEAOperator', (accounts) => {
                     assert.equal(event1[2].organization, unauthorizedMember, 'address does not match');
                     assert.equal(event1[2].account, unauthorizedMember, 'address does not match');
                     (event1[2].amount.toString()).should.be.equal(hundredTokens.toString());
+
+                    assert.equal(event2[0].organization, unauthorizedMember, 'address does not match');
+                    assert.equal(event2[1].organization, unauthorizedMember, 'address does not match');
+                    assert.equal(event2[2].organization, unauthorizedMember, 'address does not match');
                 });
             });
         });
@@ -391,6 +416,7 @@ contract('EEAOperator', (accounts) => {
             });
         });
     });
+    /*
     describe('mint penalties', function () {
         const to = employeeOrg1;
         const amount = oneToken;
@@ -472,6 +498,7 @@ contract('EEAOperator', (accounts) => {
             });
         });
     });
+    */
 
     describe('batch mint penalties', function () {
         const amountArray = [oneToken, oneToken, oneToken];
@@ -479,8 +506,15 @@ contract('EEAOperator', (accounts) => {
         const orgArray = [organization1, organization1, organization2];
         describe('when the sender is the EEA issuer', function () {
             describe('When the recipients are EEA members', function () {
+                describe('but the array lengths do not match', function () {
+                    it('reverts', async function () {
+                        await expectThrow(eeaOperatorInstance.batchMintPenalties(orgArray, toArray, [oneToken, oneToken], {
+                            from: eeaAdmin
+                        }));
+                    });
+                });
                 describe('but issuer mismatches all the organizations/employees', function () {
-                    it('reputation not burned, penalties not minted but emits a "batchMintError" event', async function () {
+                    it('reputation not burned, penalties not minted but emits "EmployeeNotRegistered" & "BatchMintError" event', async function () {
                         const bungledOrgArray = [organization2, organization2, organization1];
                         const oldBalance1 = await reputationTokenInstance.balanceOf(employeeOrg1);
                         const oldBalance2 = await reputationTokenInstance.balanceOf(employee2Org1);
@@ -498,7 +532,8 @@ contract('EEAOperator', (accounts) => {
 
                         // Test the event
 
-                        const event1 = getEvents(tx, 'batchMintError');
+                        const event1 = getEvents(tx, 'BatchMintError');
+                        const event2 = getEvents(tx, 'EmployeeNotRegistered');
 
                         assert.equal(event1[0].organization, organization2, 'address does not match');
                         assert.equal(event1[0].account, employeeOrg1, 'address does not match');
@@ -511,6 +546,15 @@ contract('EEAOperator', (accounts) => {
                         assert.equal(event1[2].organization, organization1, 'address does not match');
                         assert.equal(event1[2].account, employeeOrg2, 'address does not match');
                         (event1[2].amount.toString()).should.be.equal(oneToken.toString());
+
+                        assert.equal(event2[0].organization, organization2, 'address does not match');
+                        assert.equal(event2[0].account, employeeOrg1, 'address does not match');
+
+                        assert.equal(event2[1].organization, organization2, 'address does not match');
+                        assert.equal(event2[1].account, employee2Org1, 'address does not match');
+
+                        assert.equal(event2[2].organization, organization1, 'address does not match');
+                        assert.equal(event2[2].account, employeeOrg2, 'address does not match');
                     });
                 });
                 describe('reputation burned from employees/organizations, penalties minted', function () {
@@ -530,16 +574,16 @@ contract('EEAOperator', (accounts) => {
                         const org1PenaltyBal = await penaltyTokenInstance.balanceOf(organization1);
                         const org2PenaltyBal = await penaltyTokenInstance.balanceOf(organization2);
 
-                        assert.equal(employee1RepBal.toString(), '199000000000000000000');
-                        assert.equal(employee2RepBal.toString(), oneToken.toString());
-                        assert.equal(employee3RepBal.toString(), oneToken.toString());
+                        assert.equal(employee1RepBal.toString(), '1000000000000000000');
+                        assert.equal(employee2RepBal.toString(), '1000000000000000000');
+                        assert.equal(employee3RepBal.toString(), '1000000000000000000');
                         assert.equal(employee1PenaltyBal.toString(), zero.toString());
                         assert.equal(employee2PenaltyBal.toString(), zero.toString());
                         assert.equal(employee3PenaltyBal.toString(), zero.toString());
-                        assert.equal(org1RepBal.toString(), '200000000000000000000');
-                        assert.equal(org2RepBal.toString(), oneToken.toString());
-                        assert.equal(org1PenaltyBal.toString(), '4000000000000000000');
-                        assert.equal(org2PenaltyBal.toString(), oneToken.toString());
+                        assert.equal(org1RepBal.toString(), '2000000000000000000');
+                        assert.equal(org2RepBal.toString(), '1000000000000000000');
+                        assert.equal(org1PenaltyBal.toString(), '2000000000000000000');
+                        assert.equal(org2PenaltyBal.toString(), '1000000000000000000');
                     });
                     it('emits a "ReputationBurned" and "PenaltiesMinted" event', async function () {
                         const tx = await eeaOperatorInstance.batchMintPenalties(orgArray, toArray, amountArray, {
@@ -584,7 +628,7 @@ contract('EEAOperator', (accounts) => {
                 const toArray = [unauthorizedMember, unauthorizedMember, unauthorizedMember];
                 const amountArray = [hundredTokens, hundredTokens, hundredTokens];
                 const orgArray = [unauthorizedMember, unauthorizedMember, unauthorizedMember];
-                it('fails to burn reputation but emits a "batchMintError" event', async function () {
+                it('fails to burn reputation but emits "OrgNotMember" & "BatchMintError" event', async function () {
                     const oldRepBalance = await reputationTokenInstance.balanceOf(unauthorizedMember);
                     const oldPenaltiesBalance = await penaltyTokenInstance.balanceOf(unauthorizedMember);
                     const tx = await eeaOperatorInstance.batchMintPenalties(orgArray, toArray, amountArray, {
@@ -599,7 +643,8 @@ contract('EEAOperator', (accounts) => {
 
                     // Test the event
 
-                    const event1 = getEvents(tx, 'batchMintError');
+                    const event1 = getEvents(tx, 'BatchMintError');
+                    const event2 = getEvents(tx, 'OrgNotMember');
 
                     assert.equal(event1[0].organization, unauthorizedMember, 'address does not match');
                     assert.equal(event1[0].account, unauthorizedMember, 'address does not match');
@@ -612,6 +657,10 @@ contract('EEAOperator', (accounts) => {
                     assert.equal(event1[2].organization, unauthorizedMember, 'address does not match');
                     assert.equal(event1[2].account, unauthorizedMember, 'address does not match');
                     (event1[2].amount.toString()).should.be.equal(hundredTokens.toString());
+
+                    assert.equal(event2[0].organization, unauthorizedMember, 'address does not match');
+                    assert.equal(event2[1].organization, unauthorizedMember, 'address does not match');
+                    assert.equal(event2[2].organization, unauthorizedMember, 'address does not match');
                 });
             });
         });
@@ -629,13 +678,13 @@ contract('EEAOperator', (accounts) => {
         const org = organization2;
         it('it successfully burns what is available', async function () {
             // We need to mint 1 token of reputation since balance is 0
-            await eeaOperatorInstance.mintRewards(org, to, oneToken, '0x0', {
+            await eeaOperatorInstance.batchMintRewards([org], [to], [oneToken], {
                 from: eeaAdmin
             });
             const oldRepBalanceEmployee = await reputationTokenInstance.balanceOf(to);
             const oldRepBalanceOrg = await reputationTokenInstance.balanceOf(org);
             // Attempt to burn 100 tokens
-            const tx = await eeaOperatorInstance.mintPenalties(org, to, hundredTokens, '0x0', {
+            const tx = await eeaOperatorInstance.batchMintPenalties([org], [to], [hundredTokens], {
                 from: eeaAdmin
             });
             const newRepBalEmployee = await reputationTokenInstance.balanceOf(to);
@@ -653,15 +702,12 @@ contract('EEAOperator', (accounts) => {
 
             assert.equal(event1[0].account, org, 'To address does not match');
             (event1[0].amount.toString()).should.be.equal(oneToken.toString());
-            assert.equal(event1[0].operatorData, '0x00', 'Data does not match');
 
             assert.equal(event1[1].account, to, 'To address does not match');
             (event1[1].amount.toString()).should.be.equal(oneToken.toString());
-            assert.equal(event1[1].operatorData, '0x00', 'Data does not match');
 
             assert.equal(event2[0].account, org, 'To address does not match');
             (event2[0].amount.toString()).should.be.equal(hundredTokens.toString());
-            assert.equal(event2[0].operatorData, '0x00', 'Data does not match');
         });
     });
     describe('burnPenalties', function () {
@@ -705,6 +751,11 @@ contract('EEAOperator', (accounts) => {
         describe('when the burner is the EEA admin', function () {
             describe('burns rewards', function () {
                 it('it succeeds', async function () {
+                    // Mint enough rewards to burn
+                    await eeaOperatorInstance.batchMintRewards([org], [employeeOrg1], [hundredTokens], {
+                        from: eeaAdmin
+                    });
+
                     const oldBalance = await rewardTokenInstance.balanceOf(org);
                     await eeaOperatorInstance.burnRewards(org, amount, '0x0', {
                         from: eeaAdmin
@@ -713,7 +764,7 @@ contract('EEAOperator', (accounts) => {
                     ((oldBalance.sub(hundredTokens)).toString()).should.be.equal(newBalance.toString());
                 });
                 it('emits a "RewardsBurned" event', async function () {
-                    const tx = await eeaOperatorInstance.burnRewards(org, amount, '0x0', {
+                    const tx = await eeaOperatorInstance.burnRewards(org, oneToken, '0x0', {
                         from: eeaAdmin
                     });
                     // Test the event
@@ -721,7 +772,7 @@ contract('EEAOperator', (accounts) => {
                     const event1 = getEvents(tx, 'RewardsBurned');
 
                     assert.equal(event1[0].account, org, 'To address does not match');
-                    (event1[0].amount.toString()).should.be.equal(amount.toString());
+                    (event1[0].amount.toString()).should.be.equal(oneToken.toString());
                     assert.equal(event1[0].operatorData, '0x00', 'Data does not match');
                 });
             });
@@ -777,9 +828,6 @@ contract('EEAOperator', (accounts) => {
             });
         });
     });
-
-
-
 
 
 
