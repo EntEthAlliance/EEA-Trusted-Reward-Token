@@ -64,10 +64,19 @@ contract EEAOperator is Ownable {
     bytes operatorData
   );
 
-  event batchMintError(
+  event BatchMintError(
     address organization,
     address account,
     uint256 amount
+  );
+
+  event OrgNotMember(
+    address organization
+  );
+
+  event EmployeeNotRegistered(
+    address organization,
+    address account
   );
 
   constructor(address _didRegistry,
@@ -92,8 +101,8 @@ contract EEAOperator is Ownable {
 
 
 
-  function batchMintRewards(address[] memory _organization, address[] memory _account, uint256[] memory _amount)
-  public onlyOwner
+  function batchMintRewards(address[] calldata _organization, address[] calldata _account, uint256[] calldata _amount)
+  external onlyOwner
   {
       require(_organization.length == _account.length && _account.length == _amount.length, "Error: Mismatched array length");
       address organization;
@@ -103,39 +112,25 @@ contract EEAOperator is Ownable {
           organization = _organization[c]; // gas optimization
           account = _account[c]; // gas optimization
           amount = _amount[c]; // gas optimization
-          if(_orgCheck(account, organization) && _memberCheck(organization)){
-            mintRewards(organization, account, amount, '0x0');
+          if(_memberCheck(organization)) {
+            if (_orgCheck(account, organization)) {
+              mintRewards(organization, account, amount,'0x0');
+            }
+            else {
+              emit EmployeeNotRegistered(organization, account);
+              emit BatchMintError(organization, account, amount);
+            }
           }
           else {
-            emit batchMintError(organization, account, amount);
+            emit OrgNotMember(organization);
+            emit BatchMintError(organization, account, amount);
           }
       }
   }
 
 
-
-  // TODO: Make internal
-
-  function mintRewards(address organization, address account, uint256 amount, bytes memory operatorData) public onlyOwner
-  {
-    require (_orgCheck(account, organization), "Error: Member is not employee of org");
-    require (_memberCheck(organization), "Error: Not EEA member");
-
-    // Mint reputation for Employee
-    reputationToken.operatorMint(account, amount, '', operatorData);
-
-    // Mint for Organizations
-    rewardToken.operatorMint(organization, amount, '', operatorData);
-    reputationToken.operatorMint(organization, amount, '', operatorData);
-
-    // Emit events
-    emit ReputationMinted(account, amount, operatorData);
-    emit RewardsMinted(organization, amount, operatorData);
-    emit ReputationMinted(organization, amount, operatorData);
-  }
-
-  function batchMintPenalties(address[] memory _organization, address[] memory _account, uint256[] memory _amount)
-  public onlyOwner
+  function batchMintPenalties(address[] calldata _organization, address[] calldata _account, uint256[] calldata _amount)
+  external onlyOwner
   {
       require(_organization.length == _account.length && _account.length == _amount.length, "Error: Mismatched array length");
       address organization;
@@ -145,39 +140,20 @@ contract EEAOperator is Ownable {
           organization = _organization[c]; // gas optimization
           account = _account[c]; // gas optimization
           amount = _amount[c]; // gas optimization
-          if(_orgCheck(account, organization) && _memberCheck(organization)) {
-            mintPenalties(organization, account, amount, '0x0');
+          if(_memberCheck(organization)) {
+            if (_orgCheck(account, organization)) {
+              mintPenalties(organization, account, amount, '0x0');
+            }
+            else {
+              emit EmployeeNotRegistered(organization, account);
+              emit BatchMintError(organization, account, amount);
+            }
           }
           else {
-            emit batchMintError(organization, account, amount);
+            emit OrgNotMember(organization);
+            emit BatchMintError(organization, account, amount);
           }
       }
-  }
-
-
-
-  // TODO: Make internal
-  function mintPenalties(address organization, address account, uint256 amount, bytes memory operatorData) public onlyOwner
-  {
-    require (_orgCheck(account, organization), "Error: Member is not employee of org");
-    require (_memberCheck(organization), "Error: Not EEA member");
-
-    penaltyToken.operatorMint(organization, amount, '', operatorData);
-
-    // Update user reputation balance
-    uint256 reputationBalance = reputationToken.balanceOf(account);
-    uint256 reputationPenalty = amount > reputationBalance ? reputationBalance : amount;
-    reputationToken.operatorBurn(account, reputationPenalty, '', operatorData);
-
-    // Update org reputation balance
-    uint256 orgReputationBalance = reputationToken.balanceOf(organization);
-    uint256 orgReputationPenalty = amount > orgReputationBalance ? orgReputationBalance : amount;
-    reputationToken.operatorBurn(organization, orgReputationPenalty, '', operatorData);
-
-    //Emit events
-    emit PenaltiesMinted(organization, amount, operatorData);
-    emit ReputationBurned(organization, orgReputationPenalty, operatorData);
-    emit ReputationBurned(account, reputationPenalty, operatorData);
   }
 
 
@@ -206,6 +182,42 @@ contract EEAOperator is Ownable {
   function balance(address account) external view returns (uint256, uint256, uint256)
   {
     return (rewardToken.balanceOf(account), penaltyToken.balanceOf(account), reputationToken.balanceOf(account));
+  }
+
+
+  function mintRewards(address organization, address account, uint256 amount, bytes memory operatorData) internal
+  {
+    // Mint reputation for Employee
+    reputationToken.operatorMint(account, amount, '', operatorData);
+
+    // Mint for Organizations
+    rewardToken.operatorMint(organization, amount, '', operatorData);
+    reputationToken.operatorMint(organization, amount, '', operatorData);
+
+    // Emit events
+    emit ReputationMinted(account, amount, operatorData);
+    emit RewardsMinted(organization, amount, operatorData);
+    emit ReputationMinted(organization, amount, operatorData);
+  }
+
+  function mintPenalties(address organization, address account, uint256 amount, bytes memory operatorData) internal
+  {
+    penaltyToken.operatorMint(organization, amount, '', operatorData);
+
+    // Update user reputation balance
+    uint256 reputationBalance = reputationToken.balanceOf(account);
+    uint256 reputationPenalty = amount > reputationBalance ? reputationBalance : amount;
+    reputationToken.operatorBurn(account, reputationPenalty, '', operatorData);
+
+    // Update org reputation balance
+    uint256 orgReputationBalance = reputationToken.balanceOf(organization);
+    uint256 orgReputationPenalty = amount > orgReputationBalance ? orgReputationBalance : amount;
+    reputationToken.operatorBurn(organization, orgReputationPenalty, '', operatorData);
+
+    //Emit events
+    emit PenaltiesMinted(organization, amount, operatorData);
+    emit ReputationBurned(organization, orgReputationPenalty, operatorData);
+    emit ReputationBurned(account, reputationPenalty, operatorData);
   }
 
 
