@@ -45,7 +45,8 @@
     "jsdoc": "jsdoc -c jsdoc.cnf.json",
     "clean": "shx rm -fr db geth-db dist build bin coverage coverage.json",
     "reset": "npm run clean; shx rm -fr  node_modules",
-    "upgrade": "yarn run reset; yarn upgrade"
+    "upgrade": "yarn run reset; yarn upgrade",
+    "flatten": "truffle-flattener"
   },
   "dependencies": {
     "chalk": "^2.4.1",
@@ -88,7 +89,8 @@
     "superagent": "^5.1.0",
     "truffle": "^5.0.32",
     "truffle-hdwallet-provider": "1.0.16",
-    "truffle-security": "1.5.5"
+    "truffle-security": "1.5.5",
+    "truffle-flattener": "1.4.2"
   },
   "optionalDevDependencies": {
     "fsevents": "*"
