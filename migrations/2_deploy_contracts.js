@@ -36,7 +36,6 @@ module.exports = async function (deployer, network, accounts) {
     let didReg = await deployer.deploy(DidRegistryContract);
     let claimsReg = await deployer.deploy(EthereumClaimsRegistry);
     let eeaIssuer = await deployer.deploy(EEAClaimsIssuer, claimsReg.address, {from: eeaAdmin});
-
     let operator = await deployer.deploy(EEAOperator, didReg.address, claimsReg.address, eeaIssuer.address, {from: eeaAdmin});
     let tokenOperators = [eeaAdmin, operator.address];
     let penaltyToken = await deployer.deploy(PenaltyToken, tokenOperators);
