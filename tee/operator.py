@@ -16,7 +16,7 @@ businessRules = {
 	3: { True: +25, False: -10},
 }
 
-didToAddr = lambda did: web3.utils.normalizers.to_checksum_address(re.search('^did:ethr:[0-9a-f]{0,24}([0-9a-f]{40})$', did).group(1))
+didToAddr = lambda did: Web3.toChecksumAddress(re.search('^did:ethr:[0-9a-f]{0,24}([0-9a-f]{40})$', did).group(1))
 
 class EEAOperator:
 	def __init__(self, config):
@@ -25,7 +25,7 @@ class EEAOperator:
 			abi=json.load(open(f'{config.contracts}/EEAOperator.json'))['abi'], \
 			ContractFactoryClass=Contract,                                      \
 		)
-		self.account = web3.Account.privateKeyToAccount(os.environ['MNEMONIC2'])
+		self.account = web3.Account.privateKeyToAccount(os.environ['enclave_key'])
 
 	def issue_burn_tokens(self, data):
 		organizationID = didToAddr(data['organization_ID'])
@@ -59,17 +59,16 @@ class EEAOperator:
 
 if __name__ == '__main__':
 	parser = argparse.ArgumentParser()
+	parser.add_argument('--input',     type=str, default='/encryptedInputs/eeaToken.json')
 	parser.add_argument('--gateway',   type=str, default='http://localhost:8545')
-	parser.add_argument('--contracts', type=str, default='build/contracts')
-	parser.add_argument('--address',   type=str, default='0x0000000000000000000000000000000000000000')
-	eeaoperator = EEAOperator(parser.parse_args())
+	parser.add_argument('--contracts', type=str, default='.')
+	parser.add_argument('--address',   type=str, default='0xd4c2F43544e2453b99770c1188A039E7bee4Ac41')
+	config = parser.parse_args()
 
-	# redeem[]:[{did:ethr:8a5d93cc5613ab0ace80a282029ff721923325ce276db5cadcb62537bb741368,100},{did:ethr:111d93cc5613ab0ace80a282029ff721923325ce276db5cadcb62537bb741301,90}]
-	# share[]:[{did:ethr:8a5d93cc5613ab0ace80a282029ff721923325ce276db5cadcb62537bb741368,{100, did:ethr:aaad93cc5613ab0ace80a282029ff721923325ce276db5cadcb62537bb741301},{200, did:ethr:bbbd93cc5613ab0ace80a282029ff721923325ce276db5cadcb62537bb741301}},{did:ethr:111d93cc5613ab0ace80a282029ff721923325ce276db5cadcb62537bb741301,{400, did:ethr:222d93cc5613ab0ace80a282029ff721923325ce276db5cadcb62537bb841301},{500, did:ethr:333d93cc5613ab0ace80a282029ff721923325ce276db5cadcb62537bb841301}}]
-	EXAMPLE = 'issue_burn_tokens[]:{"organization_ID":"did:ethr:8a5d93cc5613ab0ace80a282029ff721923325ce276db5cadcb62537bb741368","token_request":[{"account": "did:ethr:8a5d93cc5613ab0ace80a282029ff721923325ce276db5cadcb62537bb741361", "type":3, "success": true},{"account": "did:ethr:8a5d93cc5613ab0ace80a282029ff721923325ce276db5cadcb62537bb741364", "type": 2, "success": true},{ "account": "did:ethr:8a5d93cc5613ab0ace80a282029ff721923325ce276db5cadcb62537bb741364", "type": 3, "success": false}]}'
+	eeaoperator = EEAOperator(config)
 
-	[ key, raw ] = re.search('(\w*)\[\]:(.*)', EXAMPLE).groups()
-
+	with open(config.input) as file:
+		[ key, raw ] = re.search('(\w*)\[\]:(.*)', file.read()).groups()
 	try:
 		getattr(eeaoperator, key)(json.loads(raw))
 	except NotImplementedError:
