@@ -1,0 +1,963 @@
+{
+    "specificationHash": "5437b7a8ab6b5cb1ddbda50185afa3b35adfa75fa53e9e096dd45a7841c9620c",
+    "artifact": {
+      "artifactSymbol": {
+        "id": "2057e98c-b319-4e99-a28a-aac39242541c",
+        "type": "TOKEN_TEMPLATE",
+        "visual": "&tau;<sub>F</sub>{<i>~d,~t,SC</i>}",
+        "tooling": "tF{~d,~t,SC}",
+        "version": "1.0"
+      },
+      "name": "EEA-Reputation",
+      "aliases": [
+        "Whole Fungible",
+        "Non-transferable fungible"
+      ],
+      "artifactDefinition": {
+        "businessDescription": "EEA Reputation Tokens are issued, upon vesting, to an organization's contributors establishing an individuals reputation. The token grant should be adjusted when commitments are met or before vesting indicating the split of reputation tokens by percentage to the contributors listed in the grant. The reputation split between contributors is finalized when the grant vests. Both Reward and Penalty tokens are matched 1-1 towards Reputation with the ability to improve or damage an individual's reputation. An individual's reputation cannot be negative so penalties will subtract 1-1 until exhausted or the account balance reaches 0. The reputation score of an organization is the sum of their contributors balances. These tokens are are lifetime tokens and are not transferable for any member that has earned them. EEA Reputation tokens are minted and burned, but are not redeemable.",
+        "businessExample": "For example, if an organization collects 10,000 tokens during its annual membership cycle, they can redeem the EEA Rewards tokens for say $10,000 credit to its membership, or continue to accumulate. In addition, if the organization's lifetime membership EEA Reputation tokens total was 100,000 at the beginning of the membership cycle, it would be 110,000 at the end of the cycle in this example. In addition, 10,000 points would be split across the organization's employees who earned them.",
+        "analogies": [
+          {
+            "name": "Earned Credits",
+            "description": "A customer can earn a point/token for each mile travelled and then redeem these points/tokens for upgrades or new tickets, but cannot transfer the points to another party."
+          }
+        ]
+      },
+      "dependencies": [
+        {
+          "description": "A whole fungible token",
+          "symbol": {
+            "id": "89ca6daf-5585-469e-abd1-19bc44e7a012",
+            "visual": "&tau;<sub>F</sub>",
+            "tooling": "tF",
+            "version": "1.0",
+            "templateValidated": true
+          }
+        }
+      ],
+      "artifactFiles": [
+        {
+          "content": "CONTROL",
+          "fileName": "EEA-Reputation.proto"
+        },
+        {
+          "content": "UML",
+          "fileName": "EEA-Reputation.md"
+        }
+      ],
+      "maps": {
+        "codeReferences": [
+          {
+            "name": "Solidity Reputation Token",
+            "referencePath": "https://github.com/EntEthAlliance/Trusted-Token/blob/develop/contracts/ReputationToken.sol"
+          }
+        ]
+      }
+    },
+    "tokenBase": {
+      "artifact": {
+        "artifactSymbol": {
+          "id": "89ca6daf-5585-469e-abd1-19bc44e7a012",
+          "visual": "&tau;<sub>F</sub>{<i>d</i>}",
+          "tooling": "tF{d}",
+          "version": "1.0",
+          "templateValidated": true
+        },
+        "name": "Fractional Fungible",
+        "aliases": [
+          "Liquid",
+          "Virtual Money",
+          "Balance Money"
+        ],
+        "artifactDefinition": {
+          "businessDescription": "Fractional Fungible tokens have interchangeable value with each other, where any owned sum of them from a class has the same value as another owned sum from the same class. Similar to physical cash money, a crypto-currency is an example of a fungible token that is sub-dividable.",
+          "businessExample": "Fiat currency is the most widely understood example of a fractional fungible item. A fractional fungible is sub-dividable, so you can 'make change'.",
+          "analogies": [
+            {
+              "name": "Physical Money or Cash",
+              "description": "Cash, or fiat money, is freely accepted between parties and can have varying denominations. Money has a face value, on a coin or bill, and can be summed together to represent higher value.  It can be subdivided, making change, and consolidated from many smaller denominations to larger ones and still have the same value. "
+            },
+            {
+              "name": "General Admission Movie Ticket",
+              "description": "Purchasing a general admission ticket to a movie only allows for you to have a seat, but the seat that you actually get depends on factors like when you arrive."
+            }
+          ]
+        },
+        "dependencies": [
+          {
+            "description": "Base Token Definition",
+            "symbol": {
+              "id": "5f5c4e7f-8ff1-4767-b59c-799d49753226",
+              "visual": "&tau",
+              "tooling": "t",
+              "version": "1.0",
+              "templateValidated": true
+            }
+          }
+        ],
+        "incompatibleWithSymbols": [
+          {
+            "id": "d5807a8e-879b-4885-95fa-f09ba2a22172",
+            "type": "BEHAVIOR",
+            "visual": "<i>~d</i>",
+            "tooling": "~d",
+            "version": "1.0"
+          }
+        ],
+        "artifactFiles": [
+          {
+            "content": "CONTROL",
+            "fileName": "fractional-fungible.proto"
+          },
+          {
+            "content": "UML",
+            "fileName": "fractional-fungible.md"
+          },
+          {
+            "content": "OTHER",
+            "fileName": ".DS_Store"
+          }
+        ],
+        "maps": {
+          "codeReferences": [
+            {
+              "name": "Solidity Penalty Token",
+              "referencePath": "https://github.com/EntEthAlliance/Trusted-Token/blob/develop/contracts/PenaltyToken.sol"
+            },
+            {
+              "name": "Solidity Reputation Token",
+              "referencePath": "https://github.com/EntEthAlliance/Trusted-Token/blob/develop/contracts/ReputationToken.sol"
+            }
+          ]
+        }
+      },
+      "constructorName": "Constructor"
+    },
+    "behaviors": [
+      {
+        "artifact": {
+          "artifactSymbol": {
+            "id": "d5807a8e-879b-4885-95fa-f09ba2a22172",
+            "type": "BEHAVIOR",
+            "visual": "<i>~d</i>",
+            "tooling": "~d",
+            "version": "1.0"
+          },
+          "name": "Non-Subdividable",
+          "aliases": [
+            "Whole"
+          ],
+          "artifactDefinition": {
+            "businessDescription": "An ability or restriction on the token where it cannot be subdivided from a single whole token into fractions. Sets the base token Decimals property to 0 which will make the token non-sub-dividable and a whole token is the smallest ownable unit of the token.",
+            "businessExample": "Non-subdividable is common for items where subdivision does not make sense, like a property title, inventory item or invoice.",
+            "analogies": [
+              {
+                "name": "Non-Fractional",
+                "description": "It is not possible to own a fraction of this token."
+              },
+              {
+                "name": "Barrel of Oil",
+                "description": "Barrels of Oil don't make sense to subdivide."
+              }
+            ]
+          },
+          "incompatibleWithSymbols": [
+            {
+              "id": "6e3501dc-5800-4c71-b59e-ad11418a998c",
+              "type": "BEHAVIOR",
+              "visual": "<i>d</i>",
+              "tooling": "d",
+              "version": "1.0"
+            }
+          ],
+          "artifactFiles": [
+            {
+              "content": "CONTROL",
+              "fileName": "non-subdividable.proto"
+            },
+            {
+              "content": "UML",
+              "fileName": "non-subdividable.md"
+            },
+            {
+              "content": "OTHER",
+              "fileName": ".DS_Store"
+            }
+          ],
+          "maps": {
+            "codeReferences": [
+              {
+                "name": "Code 1",
+                "platform": "DAML"
+              }
+            ],
+            "implementationReferences": [
+              {
+                "mappingType": "IMPLEMENTATION",
+                "name": "Implementation 1",
+                "platform": "CHAINCODE_GO"
+              }
+            ],
+            "resources": [
+              {
+                "mappingType": "RESOURCE",
+                "name": "Regulation Reference 1"
+              }
+            ]
+          }
+        },
+        "isExternal": true,
+        "properties": [
+          {
+            "name": "Decimals",
+            "valueDescription": "Set to Zero, not allowing any subdivision, usually this is applied to the base token.",
+            "templateValue": "0",
+            "propertyInvocations": [
+              {
+                "id": "2ca7fbb2-ce98-4dda-a6ae-e4ac2527bb33",
+                "name": "GetDecimals",
+                "description": "Should return 0",
+                "request": {
+                  "controlMessageName": "GetDecimalsRequest"
+                },
+                "response": {
+                  "controlMessageName": "GetDecimalsResponse",
+                  "description": "Return 0",
+                  "outputParameters": [
+                    {
+                      "name": "Decimals",
+                      "valueDescription": "0"
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "2ca7fbb2-ce98-4dda-a6ae-e4ac2527bb33",
+                "name": "GetDecimals",
+                "description": "Should return 0",
+                "request": {
+                  "controlMessageName": "GetDecimalsRequest"
+                },
+                "response": {
+                  "controlMessageName": "GetDecimalsResponse",
+                  "description": "Return 0",
+                  "outputParameters": [
+                    {
+                      "name": "Decimals",
+                      "valueDescription": "0"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "artifact": {
+          "artifactSymbol": {
+            "id": "a4fa4ca8-6afd-452b-91f5-7103b6fee5e5",
+            "type": "BEHAVIOR",
+            "visual": "<i>~t</i>",
+            "tooling": "~t",
+            "version": "1.0"
+          },
+          "name": "Non-transferable",
+          "artifactDefinition": {
+            "businessDescription": "Every token instance has an owner. The Non-transferable behavior prevents the owner of a token from changing.",
+            "businessExample": "A vote token, for a citizen in a public election would be non-transferable.",
+            "analogies": [
+              {
+                "name": "Diploma",
+                "description": "A diploma from an educational institution is not transferable to another party that can claim to have earned the diploma."
+              },
+              {
+                "name": "Airline Ticket",
+                "description": "Due to security restrictions at airports and airlines, tickets can only be used by the person they were issued to."
+              }
+            ]
+          },
+          "incompatibleWithSymbols": [
+            {
+              "id": "af119e58-6d84-4ca6-9656-75e8d312f038",
+              "type": "BEHAVIOR",
+              "visual": "<i>t</i>",
+              "tooling": "t",
+              "version": "1.0"
+            }
+          ],
+          "artifactFiles": [
+            {
+              "content": "CONTROL",
+              "fileName": "non-transferable.proto"
+            },
+            {
+              "content": "UML",
+              "fileName": "non-transferable.md"
+            },
+            {
+              "content": "OTHER",
+              "fileName": ".DS_Store"
+            }
+          ],
+          "maps": {
+            "codeReferences": [
+              {
+                "name": "Code 1",
+                "platform": "DAML"
+              }
+            ],
+            "implementationReferences": [
+              {
+                "mappingType": "IMPLEMENTATION",
+                "name": "Implementation 1",
+                "platform": "CHAINCODE_GO"
+              }
+            ],
+            "resources": [
+              {
+                "mappingType": "RESOURCE",
+                "name": "Regulation Reference 1"
+              }
+            ]
+          }
+        },
+        "isExternal": true
+      },
+      {
+        "artifact": {
+          "artifactSymbol": {
+            "id": "803297a1-c0f9-4898-9d44-29c9d41cca97",
+            "type": "BEHAVIOR",
+            "visual": "<i>b</i>",
+            "tooling": "b",
+            "version": "1.0"
+          },
+          "name": "Burnable",
+          "aliases": [
+            "Retire"
+          ],
+          "artifactDefinition": {
+            "businessDescription": "A token class that implements this behavior will support the burning or decommissioning of token instances of the class. This does not delete a token, but rather places it in a permanent non-use state.  Burning is a one way operation and cannot be reversed. This behavior is Delegable. If the token definition is Delegable, BurnFrom will be available.",
+            "businessExample": "When a token is used in a certain way, you may want to remove it from circulation or from being used again. Since the ledger doesn't allow for deletions, burning a token essentially 'deletes' the token from being used, but not from history.",
+            "analogies": [
+              {
+                "name": "Oil Barrels",
+                "description": "If you mint a new token for each barrel of oil created, you may transfer ownership several times until the barrel is refined. The refining process should burn the barrel of oil to remove it from circulation."
+              },
+              {
+                "name": "Redeem",
+                "description": "A token that is a coupon or single use ticket, should be burned when it is redeemed."
+              }
+            ]
+          },
+          "influencedBySymbols": [
+            {
+              "description": "Delegable or not, will determine if the BurnFrom Control will be available in the implementation.",
+              "symbol": {
+                "id": "a3d02076-6009-4a65-9ed4-2deffe5291e1",
+                "type": "BEHAVIOR",
+                "visual": "<i>g</i>",
+                "tooling": "g",
+                "version": "1.0"
+              }
+            }
+          ],
+          "artifactFiles": [
+            {
+              "content": "CONTROL",
+              "fileName": "burnable.proto"
+            },
+            {
+              "content": "UML",
+              "fileName": "burnable.md"
+            },
+            {
+              "content": "OTHER",
+              "fileName": ".DS_Store"
+            }
+          ],
+          "maps": {
+            "codeReferences": [
+              {
+                "name": "Open Zeppelin",
+                "referencePath": "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/ERC20Burnable.sol"
+              }
+            ],
+            "resources": [
+              {
+                "mappingType": "RESOURCE",
+                "name": "Regulation Reference 1"
+              }
+            ]
+          }
+        },
+        "invocations": [
+          {
+            "invocationStep": {
+              "invocation": {
+                "id": "f063dcaa-49f9-4c49-bf0f-2766301e1033",
+                "name": "Burn",
+                "description": "A request to burn a token instance(s) in the class by the owner of the token instance(s).  Optional Quantity field in the request.",
+                "request": {
+                  "controlMessageName": "BurnRequest",
+                  "description": "The request to Burn or Retire tokens.",
+                  "inputParameters": [
+                    {
+                      "name": "Quantity",
+                      "valueDescription": "The number of tokens to burn, might not apply to the implementation."
+                    }
+                  ]
+                },
+                "response": {
+                  "controlMessageName": "BurnResponse",
+                  "description": "The response from the request to burn.",
+                  "outputParameters": [
+                    {
+                      "name": "Confirmation",
+                      "valueDescription": "A confirmation receipt or error may be returned to the invoker based on the outcome of the burn request"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "invocationStep": {
+              "invocation": {
+                "id": "49b53152-3360-426f-9e0a-24a0b4e7c881",
+                "name": "BurnFrom",
+                "description": "Requires Delegable. A request to burn token instance(s) in the class by a party or account that has allowance to do so.  Requires a From and Quantity fields in the request.",
+                "request": {
+                  "controlMessageName": "BurnRequest",
+                  "description": "The request to Burn or Retire tokens.",
+                  "inputParameters": [
+                    {
+                      "name": "Quantity",
+                      "valueDescription": "The number of tokens to burn, might not apply to the implementation."
+                    }
+                  ]
+                },
+                "response": {
+                  "controlMessageName": "BurnResponse",
+                  "description": "The response from the request to burn.",
+                  "outputParameters": [
+                    {
+                      "name": "Confirmation",
+                      "valueDescription": "A confirmation receipt or error may be returned to the invoker based on the outcome of the burn request"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        ]
+      },
+      {
+        "artifact": {
+          "artifactSymbol": {
+            "id": "c32726da-9787-4dd8-8de3-d07d1733d0f6",
+            "type": "BEHAVIOR",
+            "visual": "<i>r</i>",
+            "tooling": "r",
+            "version": "1.0"
+          },
+          "name": "Roles",
+          "aliases": [
+            "Groups"
+          ],
+          "artifactDefinition": {
+            "businessDescription": "A token can have behaviors that the class will restrict invocations to a select set of parties or accounts that are members of a role or group.  This is a generic behavior that can apply to a token many times to represent many role definitions within the template. This behavior will allow you to define what role(s) to create and what behavior(s) to apply the role to in the TemplateDefinition.",
+            "analogies": [
+              {
+                "name": "Minters",
+                "description": "A role called 'Minters' for a token can have accounts in the role. The MintTo behavior invocation will be bound to the role check to ensure only account in the 'Minters' role are allowed to mint new instances in the class."
+              }
+            ],
+            "comments": "Roles has a constructor control that creates roles and applies them to certain behaviors of the token at creation of the class from the template."
+          },
+          "controlUri": "../../../../../../artifacts/behaviors/roles/roles.proto",
+          "artifactFiles": [
+            {
+              "content": "CONTROL",
+              "fileName": "roles.proto"
+            },
+            {
+              "content": "UML",
+              "fileName": "roles.md"
+            },
+            {
+              "content": "OTHER",
+              "fileName": ".DS_Store"
+            }
+          ],
+          "maps": {
+            "codeReferences": [
+              {
+                "name": "Code 1",
+                "platform": "DAML"
+              }
+            ],
+            "implementationReferences": [
+              {
+                "mappingType": "IMPLEMENTATION",
+                "name": "Implementation 1",
+                "platform": "CHAINCODE_GO"
+              }
+            ],
+            "resources": [
+              {
+                "mappingType": "RESOURCE",
+                "name": "Regulation Reference 1"
+              }
+            ]
+          }
+        },
+        "invocations": [
+          {
+            "invocationStep": {
+              "invocation": {
+                "id": "00a665e3-1dda-441e-8262-5750435c153c",
+                "name": "RoleCheck",
+                "description": "Internal invocation when the applied behavior is called to check if the requestor is a member of the role.",
+                "request": {
+                  "controlMessageName": "IsInRole",
+                  "description": "The request",
+                  "inputParameters": [
+                    {
+                      "name": "AccountId",
+                      "valueDescription": "AccountId of the requestor."
+                    }
+                  ]
+                },
+                "response": {
+                  "controlMessageName": "True/False",
+                  "description": "The response",
+                  "outputParameters": [
+                    {
+                      "name": "IsInRole",
+                      "valueDescription": "True/False"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        ],
+        "properties": [
+          {
+            "name": "Role",
+            "valueDescription": "A group or list an account can be a member or be in.",
+            "templateValue": "Minters",
+            "propertyInvocations": [
+              {
+                "name": "GetRoleMembers",
+                "description": "Request the the list of member accounts in the role.",
+                "request": {
+                  "controlMessageName": "GetRoleMembersRequest",
+                  "description": "The request"
+                },
+                "response": {
+                  "controlMessageName": "GetRoleMembersResponse",
+                  "description": "The response",
+                  "outputParameters": [
+                    {
+                      "name": "Members",
+                      "valueDescription": "Returning the list of accounts in the role."
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "600357f8-0499-47f8-87a5-eedf4ad034af",
+                "name": "AddRoleMember",
+                "description": "Add a member to the group or role property.",
+                "request": {
+                  "controlMessageName": "AddRoleMemberRequest",
+                  "description": "The request",
+                  "inputParameters": [
+                    {
+                      "name": "RoleName",
+                      "valueDescription": "Name of the role you are adding a member to. Optional parameter if there is only one role."
+                    },
+                    {
+                      "name": "AccountAddress",
+                      "valueDescription": "Address, name or identifier of the account to be added to the role."
+                    }
+                  ]
+                },
+                "response": {
+                  "controlMessageName": "AddRoleMemberResponse",
+                  "description": "The response",
+                  "outputParameters": [
+                    {
+                      "name": "Added",
+                      "valueDescription": "True or False."
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "97e160bb-6c60-4f1d-923b-813b07b89638",
+                "name": "RemoveRoleMember",
+                "description": "Remove a member to the group or role property.",
+                "request": {
+                  "controlMessageName": "RemoveRoleMemberRequest",
+                  "description": "The request",
+                  "inputParameters": [
+                    {
+                      "name": "RoleName",
+                      "valueDescription": "Name of the role you are adding a member to. Optional parameter if there is only one role."
+                    },
+                    {
+                      "name": "AccountAddress",
+                      "valueDescription": "Address, name or identifier of the account to be removed from the role."
+                    }
+                  ]
+                },
+                "response": {
+                  "controlMessageName": "RemoveRoleMemberResponse",
+                  "description": "The response",
+                  "outputParameters": [
+                    {
+                      "name": "Added",
+                      "valueDescription": "True or False."
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "e42b1b16-074a-4d7d-b9f9-f69a2397a21b",
+                "name": "IsInRole",
+                "description": "Check to see if an account is in the role.",
+                "request": {
+                  "controlMessageName": "IsInRoleRequest",
+                  "description": "The request may be internal only and not exposed externally.",
+                  "inputParameters": [
+                    {
+                      "name": "RoleName",
+                      "valueDescription": "Name of the role you are checking membership of. Optional parameter if there is only one role."
+                    },
+                    {
+                      "name": "AccountAddress",
+                      "valueDescription": "Address, name or identifier of the account to be checked."
+                    }
+                  ]
+                },
+                "response": {
+                  "controlMessageName": "IsInRoleRequestResponse",
+                  "description": "The response",
+                  "outputParameters": [
+                    {
+                      "name": "InRole",
+                      "valueDescription": "True or False."
+                    }
+                  ]
+                }
+              },
+              {
+                "name": "GetMinters",
+                "description": "Request the the list of member accounts in the 'Minters' role.",
+                "request": {
+                  "controlMessageName": "GetMintersRequest",
+                  "description": "The request"
+                },
+                "response": {
+                  "controlMessageName": "GetMintersResponse",
+                  "description": "The response",
+                  "outputParameters": [
+                    {
+                      "name": "Members",
+                      "valueDescription": "Returning the list of accounts in the 'Minters' role."
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "600357f8-0499-47f8-87a5-eedf4ad034af",
+                "name": "AddRoleMember",
+                "description": "Add a member to the group or role property.",
+                "request": {
+                  "controlMessageName": "AddRoleMemberRequest",
+                  "description": "The request",
+                  "inputParameters": [
+                    {
+                      "name": "RoleName",
+                      "valueDescription": "Value is always set to 'Minters'"
+                    },
+                    {
+                      "name": "AccountAddress",
+                      "valueDescription": "Address, name or identifier of the account to be added to the 'Minters' role."
+                    }
+                  ]
+                },
+                "response": {
+                  "controlMessageName": "AddRoleMemberResponse",
+                  "description": "The response",
+                  "outputParameters": [
+                    {
+                      "name": "Added",
+                      "valueDescription": "True or False."
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "97e160bb-6c60-4f1d-923b-813b07b89638",
+                "name": "RemoveRoleMember",
+                "description": "Remove a member to the group or role property.",
+                "request": {
+                  "controlMessageName": "RemoveRoleMemberRequest",
+                  "description": "The request",
+                  "inputParameters": [
+                    {
+                      "name": "RoleName",
+                      "valueDescription": "Always set to 'Minters'"
+                    },
+                    {
+                      "name": "AccountAddress",
+                      "valueDescription": "Address, name or identifier of the account to be removed from the role."
+                    }
+                  ]
+                },
+                "response": {
+                  "controlMessageName": "RemoveRoleMemberResponse",
+                  "description": "The response",
+                  "outputParameters": [
+                    {
+                      "name": "Added",
+                      "valueDescription": "True or False."
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "e42b1b16-074a-4d7d-b9f9-f69a2397a21b",
+                "name": "IsInRole",
+                "description": "Check to see if an account is in the role.",
+                "request": {
+                  "controlMessageName": "IsInRoleRequest",
+                  "description": "The request may be internal only and not exposed externally.",
+                  "inputParameters": [
+                    {
+                      "name": "RoleName",
+                      "valueDescription": "Always be bound to 'Minters'"
+                    },
+                    {
+                      "name": "AccountAddress",
+                      "valueDescription": "Address, name or identifier of the account to be checked."
+                    }
+                  ]
+                },
+                "response": {
+                  "controlMessageName": "IsInRoleRequestResponse",
+                  "description": "The response",
+                  "outputParameters": [
+                    {
+                      "name": "InRole",
+                      "valueDescription": "True or False."
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "artifact": {
+          "artifactSymbol": {
+            "id": "f9224e90-3cab-45bf-b5dc-0175121e2ead",
+            "type": "BEHAVIOR",
+            "visual": "<i>m</i>",
+            "tooling": "m",
+            "version": "1.0"
+          },
+          "name": "Mintable",
+          "aliases": [
+            "Issuable",
+            "Create"
+          ],
+          "artifactDefinition": {
+            "businessDescription": "A token class that implements this behavior will support the minting or issuing of new token instances in the class.  These new tokens can be minted and belong to the owner or minted to another account. This behavior may be invalidated by a restrictive behavior like Singleton, where only a single instance of the token can exist. Mintable is technically delegable, but it's delegation should be controlled by a behavior like Roles.",
+            "businessExample": "A consortium of oil producers needs to create tokens for each barrel of oil they are putting on the market to trade. There are separate classes of tokens for each grade of oil. Producers of barrels will need be have the ability to mint new tokens in order to facilitate the trading of them in the supply chain.",
+            "analogies": [
+              {
+                "name": "SKU",
+                "description": "A token class can represent a particular item SKU, where the manufacturer of the item has the ability to mint or issue new inventory of the SKU into the supply chain."
+              }
+            ]
+          },
+          "influencedBySymbols": [
+            {
+              "description": "Roles is common to implement to provide authorization checks for invoking the behavior. Highly Recommended that Role restrictions be applied to MintTo invocations.",
+              "symbol": {
+                "type": "BEHAVIOR",
+                "visual": "<i>r</i>",
+                "tooling": "r"
+              }
+            }
+          ],
+          "artifactFiles": [
+            {
+              "content": "CONTROL",
+              "fileName": "mintable.proto"
+            },
+            {
+              "content": "UML",
+              "fileName": "mintable.md"
+            },
+            {
+              "content": "OTHER",
+              "fileName": ".DS_Store"
+            }
+          ],
+          "maps": {
+            "codeReferences": [
+              {
+                "name": "Open Zeppelin",
+                "referencePath": "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/ERC20Mintable.sol"
+              }
+            ],
+            "implementationReferences": [
+              {
+                "mappingType": "IMPLEMENTATION",
+                "name": "Implementation 1",
+                "platform": "CHAINCODE_GO"
+              }
+            ],
+            "resources": [
+              {
+                "mappingType": "RESOURCE",
+                "name": "Regulation Reference 1"
+              }
+            ]
+          }
+        },
+        "invocations": [
+          {
+            "influence": {
+              "influencingId": "c32726da-9787-4dd8-8de3-d07d1733d0f6",
+              "influencingInvocationId": "00a665e3-1dda-441e-8262-5750435c153c",
+              "influencedId": "f9224e90-3cab-45bf-b5dc-0175121e2ead",
+              "influencedInvocationId": "70499b23-a1dd-4c87-90d6-6e45400f28b5"
+            },
+            "invocationStep": {
+              "invocation": {
+                "id": "00a665e3-1dda-441e-8262-5750435c153c",
+                "name": "RoleCheck",
+                "description": "Check to see if the account is in the Role called 'Minters'",
+                "request": {
+                  "controlMessageName": "IsInRole",
+                  "description": "Checking the 'Minters' role.",
+                  "inputParameters": [
+                    {
+                      "name": "AccountId",
+                      "valueDescription": "AccountId of the requestor."
+                    }
+                  ]
+                },
+                "response": {
+                  "controlMessageName": "True/False",
+                  "description": "Respond true if the account is in the 'Minters' role.",
+                  "outputParameters": [
+                    {
+                      "name": "IsInRole",
+                      "valueDescription": "True/False"
+                    }
+                  ]
+                }
+              },
+              "nextInvocation": {
+                "invocation": {
+                  "id": "70499b23-a1dd-4c87-90d6-6e45400f28b5",
+                  "name": "MintTo",
+                  "description": "A request to create new token instances in the class by the owner or a party or account in a role that is granted this permission to another party or account.  Requires a To and Quantity fields in the request.",
+                  "request": {
+                    "controlMessageName": "MintToRequest",
+                    "description": "The request",
+                    "inputParameters": [
+                      {
+                        "name": "ToAccount",
+                        "valueDescription": "Account Id to mint the tokens to."
+                      },
+                      {
+                        "name": "Quantity",
+                        "valueDescription": "Number of new tokens to create."
+                      }
+                    ]
+                  },
+                  "response": {
+                    "controlMessageName": "MintToResponse",
+                    "description": "The response",
+                    "outputParameters": [
+                      {
+                        "name": "Confirmation",
+                        "valueDescription": "A confirmation receipt or error may be returned to the invoker based on the outcome of the MintTo request."
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          {
+            "invocationStep": {
+              "invocation": {
+                "id": "3ddf15db-c919-4f72-a57b-d089931bc901",
+                "name": "Mint",
+                "description": "A request to create new token instances in the class by the owner or a party or account in a role that is granted this permission. Minted tokens using this invocation will be owned by the owner or token pool account. Requires a Quantity field in the request.",
+                "request": {
+                  "controlMessageName": "MintRequest",
+                  "description": "The request",
+                  "inputParameters": [
+                    {
+                      "name": "Quantity",
+                      "valueDescription": "Number of new tokens to create."
+                    }
+                  ]
+                },
+                "response": {
+                  "controlMessageName": "MintResponse",
+                  "description": "The response",
+                  "outputParameters": [
+                    {
+                      "name": "Confirmation",
+                      "valueDescription": "A confirmation receipt or error may be returned to the invoker based on the outcome of the mint request."
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "behaviorGroups": [
+      {
+        "behaviors": [
+          {
+            "id": "f9224e90-3cab-45bf-b5dc-0175121e2ead",
+            "type": "BEHAVIOR",
+            "visual": "<i>m</i>",
+            "tooling": "m",
+            "version": "1.0"
+          },
+          {
+            "id": "803297a1-c0f9-4898-9d44-29c9d41cca97",
+            "type": "BEHAVIOR",
+            "visual": "<i>b</i>",
+            "tooling": "b",
+            "version": "1.0"
+          },
+          {
+            "id": "c32726da-9787-4dd8-8de3-d07d1733d0f6",
+            "type": "BEHAVIOR",
+            "visual": "<i>r</i>",
+            "tooling": "r",
+            "version": "1.0"
+          }
+        ]
+      }
+    ]
+  }
