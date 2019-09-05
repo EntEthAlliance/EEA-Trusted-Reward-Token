@@ -31,3 +31,6 @@ build/
 
 # Temp upload file directory
 uploads/*
+
+# Flattened Contracts
+Flattened_Contracts/
