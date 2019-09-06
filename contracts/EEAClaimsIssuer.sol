@@ -50,23 +50,23 @@ contract EEAClaimsIssuer is Ownable{
     }
 
 
-    function setMembershipClaim(address organization) public onlyOwner {
+    function setMembershipClaim(address organization) external onlyOwner {
         claimsRegistry.setClaim(organization, keccak256(abi.encodePacked("membership")), keccak256(abi.encodePacked("true")));
         emit MemberShipAdded(msg.sender, organization, now);
     }
 
-    function revokeMembership(address organization) public onlyOwner {
+    function revokeMembership(address organization) external onlyOwner {
         claimsRegistry.removeClaim(address(this), organization, keccak256(abi.encodePacked("membership")));
         emit MembershipRevoked(msg.sender, organization, now);
 
     }
 
-    function setClaim(address subject, bytes32 key, bytes32 value) public onlyOwner {
+    function setClaim(address subject, bytes32 key, bytes32 value) external onlyOwner {
         claimsRegistry.setClaim(subject, key, value);
         emit ClaimAdded(msg.sender, subject, key, value, now);
     }
 
-    function removeClaim(address subject, bytes32 key) public onlyOwner {
+    function removeClaim(address subject, bytes32 key) external onlyOwner {
         claimsRegistry.removeClaim(address(this), subject, key);
         emit ClaimRemoved(msg.sender, subject, key, now);
     }
