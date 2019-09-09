@@ -74,7 +74,7 @@ if __name__ == '__main__':
 	parser = argparse.ArgumentParser()
 	parser.add_argument('--input',   type=str, default='/encryptedInputs/eeaToken.json')
 	parser.add_argument('--abis',    type=str, default='.')
-	parser.add_argument('--address', type=str, default='0xE778DC1eC36aa3625A99AF70318c5c78f8c8ae32')
+	parser.add_argument('--address', type=str, default='0xD8ef41b5746c0a22A022AF4eB472b6654d2735df')
 	config = parser.parse_args()
 
 	eeaoperator = EEAOperator(config)
