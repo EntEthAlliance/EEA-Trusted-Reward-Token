@@ -47,21 +47,28 @@ class EEAOperator:
 			[]
 		)
 
-		self.contract.functions.batchMintRewards(
+		tx = self.contract.functions.batchMintRewards(
 			[  orgId for (orgId, addr, value) in operations if value > 0 ],
 			[   addr for (orgId, addr, value) in operations if value > 0 ],
 			[ +value for (orgId, addr, value) in operations if value > 0 ]
 		).transact({ 'from': self.account.address })
+		print(f'batchMintRewards: {tx.hex()}')
 
-		self.contract.functions.batchMintPenalties(
+		tx = self.contract.functions.batchMintPenalties(
 			[  orgId for (orgId, addr, value) in operations if value < 0 ],
 			[   addr for (orgId, addr, value) in operations if value < 0 ],
 			[ -value for (orgId, addr, value) in operations if value < 0 ]
 		).transact({ 'from': self.account.address })
+		print(f'batchMintPenalties: {tx.hex()}')
 
 	def redeem(self, data):
-		raise NotImplementedError("Redeem: What should I do?")
-
+		for block in data:
+			tx = self.contract.functions.burnRewards(
+				didToAddr(block['organization_ID']),
+				block['redeem_token'],
+				""
+			).transact({ 'from': self.account.address })
+			print(f'burnRewards: {tx.hex()}')
 
 if __name__ == '__main__':
 	parser = argparse.ArgumentParser()
