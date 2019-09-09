@@ -7,7 +7,6 @@ import operator
 import os
 import re
 from web3.auto        import w3
-from web3.contract    import Contract
 from web3.middleware  import construct_sign_and_send_raw_middleware, geth_poa_middleware
 
 # Types => Success => Value (positive values are reward, negative values are penalty)
