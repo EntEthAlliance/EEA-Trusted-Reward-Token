@@ -1,14 +1,16 @@
 #!/bin/python3
 
 import argparse
+import functools
 import json
-import re
+import operator
 import os
+import re
 from web3.auto        import w3
 from web3.contract    import Contract
-from web3.middleware  import construct_sign_and_send_raw_middleware
+from web3.middleware  import construct_sign_and_send_raw_middleware, geth_poa_middleware
 
-# Types → Success → Value (positive values are reward, negative values are penalty)
+# Types => Success => Value (positive values are reward, negative values are penalty)
 businessRules = {
 	0: { True:  +1, False:  -1},
 	1: { True:  +5, False:  -3},
@@ -26,17 +28,24 @@ class EEAOperator:
 		)
 		self.account = w3.eth.account.from_key(os.environ['enclave_key'])
 		w3.middleware_onion.add(construct_sign_and_send_raw_middleware(self.account))
+		w3.middleware_onion.inject(geth_poa_middleware, layer=0)
 
 	def issue_burn_tokens(self, data):
-		organizationID = didToAddr(data['organization_ID'])
-		operations = [
-			(
-				organizationID,
-				didToAddr(request['account']),
-				businessRules[request['type']][request['success']]
-			)
-			for request in data['token_request']
-		]
+		operations = functools.reduce(
+			operator.iconcat,
+			[
+				(
+					(
+						didToAddr(request_block['organization_ID']),
+						didToAddr(request['account']),
+						businessRules[request['type']][request['success']]
+					)
+					for request in request_block['token_request']
+				)
+				for request_block in data
+			],
+			[]
+		)
 
 		self.contract.functions.batchMintRewards(
 			[  orgId for (orgId, addr, value) in operations if value > 0 ],
@@ -51,10 +60,7 @@ class EEAOperator:
 		).transact({ 'from': self.account.address })
 
 	def redeem(self, data):
-		raise NotImplementedError
-
-	def share(self, data):
-		raise NotImplementedError
+		raise NotImplementedError("Redeem: What should I do?")
 
 
 if __name__ == '__main__':
