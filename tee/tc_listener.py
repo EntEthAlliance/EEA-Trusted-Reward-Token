@@ -12,6 +12,7 @@ from quart import Quart, jsonify, make_response, request
 # +---------------------------------------------------------------------------+
 
 app = Quart("TCF Listener")
+loop = asyncio.get_event_loop()
 
 # +---------------------------------------------------------------------------+
 # |                               APP ENDPOINTS                               |
@@ -25,7 +26,7 @@ async def proccessRequest(req):
 	mode = 1
 	prefix = '/app/mode_hw/tee/inputs/' if mode == 1 else '/app/mode_sim/data/'
 	path   = '/app/mode_hw/'            if mode == 1 else '/app/mode_sim/'
-	
+
 	fd, fp = tempfile.mkstemp(prefix=prefix)
 	try:
 		with os.fdopen(fd, 'w') as file:
@@ -37,7 +38,8 @@ async def proccessRequest(req):
 @app.route('/', methods=['POST'])
 async def index(*args,**kwargs):
 	req = await request.data
-	asyncio.create_task(proccessRequest(req.decode()))
+	# asyncio.create_task(proccessRequest(req.decode()))
+	loop.create_task(proccessRequest(req.decode()))
 	return await make_response(jsonifySuccess(req.decode()))
 
 @app.errorhandler(404)
