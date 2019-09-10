@@ -1,30 +1,48 @@
 #!/usr/bin/python3
 
 import argparse
-from flask import Flask, jsonify, make_response, request
+import asyncio
+import os
+import subprocess
+import tempfile
+from quart import Quart, jsonify, make_response, request
 
 # +---------------------------------------------------------------------------+
 # |                           ENVIRONMENT VARIABLES                           |
 # +---------------------------------------------------------------------------+
-app = Flask("TCF Listener")
+
+app = Quart("TCF Listener")
 
 # +---------------------------------------------------------------------------+
 # |                               APP ENDPOINTS                               |
 # +---------------------------------------------------------------------------+
 
-class RevertError(Exception): pass
-
 def jsonifySuccess(data): return jsonify({ 'ok': True,  'errorMessage': "",  'data': data })
 def jsonifyFailure(msg):  return jsonify({ 'ok': False, 'errorMessage': msg, 'data': {}   })
 
+
+async def proccessRequest(req):
+	mode = 1
+	prefix = '/app/mode_hw/tee/inputs/' if mode == 1 else '/app/mode_sim/data/'
+	path   = '/app/mode_hw/'            if mode == 1 else '/app/mode_sim/'
+	
+	fd, fp = tempfile.mkstemp(prefix=prefix)
+	try:
+		with os.fdopen(fd, 'w') as file:
+			file.write(req)
+		subprocess.run(['/bin/bash', f'{path}/run.sh', fp.split("/")[-1]])
+	finally:
+		os.remove(fp)
+
 @app.route('/', methods=['POST'])
-def index(*args,**kwargs):
-	print(request.data)
-	return make_response(jsonifySuccess(request.data.decode()))
+async def index(*args,**kwargs):
+	req = await request.data
+	asyncio.create_task(proccessRequest(req.decode()))
+	return await make_response(jsonifySuccess(req.decode()))
 
 @app.errorhandler(404)
-def not_found(error):
-	return make_response(jsonifyFailure('Not found'), 404)
+async def not_found(error):
+	return await make_response(jsonifyFailure('Not found'), 404)
 
 # +---------------------------------------------------------------------------+
 # |                                   MAIN                                    |
