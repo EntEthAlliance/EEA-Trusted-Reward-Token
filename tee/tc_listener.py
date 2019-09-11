@@ -12,7 +12,6 @@ from quart import Quart, jsonify, make_response, request
 # +---------------------------------------------------------------------------+
 
 app = Quart("TCF Listener")
-loop = asyncio.get_event_loop()
 
 # +---------------------------------------------------------------------------+
 # |                               APP ENDPOINTS                               |
@@ -39,7 +38,7 @@ async def proccessRequest(req):
 async def index(*args,**kwargs):
 	req = await request.data
 	# asyncio.create_task(proccessRequest(req.decode()))
-	loop.create_task(proccessRequest(req.decode()))
+	asyncio.get_event_loop().create_task(proccessRequest(req.decode()))
 	return await make_response(jsonifySuccess(req.decode()))
 
 @app.errorhandler(404)
