@@ -3,7 +3,6 @@
 import argparse
 import asyncio
 import os
-import subprocess
 import tempfile
 from quart import Quart, jsonify, make_response, request
 
@@ -20,6 +19,10 @@ app = Quart("TCF Listener")
 def jsonifySuccess(data): return jsonify({ 'ok': True,  'errorMessage': "",  'data': data })
 def jsonifyFailure(msg):  return jsonify({ 'ok': False, 'errorMessage': msg, 'data': {}   })
 
+async def run(cmd):
+	proc = await asyncio.create_subprocess_shell(cmd)
+	await proc.wait()
+	print(f'[{cmd!r} exited with {proc.returncode}]')
 
 async def proccessRequest(req):
 	mode = 1
@@ -30,7 +33,7 @@ async def proccessRequest(req):
 	try:
 		with os.fdopen(fd, 'w') as file:
 			file.write(req)
-		subprocess.run(['/bin/bash', f'{path}/run.sh', fp.split("/")[-1]])
+			await run(f'/bin/bash {path}/run.sh {fp.split("/")[-1]}')
 	finally:
 		os.remove(fp)
 
