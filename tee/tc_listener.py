@@ -33,7 +33,7 @@ async def proccessRequest(req):
 	try:
 		with os.fdopen(fd, 'w') as file:
 			file.write(req)
-			await run(f'/bin/bash {path}/run.sh {fp.split("/")[-1]}')
+		await run(f'/bin/bash {path}/run.sh {fp.split("/")[-1]}')
 	finally:
 		os.remove(fp)
 
