@@ -6,8 +6,8 @@ import json
 import operator
 import os
 import re
-from web3.auto        import w3
-from web3.middleware  import construct_sign_and_send_raw_middleware, geth_poa_middleware
+from web3.auto       import w3
+from web3.middleware import construct_sign_and_send_raw_middleware, geth_poa_middleware
 
 # Types => Success => Value (positive values are reward, negative values are penalty)
 businessRules = {
@@ -65,7 +65,7 @@ class EEAOperator:
 			tx = self.contract.functions.burnRewards(
 				didToAddr(block['organization_ID']),
 				block['redeem_token'],
-				""
+				''
 			).transact({ 'from': self.account.address })
 			print(f'burnRewards: {tx.hex()}')
 

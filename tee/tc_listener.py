@@ -30,11 +30,9 @@ class Blockchain:
 
 	def getRandomWorker(self, workerType=0, organizationId=NULL_BYTES32, appTypeId=NULL_BYTES32):
 		[ _, _, ids ] = self.contract.functions.workerLookUp(workerType, organizationId, appTypeId).call()
-		# worker_did = random.choice(ids)
-		worker_did = NULL_BYTES32 # DEBUG
+		worker_did = random.choice(ids)
 		[ status, workerType, organizationId, appTypeIds, details ] = self.contract.functions.workerRetrieve(worker_did).call()
-		# data = json.loads(details)
-		data = json.loads('{"IP": "40.91.240.124"}') # DEBUG
+		data = json.loads(details)
 		return worker_did, data
 
 # +---------------------------------------------------------------------------+
