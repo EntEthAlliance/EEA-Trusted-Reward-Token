@@ -21,8 +21,8 @@ didToAddr = lambda did: w3.toChecksumAddress(re.search('^did:ethr:[0-9a-f]{0,24}
 
 class EEAOperator:
 	def __init__(self, config):
-		self.contract = w3.eth.contract(                                        \
-			address=config.address,                                             \
+		self.contract = w3.eth.contract(                                   \
+			address=config.address,                                        \
 			abi=json.load(open(f'{config.abis}/EEAOperator.json'))['abi'], \
 		)
 		self.account = w3.eth.account.from_key(os.environ['enclave_key'])
