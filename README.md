@@ -20,9 +20,9 @@ The first use case is an EEA trusted reward token to incentivize EEA membership 
 Diagrams and full [TTF](http://tokentaxonomy.org) specifications for these tokens is below:
 
 - [Token Sequence Diagrams](ttf/grant-flow.md)
-- [TTF EEA Grant Specification](ttf/eea-grant-spec.json)
-- [TTF EEA Reward Specification](ttf/eea-reward-spec.json)
-- [TTF EEA Reputation Specification](ttf/eea-reputation-spec.json)
+- [TTF EEA Reward Specification](ttf/EEA-Reward/latest/EEA-Reward-spec.pdf)
+- [TTF EEA Reputation Specification](ttf/EEA-Reputation/latest/EEA-Reputation-spec.pdf)
+- [TTF EEA Penalty Specification](ttf/EEA-Penalty/latest/EEA-Penalty-spec.pdf)
 
 There are **3 tokens** in the EEA Token ecosystem (EEA Reputation, EEA Reward, and EEA Penalty).
 
