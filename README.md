@@ -179,6 +179,8 @@ Structure could follow something like [this](https://entethalliance.github.io/cl
 
 [Token Model](https://docs.google.com/spreadsheets/d/1w1mtxifcpfeqjQk-vJFFGBjtH7UgcSrNj0urp6VXMbM/edit#gid=0)
 
+[Token Implementation Architecture with TEE](https://docs.google.com/spreadsheets/d/1w1mtxifcpfeqjQk-vJFFGBjtH7UgcSrNj0urp6VXMbM/edit#gid=0)
+
 ## Initialization, Deployments, & Migrations
 
 Add details here about initialization, deployment and migration.
@@ -430,3 +432,16 @@ compile
 # Migrate contract
 migrate
 ```
+
+### TEE (Trusted Execution Environment)
+EEA trusted token off-chain execution is based on the [EEA Off-Chain Trusted Compute Specification v1.0](https://entethalliance.org/wp-content/uploads/2019/05/EEA_Off_Chain_Trusted_Compute_Specification_V1_0.pdf), the token Reward/Penalty business execution logics are actually running inside a TEE (i.e. Microsoft Azure SGX VM).
+#### Why we need to offload on-chain execution to off-chain TEE?
+Short answer is all about the Ethereum Scalability.
+EEA Trusted Token Reward/Penalty business rules could be updated frequently, running all those frequently-updated execution logic via on-chain smart contracts would represent a cost. In some other use case, the smart contract could be complicated and thus be very costly.
+Indeed, the on-chain (complicated or/and frequently-updated) execution logic could be securely off-loaded to the off-chain TEE (i.e. Intel SGX enclave), the execution logics can be smart contracts, and can also be applications coded in all the mainstream languages like python, Java, JS, C++, etc...; the owner's private key (i.e. EEA/Org Admin's key which is used to sign the Blockchain transaction) could be transferred to the off-chain secure enclave within a high secure secret provision channel, and the Blockchain transaction (based on the execution logic results) could be sent directly from the TEE enclave based on owner's private key. Please note that this private key could never be inspected by anyone thanks to the protection of TEE.
+With decentralized cloud computing backed by TEE, a smart contract on main-net can offload its compute-intensive workloads to off-chain networking without compromising user experience and security.
+#### What's the Token Implementation Architecture with TEE?
+The current Token Implementation Architecture is based on [Trusted Compute Framework (TCF)](https://wiki.hyperledger.org/pages/viewpage.action?pageId=16324764).
+iExec implemented two principle components of TEE: TEE listener and TEE execution logic, and deployed the SGX framework to Azure SGX VM.
+TEE listener intercepts the token request data from the UI, parses, encrypts and send them to the remote TEE workers, the secret (i.e. owner's private key) is also managed and sent in a high-secure-channel to remote TEE enclave.
+TEE execution logic runs on remote TEE node and executes the token issuance/burn business logic and manage to send the transaction to Blockchain in a secure way.
