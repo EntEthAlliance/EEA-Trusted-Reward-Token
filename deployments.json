@@ -1,0 +1,12 @@
+{
+	"WorkerRegistry":
+	{
+		"transaction hash": "0x4fe59cf4f64a3d0799c1667ff707a6a27eec1fc0869def2a1523f5808884117c",
+		"contract address": "0x692b4603339A28d951249824885Cae9f1Cb66DD0"
+	},
+	"WorkOrderRegistry":
+	{
+		"transaction hash": "0x642aa7ca6225bc88077e464a987a51c1da0a100420452689dcfaf3304cf0dcf4",
+		"contract address": "0xf256E789FAd151d95a6521d2cF13caF9111F8D98"
+	}
+}

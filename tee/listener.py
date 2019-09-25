@@ -30,7 +30,7 @@ class EventProcessor:
 		self.listeners = [ asyncio.create_task(self.listener(eventListener)) for _ in range(1) ]
 		self.handlers  = [ asyncio.create_task(self.handler(callback))       for _ in range(8) ]
 		await asyncio.gather(*self.listeners) # infinite loop
-		await queue.join() # this code should never run
+		await self.queue.join() # this code should never run
 		await self.stop() # this code should never run
 
 	async def stop(self):

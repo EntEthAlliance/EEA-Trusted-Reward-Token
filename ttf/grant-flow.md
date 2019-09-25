@@ -2,9 +2,7 @@
 
 A grant is created for each organization contributing to an EEA Working Group or Special Interest Group.  The chair or co-chair will create the grant request from a template form indicating the reward amount, organization, commitment description, commitment outcome, the organization's contributors with expected contribution percentages equal to 100%.
 
-The reward amount represents the total positive reward that will be transformed or spawned into both Redeemable and Reputation tokens. The Redeemable tokens will be rewarded to the organization and the reputation tokens will be split according to percentages to the organization's contributors. The reward amount has a lower and an upper bound where the lower bound can be a negative number and the upper bound represents the maximum potential.
-
-Vesting is the same as totals for Redemption and Reputation balances are sums, the amount will simply add or subtract from the total for the organization and the individual contributor.
+The reward amount represents the total positive reward that will be minted into both Reward and Reputation tokens. The Reward tokens will be rewarded to the organization and the reputation tokens will be split according to percentages to the organization's contributors. The reward amount has a lower and an upper bound where the lower bound can be a negative number and the upper bound represents the maximum potential.
 
 Assumptions:
 

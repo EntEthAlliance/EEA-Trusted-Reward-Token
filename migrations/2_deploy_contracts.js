@@ -1,10 +1,12 @@
-const EEAOperator = artifacts.require('../contracts/EEAOperator.sol');
-const RewardToken = artifacts.require('../contracts/RewardToken.sol');
-const PenaltyToken = artifacts.require('../contracts/PenaltyToken.sol');
-const ReputationToken = artifacts.require('../contracts/ReputationToken.sol');
-const DidRegistryContract = artifacts.require('../contracts/EthereumDIDRegistry.sol');
-const EEAClaimsIssuer = artifacts.require('../contracts/EEAClaimsIssuer.sol');
-const EthereumClaimsRegistry = artifacts.require('../contracts/EthereumClaimsRegistry.sol');
+const EEAOperator = artifacts.require('EEAOperator');
+const RewardToken = artifacts.require('RewardToken');
+const PenaltyToken = artifacts.require('PenaltyToken');
+const ReputationToken = artifacts.require('ReputationToken');
+const DidRegistryContract = artifacts.require('EthereumDIDRegistry');
+const EEAClaimsIssuer = artifacts.require('EEAClaimsIssuer');
+const EthereumClaimsRegistry = artifacts.require('EthereumClaimsRegistry');
+const WorkerRegistry = artifacts.require('WorkerRegistry')
+const WorkOrderRegistry = artifacts.require('WorkOrderRegistry')
 
 const Contract = require('../node_modules/truffle-contract');
 const Web3 = require('../node_modules/web3');
@@ -42,5 +44,7 @@ module.exports = async function (deployer, network, accounts) {
     let reputationToken = await deployer.deploy(ReputationToken, tokenOperators);
     let rewardToken = await deployer.deploy(RewardToken, tokenOperators, didReg.address, claimsReg.address, eeaIssuer.address);
     await operator.registerTokens(penaltyToken.address, rewardToken.address, reputationToken.address);
-    
+
+    await deployer.deploy(WorkerRegistry);
+    await deployer.deploy(WorkOrderRegistry);    
 };
