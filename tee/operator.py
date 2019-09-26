@@ -17,7 +17,7 @@ businessRules = {
 	3: { True: +25, False: -10},
 }
 
-didToAddr = lambda did: w3.toChecksumAddress(re.search('^did:ethr:[0-9a-f]{0,24}([0-9a-f]{40})$', did).group(1))
+didToAddr = lambda did: w3.toChecksumAddress(re.search('^did:ethr:[0-9a-fA-F]{0,24}([0-9a-fA-F]{40})$', did).group(1))
 
 class EEAOperator:
 	def __init__(self, config):
