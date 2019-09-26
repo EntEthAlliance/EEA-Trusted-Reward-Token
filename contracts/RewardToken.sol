@@ -3,6 +3,7 @@ pragma solidity ^0.5.0;
 import "./ModifiedERC777.sol";
 import "./EEATransferableToken.sol";
 
+
 /**
  * @title EEA Reward Token
  */
@@ -30,22 +31,22 @@ contract RewardToken is ModifiedERC777, EEATransferableToken {
 
 
 
-    function send(address recipient, uint256 amount, bytes memory data) public {
+    function send(address recipient, uint256 amount, bytes calldata data) external {
         require (_memberCheck(recipient), "Error: Not EEA member");
-        send(recipient, amount, data);
+        _send(msg.sender, msg.sender, recipient, amount, data, "", true);
     }
 
 
     function transfer(address recipient, uint256 amount) public returns (bool) {
         require (_memberCheck(recipient), "Error: Not EEA member");
-        transfer(recipient, amount);
+        super.transfer(recipient, amount);
     }
 
 
 
     function transferFrom(address holder, address recipient, uint256 amount) public returns (bool) {
         require (_memberCheck(recipient), "Error: Not EEA member");
-        transferFrom(holder, recipient, amount);
+        super.transferFrom(holder, recipient, amount);
     }
 
 }

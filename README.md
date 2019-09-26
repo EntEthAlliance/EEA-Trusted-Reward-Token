@@ -20,9 +20,9 @@ The first use case is an EEA trusted reward token to incentivize EEA membership 
 Diagrams and full [TTF](http://tokentaxonomy.org) specifications for these tokens is below:
 
 - [Token Sequence Diagrams](ttf/grant-flow.md)
-- [TTF EEA Grant Specification](ttf/eea-grant-spec.json)
-- [TTF EEA Reward Specification](ttf/eea-reward-spec.json)
-- [TTF EEA Reputation Specification](ttf/eea-reputation-spec.json)
+- [TTF EEA Reward Specification](ttf/EEA-Reward/latest/EEA-Reward-spec.pdf)
+- [TTF EEA Reputation Specification](ttf/EEA-Reputation/latest/EEA-Reputation-spec.pdf)
+- [TTF EEA Penalty Specification](ttf/EEA-Penalty/latest/EEA-Penalty-spec.pdf)
 
 There are **3 tokens** in the EEA Token ecosystem (EEA Reputation, EEA Reward, and EEA Penalty).
 
@@ -30,9 +30,9 @@ The tokens are used to incentivize participation of EEA member organizations and
 
 The **EEA Reward Token** is used to incentivize participation of EEA member organizations and their employees in EEA SIGs and TWGs. Tokens are issued as "Grants" for participation in EEA activities such as working group calls, deliverables or F2F meetings. The **EEA Reward Token Grant** is a **contract** between the EEA SIG or TWG's chairman, the participating organization and it's contributing individuals and details the potential reward that can be earned by following through with the commitment that the grant represents. A contracted commitment to perform and contribute towards an activity by an organization will reflect the relative impact and detail the potential reward in the grant. The grant also has a potential negative reward if the commitment is not followed through. A grant has a vesting schedule that indicates when the tokens in the grant can be minted. Tokens in the grant remain as potential until a vesting occurs. The number of vests defined in the schedule determines the percentage of the tokens in the grant that can be transformed for each vesting event. In this case, there is only a single vest event.
 
-The token grant vests at the end of the the sponsored SIG or TWG effort defined in the grant, where the token grant can mint **three** different kinds of tokens, Reward, Penalty and Reputation.  The reputation token is a "Lifetime" score of reputation for an individual within the EEA. Reward and Penalty are redeemable tokens, or spent and burned applying towards the payment of the annual membership dues. The Reward token has a 0 or positive value, is transferable and is applied towards the purchase of swag from an EEA swag pool or a specific sponsor bounty outlined in the grant. However, the Penalty token has a zero or negative balance, is **non-transferable** and burned after redeemed, which increases annual dues at the end of the cycle. The Reputation token is non-transferable and not redeemable.
+The token grant vests at the end of the the sponsored SIG or TWG effort defined in the grant, where the token grant can mint **three** different kinds of tokens, Reward, Penalty and Reputation.  The reputation token is a "Lifetime" score of reputation for an individual within the EEA. The Reward token has a 0 or positive value, is transferable and is applied towards the purchase of swag from an EEA swag pool or a specific sponsor bounty outlined in the grant. However, the Penalty token has a zero or negative balance, is **non-transferable** and burned after redeemed, which decreases the total Rewards balance. The Reputation token is non-transferable and not redeemable.
 
-Initial issuance of a token grant is based on "potential" activity the member commits to. Full delivery of the commitment will allow the grant to vest at 100% into its positive value. Failure to deliver on a grant commitment will result in the negative value or Penalty tokens to be minted. The value of the grant, positive or negative, effects the overall Reward or Penalty tokens and individual's Reputation balances. The grant can also include a sponsor bounty, which is a donation from an interested party towards the completion of the commitment.
+Initial issuance of a token grant is based on "potential" activity the member commits to. Full delivery of the commitment will allow the grant to vest at 100% into its positive value. Failure to deliver on a grant commitment will result in the negative value or Penalty tokens to be minted. The value of the grant, positive or negative, effects the overall Reward or Penalty tokens and individual's Reputation balances. The grant can also include a sponsor bounty, which is a donation from an interested party towards the completion of the commitment that can be obtained with redeemed Reward tokens.
 
 Vesting of the grant issues or mints redeemable tokens, Reward or Penalty, to the organization and the Reputation tokens to the organization's contributors. The Grant contract is updated prior to vesting to reflect the actual reward or penalty and individuals contribution percentages.
 
@@ -46,7 +46,7 @@ For example, if an organization collects 10,000 tokens during its annual members
 
 ### EEA Reward Token Grant Example
 
-As an example, the chair of a SIG sets up a EEA Grant for an organization that is committing to participate in the groups project deliverable. After defining the organizations commitment and setting Key Performance Indicators (PKI) to determine completion, the Grant Contract is defined as such:
+As an example, the chair of a SIG sets up a EEA Grant for an organization that is committing to participate in the groups project deliverable. After defining the organizations commitment and setting Key Performance Indicators (KPI) to determine completion, the Grant Contract is defined as such:
 
 Grant Potential:
 
@@ -178,6 +178,8 @@ Structure could follow something like [this](https://entethalliance.github.io/cl
 [Token Flow](https://drive.google.com/file/d/1X1UHYsrOzYmEa2gLKGc2mpj6IXViD2o5/view)
 
 [Token Model](https://docs.google.com/spreadsheets/d/1w1mtxifcpfeqjQk-vJFFGBjtH7UgcSrNj0urp6VXMbM/edit#gid=0)
+
+[Token Implementation Architecture with TEE](https://drive.google.com/a/iex.ec/file/d/1TZ_Q0tj0mY4kbSbSkSBy_YU29oR-NFcZ/view?usp=sharing)
 
 ## Initialization, Deployments, & Migrations
 
@@ -430,3 +432,23 @@ compile
 # Migrate contract
 migrate
 ```
+
+### TEE (Trusted Execution Environment)
+EEA trusted token off-chain execution is based on the [EEA Off-Chain Trusted Compute Specification v1.0](https://entethalliance.org/wp-content/uploads/2019/05/EEA_Off_Chain_Trusted_Compute_Specification_V1_0.pdf), the token Reward/Penalty business execution logic are actually running inside TEE (i.e. Microsoft Azure SGX VM).
+#### Why do we need to off-load on-chain execution to off-chain TEE?
+Short answer is all about the Ethereum Scalability.
+
+EEA Trusted Token Reward/Penalty business rules could be updated frequently, running all those frequently-updated execution logic via on-chain smart contracts would represent a cost. In some other use case, the smart contract could be complicated and thus be very costly.
+
+
+Indeed, the on-chain (complicated or/and frequently-updated) execution logic could be securely off-loaded to the off-chain TEE (i.e. Intel SGX enclave), the execution logic can be smart contracts, or any application coded in almost any mainstream language like python, Java, JS, C++, etc...; the owner's private key (i.e. EEA/Organization admin's key which is used to sign the Blockchain transaction) could be transferred to the off-chain secure enclave within a high secure secret provision channel, and the Blockchain transaction (based on the execution logic results) could be sent directly from the TEE enclave based on owner's private key. Please note that this private key can never be inspected by anyone thanks to the protection of TEE.
+
+
+With decentralized cloud computing backed by TEE, a smart contract on main-net can offload its compute-intensive workloads to off-chain networking without compromising user experience and security.
+
+#### What's the Token Implementation Architecture with TEE?
+The current Token Implementation Architecture is based on [Trusted Compute Framework (TCF)](https://wiki.hyperledger.org/pages/viewpage.action?pageId=16324764).
+
+iExec implemented two principle components of TEE: TEE listener and TEE execution logic, and deployed the SGX framework to Azure SGX VM.
+
+TEE listener intercepts the token request data from the UI, parses, encrypts and send them to the remote TEE workers, the secret (i.e. owner's private key) is also managed and sent in a high-secure-channel to remote TEE enclave. TEE execution logic runs on remote TEE node and executes the token issuance/burn business logic and manage to send the transaction to Blockchain in a secure way.
