@@ -8,6 +8,7 @@ import "node_modules/openzeppelin-solidity/contracts/math/SafeMath.sol";
 import "node_modules/openzeppelin-solidity/contracts/utils/Address.sol";
 import "node_modules/openzeppelin-solidity/contracts/introspection/IERC1820Registry.sol";
 
+
 /**
  * @dev Implementation of the `IERC777` interface.
  *
@@ -133,7 +134,7 @@ contract ModifiedERC777 is IERC777, IERC20 {
      *
      * Also emits a `Transfer` event for ERC20 compatibility.
      */
-    function send(address recipient, uint256 amount, bytes memory data) public {
+    function send(address recipient, uint256 amount, bytes calldata data) external {
         _send(msg.sender, msg.sender, recipient, amount, data, "", true);
     }
 
@@ -349,7 +350,7 @@ contract ModifiedERC777 is IERC777, IERC20 {
         bytes memory operatorData,
         bool requireReceptionAck
     )
-        private
+        internal
     {
         require(from != address(0), "ERC777: send from the zero address");
         require(to != address(0), "ERC777: send to the zero address");
