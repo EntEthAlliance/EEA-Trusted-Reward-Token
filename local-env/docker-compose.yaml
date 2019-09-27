@@ -1,0 +1,63 @@
+version: '2'
+services:
+  node1:
+    image: hyperledger/besu:1.2.4
+    command: --data-path=/var/lib/besu --genesis-file=/var/lib/besu/genesis.json --rpc-http-enabled --rpc-http-host=0.0.0.0 --rpc-ws-enabled --rpc-ws-host=0.0.0.0 --discovery-enabled=false --p2p-host=0.0.0.0 --rpc-http-api=ETH,NET,WEB3,DEBUG,MINER,ADMIN,TXPOOL,CLIQUE --rpc-ws-api=ETH,NET,WEB3,DEBUG,MINER,ADMIN,TXPOOL,CLIQUE --rpc-http-cors-origins='*' --host-whitelist='*' --min-gas-price=0
+    ports:
+      - 22011:8545
+      - 22012:8546
+    volumes:
+      - '/home/eea/devcon/besu/node1:/var/lib/besu'
+    networks:
+      devcon_net:
+        ipv4_address: '172.13.0.2'
+
+  ethsigner1:
+    image: pegasyseng/ethsigner
+    command: --chain-id=12345 --downstream-http-host=node1 --downstream-http-port=8545 --http-listen-host=0.0.0.0 --http-listen-port=8555 file-based-signer --password-file=/var/lib/ethsigner/password.txt --key-file=/var/lib/ethsigner/keystore/account.txt
+    ports:
+      - 22001:8555
+      - 22002:8556
+    volumes:
+      - '/home/eea/devcon/ethsigner/node1:/var/lib/ethsigner'
+    depends_on:
+      - node1
+    networks:
+      devcon_net:
+        ipv4_address: '172.13.0.3'
+
+  node2:
+    image: hyperledger/besu:1.2.4
+    command: --data-path=/var/lib/besu --genesis-file=/var/lib/besu/genesis.json --rpc-http-enabled --rpc-http-host=0.0.0.0 --rpc-ws-enabled --rpc-ws-host=0.0.0.0 --discovery-enabled=false --p2p-host=0.0.0.0 --rpc-http-api=ETH,NET,WEB3,DEBUG,MINER,ADMIN,TXPOOL,CLIQUE --rpc-ws-api=ETH,NET,WEB3,DEBUG,MINER,ADMIN,TXPOOL,CLIQUE --rpc-http-cors-origins='*' --host-whitelist='*' --min-gas-price=0
+    ports:
+      - 23011:8545
+      - 23012:8546
+    volumes:
+      - '/home/eea/devcon/besu/node2:/var/lib/besu'
+    networks:
+      devcon_net:
+        ipv4_address: '172.13.0.4'
+
+  ethsigner2:
+    image: pegasyseng/ethsigner
+    command: --chain-id=12345 --downstream-http-host=node2 --downstream-http-port=8545 --http-listen-host=0.0.0.0 --http-listen-port=8555 file-based-signer --password-file=/var/lib/ethsigner/password.txt --key-file=/var/lib/ethsigner/keystore/account.txt
+    ports:
+      - 23001:8555
+      - 23002:8556
+    volumes:
+      - '/home/eea/devcon/ethsigner/node2:/var/lib/ethsigner'
+    depends_on:
+      - node2
+    networks:
+      devcon_net:
+        ipv4_address: '172.13.0.5'
+
+
+networks:
+  devcon_net:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+      - subnet: 172.13.0.0/16
+
