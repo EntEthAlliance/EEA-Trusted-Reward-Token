@@ -75,7 +75,7 @@ services:
       # this allows the tee-listener instance to use the same docker daemon that launched it
       # to launch a sibling instance for executing the TCF logic and be attached to the same network
       - /var/run/docker.sock:/var/run/docker.sock
-      #- ./tee-listener/data:/app/mode_sim/data
+      - sim_v:/app/mode_sim/data
       - ./tee-listener/secrets:/run/secrets
     ports:
       - 5000:5000
@@ -84,6 +84,10 @@ services:
       # note because the TCF container is launched as a sibling, it automatically shares the same
       # network so the "node1" hostname is resolvable
       - TCF_WEB3_URI="http://node1:22001"
+
+volumes:
+  sim_v:
+    external: true
 
 networks:
   devcon_net:
