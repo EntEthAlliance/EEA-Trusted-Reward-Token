@@ -15,24 +15,29 @@ const truffleConfig = require('../truffle-config');
 require('../node_modules/openzeppelin-test-helpers/configure')({ web3 });
 const {singletons} = require('../node_modules/openzeppelin-test-helpers');
 
+function isPublicNetwork(network) {
+  const list = ["dev", "devcon", "kaleido"];
+  if (list.indexOf(network) >= 0)
+    return false;
+  else
+    return true;
+}
 module.exports = async function (deployer, network, accounts) {
     let eeaAdmin = accounts[0];
-    /* Test
-    if (network === 'dev' || network === 'kaleido') {
+    if (!isPublicNetwork(network)) {
         // In a test environment an ERC777 token requires deploying an ERC1820 registry
         await singletons.ERC1820Registry(eeaAdmin);
     }
     
     let DidReg = Contract(DidRegistryContract);
 
-    if (network === 'dev') {
-        DidReg.setProvider(new Web3.providers.HttpProvider('http://localhost:8545'));
-    }
-
-    if (network === 'kaleido') {
+    if (!isPublicNetwork(network)) {
+      if (network === 'kaleido') {
         DidReg.setProvider(truffleConfig.networks.kaleido.provider());
+      } else {
+        DidReg.setProvider(new Web3.providers.HttpProvider(`http://${truffleConfig.networks[network].host}:${truffleConfig.networks[network].port}`));
+      }
     }
-    */
 
     await singletons.ERC1820Registry(eeaAdmin);
     let didReg = await deployer.deploy(DidRegistryContract);
