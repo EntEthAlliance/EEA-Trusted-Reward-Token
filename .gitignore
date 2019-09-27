@@ -37,4 +37,6 @@ uploads/*
 Flattened_Contracts/
 
 local-env/besu/node1/database
+local-env/besu/node1/besu.ports
 local-env/besu/node2/database
+local-env/besu/node2/besu.ports
