@@ -3,7 +3,7 @@ services:
   #
   # node1 is first of the two-node ethereum private network based on Hyperledger Besu
   #
-  node1:
+  node1.eea.org:
     image: hyperledger/besu:1.2.4
     command: --data-path=/var/lib/besu --genesis-file=/var/lib/besu/genesis.json --rpc-http-enabled --rpc-http-host=0.0.0.0 --rpc-ws-enabled --rpc-ws-host=0.0.0.0 --discovery-enabled=false --p2p-host=0.0.0.0 --rpc-http-api=ETH,NET,WEB3,DEBUG,MINER,ADMIN,TXPOOL,CLIQUE --rpc-ws-api=ETH,NET,WEB3,DEBUG,MINER,ADMIN,TXPOOL,CLIQUE --rpc-http-cors-origins='*' --host-whitelist='*' --min-gas-price=0
     ports:
@@ -20,14 +20,14 @@ services:
   #
   ethsigner1:
     image: pegasyseng/ethsigner
-    command: --chain-id=12345 --downstream-http-host=node1 --downstream-http-port=8545 --http-listen-host=0.0.0.0 --http-listen-port=8555 file-based-signer --password-file=/var/lib/ethsigner/password.txt --key-file=/var/lib/ethsigner/keystore/account.txt
+    command: --chain-id=12345 --downstream-http-host=node1.eea.org --downstream-http-port=8545 --http-listen-host=0.0.0.0 --http-listen-port=8555 file-based-signer --password-file=/var/lib/ethsigner/password.txt --key-file=/var/lib/ethsigner/keystore/account.txt
     ports:
       - 22001:8555
       - 22002:8556
     volumes:
       - './ethsigner/node1:/var/lib/ethsigner'
     depends_on:
-      - node1
+      - node1.eea.org
     networks:
       devcon_net:
         ipv4_address: '172.13.0.3'
@@ -35,7 +35,7 @@ services:
   #
   # node2 is the second of the two-node ethereum private network based on Hyperledger Besu
   #
-  node2:
+  node2.eea.org:
     image: hyperledger/besu:1.2.4
     command: --data-path=/var/lib/besu --genesis-file=/var/lib/besu/genesis.json --rpc-http-enabled --rpc-http-host=0.0.0.0 --rpc-ws-enabled --rpc-ws-host=0.0.0.0 --discovery-enabled=false --p2p-host=0.0.0.0 --rpc-http-api=ETH,NET,WEB3,DEBUG,MINER,ADMIN,TXPOOL,CLIQUE --rpc-ws-api=ETH,NET,WEB3,DEBUG,MINER,ADMIN,TXPOOL,CLIQUE --rpc-http-cors-origins='*' --host-whitelist='*' --min-gas-price=0
     ports:
@@ -52,14 +52,14 @@ services:
   #
   ethsigner2:
     image: pegasyseng/ethsigner
-    command: --chain-id=12345 --downstream-http-host=node2 --downstream-http-port=8545 --http-listen-host=0.0.0.0 --http-listen-port=8555 file-based-signer --password-file=/var/lib/ethsigner/password.txt --key-file=/var/lib/ethsigner/keystore/account.txt
+    command: --chain-id=12345 --downstream-http-host=node2.eea.org --downstream-http-port=8545 --http-listen-host=0.0.0.0 --http-listen-port=8555 file-based-signer --password-file=/var/lib/ethsigner/password.txt --key-file=/var/lib/ethsigner/keystore/account.txt
     ports:
       - 23001:8555
       - 23002:8556
     volumes:
       - './ethsigner/node2:/var/lib/ethsigner'
     depends_on:
-      - node2
+      - node2.eea.org
     networks:
       devcon_net:
         ipv4_address: '172.13.0.5'
@@ -83,7 +83,7 @@ services:
       # used to tell the docker container running SGX where the target blockchain is
       # note because the TCF container is launched as a sibling, it automatically shares the same
       # network so the "node1" hostname is resolvable
-      - TCF_WEB3_URI="http://node1:22001"
+      - TCF_WEB3_URI=http://node1.eea.org:22001
 
 volumes:
   sim_v:
