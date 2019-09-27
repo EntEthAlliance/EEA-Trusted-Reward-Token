@@ -7,7 +7,7 @@ services:
       - 22011:8545
       - 22012:8546
     volumes:
-      - '/home/eea/devcon/besu/node1:/var/lib/besu'
+      - './besu/node1:/var/lib/besu'
     networks:
       devcon_net:
         ipv4_address: '172.13.0.2'
@@ -19,7 +19,7 @@ services:
       - 22001:8555
       - 22002:8556
     volumes:
-      - '/home/eea/devcon/ethsigner/node1:/var/lib/ethsigner'
+      - './ethsigner/node1:/var/lib/ethsigner'
     depends_on:
       - node1
     networks:
@@ -33,7 +33,7 @@ services:
       - 23011:8545
       - 23012:8546
     volumes:
-      - '/home/eea/devcon/besu/node2:/var/lib/besu'
+      - './besu/node2:/var/lib/besu'
     networks:
       devcon_net:
         ipv4_address: '172.13.0.4'
@@ -45,7 +45,7 @@ services:
       - 23001:8555
       - 23002:8556
     volumes:
-      - '/home/eea/devcon/ethsigner/node2:/var/lib/ethsigner'
+      - './ethsigner/node2:/var/lib/ethsigner'
     depends_on:
       - node2
     networks:

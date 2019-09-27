@@ -35,3 +35,6 @@ uploads/*
 
 # Flattened Contracts
 Flattened_Contracts/
+
+local-env/besu/node1/database
+local-env/besu/node2/database
