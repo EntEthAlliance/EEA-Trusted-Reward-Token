@@ -17,3 +17,7 @@ The Ethereum RPC endpoints for the two Besu nodes are:
   * signing account: 0x7085d4d4c6efea785edfba5880bb62574e115626
 * http://localhost:23001
   * signing account: 0xb36b1934004385bfa5c51eaecb8ec348ec733ca8
+
+## TODO
+* add TEE listener container to docker-compose
+* add front-end container to docker-compose
