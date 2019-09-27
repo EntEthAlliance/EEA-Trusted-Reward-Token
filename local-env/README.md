@@ -75,5 +75,35 @@ Summary
 ```
 
 ## TODO
-* add TEE listener container to docker-compose
+* tee-listener was able to launch TCF enclave to process the token logic, but results in an error:
+
+```
+Running on https://0.0.0.0:5000 (CTRL + C to quit)
+[2019-09-27 18:14:52,126] ASGI Framework Lifespan error, continuing without Lifespan support
+[2019-09-27 18:16:11,922] 172.20.0.1:44836 POST / 1.1 200 556 15079
+export SCONE_QUEUES=4
+export SCONE_SLOTS=256
+export SCONE_SIGPIPE=0
+export SCONE_MMAP32BIT=0
+export SCONE_SSPINS=100
+export SCONE_SSLEEP=4000
+export SCONE_LOG=0
+export SCONE_HEAP=1073741824
+export SCONE_STACK=2097152
+export SCONE_CONFIG=/etc/sgx-musl.conf
+export SCONE_ESPINS=10000
+export SCONE_MODE=sim
+export SCONE_ALLOW_DLOPEN=yes (unprotected)
+export SCONE_MPROTECT=no
+musl version: 1.1.20
+Revision: 20d71e5cb024d0295eec9a6218835294645813c3 (Fri Jul 19 18:56:03 2019 +0200)
+Branch: sergei-iexec-all-features (dirty)
+
+Enclave hash: 4e6758e38f332d8eb718bc0037dbdedd00d3bb196dd3ff894938b32156179c38
+EEA trusted token execution logic starts running in TEE simulation mode.
+Traceback (most recent call last):
+  File "/mode_sim/signer/sign_sim.py", line 82, in <module>
+    with open('/mode_sim/data/sign_key') as sf:
+FileNotFoundError: [Errno 2] No such file or directory: '/mode_sim/data/sign_key'
+```
 * add front-end container to docker-compose
