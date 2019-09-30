@@ -366,7 +366,7 @@ For `EEA Operator` the only callable function is:
 
 All `EthereumClaimsRegistry` functions are callable; this is a public contract.
 
-All `EthereumClaimsRegistry` functions are callable; this is a public contract.
+All `EthereumDIDRegistry` functions are callable; this is a public contract.
 
 All token **ReadOnly** functions are public functions.
 
