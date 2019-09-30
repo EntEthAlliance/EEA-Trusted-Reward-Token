@@ -305,7 +305,7 @@ The function to do this is:
 
 This function **MUST** be called by the organization with:
 
-1. `identity` set to the employees address
+1. `identity` set to the organization's own address
 
 2. `delegateType` set to:
 
@@ -313,7 +313,9 @@ This function **MUST** be called by the organization with:
 
 NOTE: if `delegateType` is set to anything else, the delegate will not be considered registered within the smart contract ecosystem.
 
-3.`validity` set to some number in seconds for how long the claim is valid for (e.g., 31536000 = 1 year).
+3. `delegate` set to the employee's address
+
+4.`validity` set to some number in seconds for how long the claim is valid for (e.g., 31536000 = 1 year).
 Note: the validity can be set to large numbers to ensure the claim is valid for the forseeable future (e.g., 3153600000 = 100 years)
 
 That is it, once all of these steps are complete, the EEA Admin can start issuing rewards and penalties.
