@@ -33,6 +33,40 @@ services:
         ipv4_address: '172.13.0.3'
 
   #
+  # ethsigner2 is a 2nd signing wallet associated to node1, and represents a signing account for organization 1
+  #
+  ethsigner2:
+    image: pegasyseng/ethsigner
+    command: --chain-id=12345 --downstream-http-host=node1.eea.org --downstream-http-port=8545 --http-listen-host=0.0.0.0 --http-listen-port=8555 file-based-signer --password-file=/var/lib/ethsigner/password.txt --key-file=/var/lib/ethsigner/keystore/account.txt
+    ports:
+      - 23001:8555
+      - 23002:8556
+    volumes:
+      - './ethsigner/node1.1:/var/lib/ethsigner'
+    depends_on:
+      - node1.eea.org
+    networks:
+      devcon_net:
+        ipv4_address: '172.13.0.4'
+
+  #
+  # ethsigner3 is a 3rd signing wallet associated to node1, and represents a signing account for an employee in organization 1
+  #
+  ethsigner3:
+    image: pegasyseng/ethsigner
+    command: --chain-id=12345 --downstream-http-host=node1.eea.org --downstream-http-port=8545 --http-listen-host=0.0.0.0 --http-listen-port=8555 file-based-signer --password-file=/var/lib/ethsigner/password.txt --key-file=/var/lib/ethsigner/keystore/account.txt
+    ports:
+      - 24001:8555
+      - 24002:8556
+    volumes:
+      - './ethsigner/node1.2:/var/lib/ethsigner'
+    depends_on:
+      - node1.eea.org
+    networks:
+      devcon_net:
+        ipv4_address: '172.13.0.5'
+
+  #
   # node2 is the second of the two-node ethereum private network based on Hyperledger Besu
   #
   node2.eea.org:
@@ -43,40 +77,6 @@ services:
       - 23012:8546
     volumes:
       - './besu/node2:/var/lib/besu'
-    networks:
-      devcon_net:
-        ipv4_address: '172.13.0.4'
-
-  #
-  # ethsigner2 is the signing wallet associated to node2, and represents a signing account for organization 1
-  #
-  ethsigner2:
-    image: pegasyseng/ethsigner
-    command: --chain-id=12345 --downstream-http-host=node2.eea.org --downstream-http-port=8545 --http-listen-host=0.0.0.0 --http-listen-port=8555 file-based-signer --password-file=/var/lib/ethsigner/password.txt --key-file=/var/lib/ethsigner/keystore/account.txt
-    ports:
-      - 23001:8555
-      - 23002:8556
-    volumes:
-      - './ethsigner/node2.1:/var/lib/ethsigner'
-    depends_on:
-      - node2.eea.org
-    networks:
-      devcon_net:
-        ipv4_address: '172.13.0.5'
-
-  #
-  # ethsigner3 is the signing wallet associated to node2, and represents a signing account for organization 2
-  #
-  ethsigner3:
-    image: pegasyseng/ethsigner
-    command: --chain-id=12345 --downstream-http-host=node2.eea.org --downstream-http-port=8545 --http-listen-host=0.0.0.0 --http-listen-port=8555 file-based-signer --password-file=/var/lib/ethsigner/password.txt --key-file=/var/lib/ethsigner/keystore/account.txt
-    ports:
-      - 24001:8555
-      - 24002:8556
-    volumes:
-      - './ethsigner/node2.2:/var/lib/ethsigner'
-    depends_on:
-      - node2.eea.org
     networks:
       devcon_net:
         ipv4_address: '172.13.0.6'
@@ -107,7 +107,6 @@ services:
 
 volumes:
   sim_v:
-    external: true
 
 networks:
   devcon_net:

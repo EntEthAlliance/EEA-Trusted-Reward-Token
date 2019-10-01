@@ -68,10 +68,17 @@ module.exports = {
             gas: 0xfffffffffff, // <-- Use this high gas value
             gasPrice: 0x01      // <-- Use this low gas price
         },
-        devcon: {
+        devcon_eea: {
             host: "localhost",
             network_id: "*",
             port: 22001,
+            gas: 4500000,
+            gasPrice: 0
+        },
+        devcon_org1: {
+            host: "localhost",
+            network_id: "*",
+            port: 23001,
             gas: 4500000,
             gasPrice: 0
         }
