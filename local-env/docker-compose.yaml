@@ -48,7 +48,7 @@ services:
         ipv4_address: '172.13.0.4'
 
   #
-  # ethsigner2 is the signing wallet associated to node2, and provides an RPC endpoint for web3 APIs
+  # ethsigner2 is the signing wallet associated to node2, and represents a signing account for organization 1
   #
   ethsigner2:
     image: pegasyseng/ethsigner
@@ -57,12 +57,29 @@ services:
       - 23001:8555
       - 23002:8556
     volumes:
-      - './ethsigner/node2:/var/lib/ethsigner'
+      - './ethsigner/node2.1:/var/lib/ethsigner'
     depends_on:
       - node2.eea.org
     networks:
       devcon_net:
         ipv4_address: '172.13.0.5'
+
+  #
+  # ethsigner3 is the signing wallet associated to node2, and represents a signing account for organization 2
+  #
+  ethsigner3:
+    image: pegasyseng/ethsigner
+    command: --chain-id=12345 --downstream-http-host=node2.eea.org --downstream-http-port=8545 --http-listen-host=0.0.0.0 --http-listen-port=8555 file-based-signer --password-file=/var/lib/ethsigner/password.txt --key-file=/var/lib/ethsigner/keystore/account.txt
+    ports:
+      - 24001:8555
+      - 24002:8556
+    volumes:
+      - './ethsigner/node2.2:/var/lib/ethsigner'
+    depends_on:
+      - node2.eea.org
+    networks:
+      devcon_net:
+        ipv4_address: '172.13.0.6'
 
   #
   # tee-listener provides runtime APIs for interacting with SGX based TEEs. A secure channel is setup
@@ -84,6 +101,9 @@ services:
       # note because the TCF container is launched as a sibling, it automatically shares the same
       # network so the "node1" hostname is resolvable
       - TCF_WEB3_URI=http://node1.eea.org:22001
+    networks:
+      devcon_net:
+        ipv4_address: '172.13.0.7'
 
 volumes:
   sim_v:
