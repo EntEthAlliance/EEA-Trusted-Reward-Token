@@ -9,7 +9,7 @@ This is a self-contained environment based on docker and deployed with docker-co
 ```
 cd local-env
 docker-compose pull
-docker-compose up
+docker-compose up -d
 ```
 
 The Ethereum RPC endpoints for the two Besu nodes are:
@@ -83,6 +83,13 @@ Summary
 > Final cost:          0 ETH
 ```
 
+### Update contract address in TEE Listener
+The tee-listener container requires a TCF_CONTRACTADDRESS pointing to the EEAOperator contract deployed above. Capture the address from the output and set environment variable `EEAOPERATOR` to that value. Then recreate the tee-listener container by running the command again:
+
+```
+docker-compose up -d
+```
+
 ### EEA Admin registers organizations that can receive reward tokens
 Call the `EEAClaimsIssuer` contract to register organization 1 (at address `0xb36b1934004385bfa5c51eaecb8ec348ec733ca8`) to be a legitimate token receiver.
 
@@ -146,6 +153,35 @@ Issuing reward token to employee 0xa8d1ddc96a08b44020b1eca4c4b63ab55d7fdb69 in o
    > Total cost:                   0 ETH
 ```
 
+### Check balance
+Call the `EEAOperator` contract to retrieve the balance of the employee in organization 1.
+
+```
+truffle migration -f 6 --to 6 --network devcon_eea
+```
+
+Output:
+```
+6_get_balance.js
+================
+Using these contracts:
+    EEAOperator address: 0x8614c229020EbF1F593862E7Ad5a242eE3dE938E
+Resulting balance: rewards - 0, penalties - 0, reputations - 1000000000000000000
+
+   > Saving migration to chain.
+   -------------------------------------
+   > Total cost:                   0 ETH
+```
+
+### Issue minting commands to the TEE listener
+The tee-listener container implements APIs that invokes the Trusted Execution Environment worker node to execute business logic evaluating the request and submit transactions to the target blockchain to issue reward or penalty tokens.
+
+Use the following command to invoke the API to issue a reward token to employee1 in organization 1:
+```
+curl -X POST -d 'issue_burn_tokens[]:[{"organization_ID":"did:ethr:b36b1934004385bfa5c51eaecb8ec348ec733ca8","token_request":[{"account": "did:ethr:a8d1ddc96a08b44020b1eca4c4b63ab55d7fdb69", "type":3, "success": false}]}]' -H "Content-Type: application/text" 127.0.0.1:5000/
+```
+
+Notice that `b36b1934004385bfa5c51eaecb8ec348ec733ca8` used above is the account address of organization 1. `a8d1ddc96a08b44020b1eca4c4b63ab55d7fdb69` is account address of employee 1 in that organization.
+
 ## TODO
-* prime the deployed contracts with data (registering claims and mint tokens)
 * add front-end container to docker-compose
