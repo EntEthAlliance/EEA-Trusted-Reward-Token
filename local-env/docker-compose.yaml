@@ -86,7 +86,7 @@ services:
   # between the listener and the SGX worker cluster to provision sensitive materials such as signing keys.
   #
   tee-listener:
-    image: iexechub/eea-token:listener-sim
+    image: iexechub/eea-token-sim:tee-listener
     command: python3 /app/tee_listener.py
     volumes:
       # this allows the tee-listener instance to use the same docker daemon that launched it
