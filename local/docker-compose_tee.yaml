@@ -1,0 +1,28 @@
+version: '2'
+services:
+  #
+  # tee-listener provides runtime APIs for interacting with SGX based TEEs. A secure channel is setup
+  # between the listener and the SGX worker cluster to provision sensitive materials such as signing keys.
+  #
+  tee-listener:
+    image: iexechub/eea-token:listener-sim
+    command: python3 /app/tee_listener.py
+    volumes:
+      # this allows the tee-listener instance to use the same docker daemon that launched it
+      # to launch a sibling instance for executing the TCF logic and be attached to the same network
+      - /var/run/docker.sock:/var/run/docker.sock
+      - sim_v:/app/mode_sim/data
+      - ./tee-listener/secrets:/run/secrets
+    ports:
+      - 5000:5000
+    env_file:
+      - ./tee-listener/init.env
+
+volumes:
+  sim_v:
+    external: true
+
+networks:
+  default:
+    external:
+      name: local_devcon_net
