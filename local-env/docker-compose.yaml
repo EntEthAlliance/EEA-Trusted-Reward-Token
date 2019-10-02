@@ -101,7 +101,7 @@ services:
       # note because the TCF container is launched as a sibling, it automatically shares the same
       # network so the "node1" hostname is resolvable
       - TCF_WEB3_URI=http://node1.eea.org:8545
-      - TCF_NETWORK=local-env_devcon_net
+      - TCF_NETWORK=localenv_devcon_net
       - TCF_CONTRACTADDRESS=$EEAOPERATOR
     networks:
       devcon_net:
