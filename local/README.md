@@ -171,3 +171,19 @@ batchMintPenalties: 0xb8bb5f970c5a0bff3b008b73db17d08ee62e00a88281e95f528ee11895
 ```
 2019-10-02 20:39:12.108+00:00 | EthScheduler-Workers-2 | INFO  | BlockPropagationManager | Imported #307 / 2 tx / 0 om / 212,200 (0.0%) gas / (0xd07d28f15be9963b75a91fdd8523fa10382d6d0a74a234e618e3843713ce960c) in 0.024s
 ```
+
+## TEE Guide
+EEA listener listens the token issuance/burn requests sent by front-end UI (`/app/tee_listener.py@iexechub/eea-token-sim:tee-listener`), the request is encapsulated in json payload, for example:
+
+`issue_burn_tokens[]:[{"organization_ID":"did:ethr:8a5d93cc5613ab0ace80a282029ff721923325ce276db5cadcb62537bb741368","token_request":[{"account":"did:ethr:8a5d93cc5613ab0ace80a282029ff721923325ce276db5cadcb62537bb741361", "type":5, "success": true}]}]`
+
+"type" refers to the contribution activity type which is defined [here](https://github.com/EntEthAlliance/EEA-Trusted-Reward-Token/tree/devcon#creation-of-eea-reward-tokens).
+
+
+EEA listener then sends EEA admin's private key (i.e. which allows to sign Blockchain transactions) and the token request information to SGX worker and triggers the SGX application (`/mode_sim/signer/sign_sim.py@iexechub/eea-token-sim:tee-app`)
+
+In simulation mode, we just transfer the key to SGX application explicitly in a non-secure way since Intel SGX remote attestation is not supported for simulation mode.
+
+In Hardware mode, the procedure is much more sophisticated, EEA admin's private key is managed by SGX based SMS (Secret Management Service), the token request information is also encrypted before sending to the remote SGX worker. The EEA admin's private key and the token request information are strictly encrypted and can ONLY be decrypted inside SGX enclave of a registered worker, therefore no one (including the owner of the SGX worker) is able to inspect the decrypted data; EEA token business logic is then executed in SGX enclave, and Blockchain transaction (i.e. using the decrypted EEA admin's private key) will be finally triggered based on logic execution results.
+
+Please keep in mind that inside SGX enclave, both data and the application execution status cannot be inspected / tampered / manipulated, we can therefore offload execution logic (i.e. applying EEA token business rules) from on-chian to off-chain without compromising user experience and security.
