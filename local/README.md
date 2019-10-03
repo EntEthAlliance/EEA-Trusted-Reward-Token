@@ -172,6 +172,23 @@ batchMintPenalties: 0xb8bb5f970c5a0bff3b008b73db17d08ee62e00a88281e95f528ee11895
 2019-10-02 20:39:12.108+00:00 | EthScheduler-Workers-2 | INFO  | BlockPropagationManager | Imported #307 / 2 tx / 0 om / 212,200 (0.0%) gas / (0xd07d28f15be9963b75a91fdd8523fa10382d6d0a74a234e618e3843713ce960c) in 0.024s
 ```
 
+### Querying Token balances
+A simple tool exists to allow token balances of the org and the employee in the file `migrations/3_balance.js`. To use it, first open the file and update the variables `org` and `employee` with the account addresses in the logs for tee-listener. To run it:
+
+```
+truffle migrate -f 3 --to 3 --network devcon
+```
+
+You should see the balances printed like this:
+```
+3_balance.js
+============
+Using these contracts:
+    EEAOperator address: 0xEF1aC52D85feA2413803bea52c0De8668dCceb84
+Resulting balance for org (0x7ead303355152055cd689a0f6b9a343f1f9e109a): rewards - 115, penalties - 0, reputations - 115
+Resulting balance for employee (0x56f304f1f1535500c6b802dd9696ed087e25f573): rewards - 0, penalties - 0, reputations - 115
+```
+
 ## TEE Guide
 EEA listener listens the token issuance/burn requests sent by front-end UI (`/app/tee_listener.py@iexechub/eea-token-sim:tee-listener`), the request is encapsulated in json payload, for example:
 
