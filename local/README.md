@@ -16,7 +16,7 @@ Launching the system requires setting up one component at a time.
 The Besu blockchain is ready to be launched:
 
 ```
-cd local-env
+cd local
 docker-compose pull
 docker-compose up -d
 ```

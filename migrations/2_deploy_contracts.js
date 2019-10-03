@@ -38,7 +38,7 @@ async function updateLocalEnv(erc1820, ethDid, ethClaims, eeaClaimsIssuer, eeaOp
     RewardToken: ${eeaReward}
   `);
 
-  let env = await fs.readFileSync(join(__dirname, '../local-env/ui/server.env'));
+  let env = await fs.readFileSync(join(__dirname, '../local/ui/server.env'));
   env = env.toString();
 
   env = env.replace(/CONTRACT_EERC1820Registry=0x[0-9a-fA-F]{40}/, `CONTRACT_EERC1820Registry=${erc1820}`);
@@ -50,17 +50,17 @@ async function updateLocalEnv(erc1820, ethDid, ethClaims, eeaClaimsIssuer, eeaOp
   env = env.replace(/CONTRACT_EReputationToken=0x[0-9a-fA-F]{40}/, `CONTRACT_EReputationToken=${eeaReputation}`);
   env = env.replace(/CONTRACT_ERewardToken=0x[0-9a-fA-F]{40}/, `CONTRACT_ERewardToken=${eeaReward}`);
 
-  await fs.writeFileSync(join(__dirname, '../local-env/ui/server.env'), env);
+  await fs.writeFileSync(join(__dirname, '../local/ui/server.env'), env);
 
   console.log(`Updating tee-listener/init.env:
     EAOperator: ${eeaOperator}
   `);
 
-  env = await fs.readFileSync(join(__dirname, '../local-env/tee-listener/init.env'));
+  env = await fs.readFileSync(join(__dirname, '../local/tee-listener/init.env'));
   env = env.toString();
 
   env = env.replace(/TCF_CONTRACTADDRESS=0x[0-9a-fA-F]{40}/, `TCF_CONTRACTADDRESS=${eeaOperator}`);
-  await fs.writeFileSync(join(__dirname, '../local-env/tee-listener/init.env'), env);
+  await fs.writeFileSync(join(__dirname, '../local/tee-listener/init.env'), env);
 }
 
 module.exports = async function (deployer, network, accounts) {
