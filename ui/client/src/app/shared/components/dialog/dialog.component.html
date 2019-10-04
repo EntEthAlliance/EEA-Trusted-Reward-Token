@@ -1,0 +1,7 @@
+<div mat-dialog-title class="dialog-header d-flex justify-content-between align-items-start">
+  <span>{{ data.dialogTitle }}</span>
+  <button mat-dialog-close (click)="closeClick()" class="close-btn btn">&#10005;</button>
+</div>
+<mat-dialog-content class="dialog-content">
+  <ng-template #contentRef></ng-template>
+</mat-dialog-content>

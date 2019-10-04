@@ -1,0 +1,35 @@
+<div *ngIf="dataSource.loading$ | async" class="table-loader d-flex justify-content-center">
+  <div class="loader"></div>
+</div>
+
+<cdk-table [dataSource]="dataSource" class="table" matSort>
+  <ng-container *ngFor="let column of columns" [cdkColumnDef]="column.key">
+    <cdk-header-cell
+      *cdkHeaderCellDef
+      class="th"
+      [mat-sort-header]="column.disableSorting ? null : column.key"
+    >
+      {{ column.header || column.key }}
+    </cdk-header-cell>
+    <cdk-cell
+      *cdkCellDef="let element; let renderIndex = renderIndex"
+      class="td"
+      [attr.data-header]="column.header || column.key">
+      <ng-template [ngIf]="column.template">
+        <ng-template [ngTemplateOutlet]="templatesMap[column.template]" [ngTemplateOutletContext]="{ $implicit: element[column.key], row: element }"></ng-template>
+      </ng-template>
+      <ng-template [ngIf]="!column.template">
+        {{ element[column.key] }}
+      </ng-template>
+    </cdk-cell>
+  </ng-container>
+
+  <cdk-header-row
+    *cdkHeaderRowDef="displayedColumns"
+    class="header-row"
+  ></cdk-header-row>
+  <cdk-row
+    *cdkRowDef="let row; columns: displayedColumns"
+    class="row"
+  ></cdk-row>
+</cdk-table>

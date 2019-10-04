@@ -1,0 +1,144 @@
+@import 'variables';
+
+.tab-content__controls {
+  background-color: $color-light-grey;
+  padding: 17px 30px;
+}
+
+.tab-content__form {
+  .form-item {
+    padding: 13px 24px;
+    border: 1px solid #dddddd;
+
+    &:not(:first-of-type) {
+      margin-top: 16px;
+    }
+  }
+
+  h6 {
+    padding-bottom: 11px;
+    flex: 0 0 30%;
+  }
+
+  .form-header {
+    border-bottom: 1px solid #dddddd;
+
+    .form-header__title-wrap {
+      flex: 0 0 45%;
+    }
+
+    &__title-sm {
+      font-size: 14px;
+      line-height: 24px;
+      letter-spacing: 0.15px;
+      color: $color-black;
+      font-weight: normal;
+      flex-basis: 111px;
+    }
+  }
+
+  .form-group {
+    &:last-of-type {
+      margin-bottom: 23px;
+    }
+
+    .form-group__input {
+      flex: 0 0 30%;
+      &:disabled {
+        border: none;
+      }
+    }
+
+    .form-radio {
+      flex-basis: 111px;
+    }
+
+    .form-group__select {
+      flex: 0 0 45%;
+    }
+
+    .common-form-select {
+      height: 34px;
+      padding: 7px;
+      margin-right: 16px;
+      width: 90%;
+    }
+  }
+}
+
+.loader-wrap {
+  min-height: 200px;
+}
+
+.loader-sm {
+  width: auto;
+  font-size: 12px;
+
+  &:before {
+    width: auto;
+  }
+}
+
+.radio-button {
+  position: relative;
+  width: 56px;
+  height: 34px;
+
+  input {
+    position: absolute;
+    display: none;
+  }
+
+  .fake-radiobutton {
+    position: absolute;
+    display: inline;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: transparent;
+    border: 1px solid #dddddd;
+
+    &:after {
+      content: '';
+      display: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      background: $color-common-blue;
+    }
+
+    span {
+      position: absolute;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      z-index: 2;
+      font-weight: normal;
+      font-size: 14px;
+      line-height: 24px;
+      letter-spacing: 0.15px;
+      color: $color-common-blue;
+    }
+  }
+
+  &:last-of-type {
+    .fake-radiobutton {
+      border-left: none;
+    }
+  }
+}
+
+input[type='radio']:checked + .fake-radiobutton:after {
+  display: block;
+}
+
+input[type='radio']:checked + .fake-radiobutton span {
+  color: $color-light-grey;
+}

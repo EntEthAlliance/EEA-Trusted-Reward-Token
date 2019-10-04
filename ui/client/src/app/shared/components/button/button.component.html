@@ -1,0 +1,5 @@
+<button class="btn btn-{{ type }}" [class.btn-fixed]="fixedSize" [disabled]="disabled">
+  {{ text }}
+  <i *ngIf="icon" class="icon-{{ icon }}"></i>
+  <ng-content></ng-content>
+</button>

@@ -1,0 +1,85 @@
+@import 'variables';
+@import 'utils/mixins';
+
+.common-text__sm {
+  color: $color-black;
+}
+
+section {
+  min-width: 100vw;
+  min-height: 100vh;
+  background-color: #fff;
+
+  .section-header {
+    margin: 100px 0 22px 0;
+  }
+
+  .section-header__logo {
+    width: 210px;
+    height: 120px;
+  }
+}
+
+.section-login-form {
+  width: 270px;
+
+  h1 {
+    font-size: 30px;
+    line-height: 45px;
+    font-weight: normal;
+    letter-spacing: 2px;
+    color: #4464aa;
+    max-width: 90%;
+  }
+}
+
+.form-controls {
+  label {
+    user-select: none;
+
+    input[type='checkbox'] {
+      display: none;
+    }
+    input:checked + .form-controls__checkbox i {
+      opacity: 1;
+    }
+
+    .form-controls__checkbox {
+      width: 15px;
+      height: 15px;
+      border: 1px solid #ccc;
+
+      i {
+        color: $color-black;
+        font-size: 12px;
+        opacity: 0;
+      }
+    }
+  }
+}
+
+.loader {
+  width: auto;
+  font-size: 12px;
+
+  &:before {
+    width: auto;
+  }
+}
+
+.bottom-label {
+  color: $color-black;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 17px;
+}
+
+@include breakpoint(md) {
+  .section-header {
+    margin-bottom: 62px;
+  }
+
+  .section-login-form {
+    width: 320px;
+  }
+}

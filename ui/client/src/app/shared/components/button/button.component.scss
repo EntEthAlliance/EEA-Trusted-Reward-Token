@@ -1,0 +1,43 @@
+@import 'variables';
+
+.btn:disabled {
+  opacity: 0.8;
+}
+
+.btn:not(.btn-no-border) {
+  i {
+    margin-left: 8px;
+  }
+}
+
+.btn-primary {
+  background: $color-common-blue;
+}
+
+.btn-success {
+  background: $color-common-green;
+}
+
+.btn-danger {
+  background: $color-red;
+}
+
+.btn-light {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  color: $color-common-blue;
+}
+
+.btn-no-border {
+  display: flex;
+  flex-direction: row-reverse;
+  color: $color-common-blue;
+
+  i {
+    margin-right: 8px;
+  }
+}
+
+.btn-fixed {
+  min-width: 100px;
+}

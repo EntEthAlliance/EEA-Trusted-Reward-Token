@@ -1,0 +1,41 @@
+@import 'variables';
+
+section {
+  width: 70%;
+  margin: 0 auto;
+}
+
+.content {
+  padding: 16px 24px 24px;
+  background-color: $color-light-grey;
+  margin-bottom: 20px;
+
+  h6 {
+    color: $color-black;
+  }
+
+  .content-group {
+    margin-top: 20px;
+    span {
+      max-width: 50%;
+    }
+    &__info {
+      font-weight: 500;
+      font-size: 18px;
+      line-height: 34px;
+    }
+    &__info,
+    .common-text__sm {
+      color: $color-black;
+    }
+  }
+}
+
+.loader {
+  width: auto;
+  font-size: 12px;
+
+  &:before {
+    width: auto;
+  }
+}

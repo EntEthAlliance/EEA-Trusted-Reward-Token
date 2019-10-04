@@ -1,0 +1,35 @@
+.position-relative {
+  position: relative;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.no-wrap {
+  white-space: nowrap;
+}
+
+.ml-auto {
+  margin-left: auto;
+}
+
+.mt-auto {
+  margin-top: auto;
+}
+
+.mr-auto {
+  margin-right: auto;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+.color-red {
+  color: $color-red;
+}
+
+.error-message {
+  text-align: center;
+}

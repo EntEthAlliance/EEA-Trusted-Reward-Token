@@ -1,0 +1,15 @@
+<div class="dialog-content__wrap" *ngIf="!isEmptyList; else emptyList">
+  <div class="dialog-content__item" *ngFor="let item of list; let i = index">
+    <button (click)="saveItem(item)" class="btn common-text__sm">{{ item.name }}</button>
+  </div>
+</div>
+
+<ng-template #emptyList>
+  <div class="content-item d-flex justify-content-center flex-direction-column">
+    <div class="img-wrap d-flex justify-content-center align-items-center">
+      <i class="icon-{{ emptyModalDate[type].icon }}"></i>
+    </div>
+    <p class="common-text__sm">{{emptyModalDate[type].text}}</p>
+    <a *ngIf="type === 'member'" (click)="registrationCall()" class="common-text__sm">Register EEA Member</a>
+  </div>
+</ng-template>

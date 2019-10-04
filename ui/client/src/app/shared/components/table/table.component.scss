@@ -1,0 +1,103 @@
+@import 'variables';
+@import 'utils/mixins';
+
+:host {
+  display: block;
+  position: relative;
+}
+
+.table {
+  width: 100%;
+  border-right: 1px solid #ddd;
+}
+
+.table,
+.header-row,
+.row,
+.td {
+  display: block;
+}
+
+.header-row {
+  display: none;
+}
+
+.header-row,
+.row:nth-child(2n + 3) {
+  background: $color-light-grey;
+}
+
+.row {
+  border-top: 1px solid #ddd;
+  margin-bottom: 16px;
+}
+
+.th {
+  border-top: 1px solid #ddd;
+}
+
+.th,
+.th ::ng-deep .mat-sort-header-button {
+  text-transform: capitalize;
+}
+
+.th,
+.td {
+  display: block;
+  border-bottom: 1px solid #ddd;
+  border-left: 1px solid #ddd;
+  padding: 10px;
+}
+
+.table-loader {
+  position: absolute;
+  top: 30px;
+  right: 0;
+  left: 0;
+  z-index: 1000;
+  // made higher for safari z-index case
+}
+
+[data-header] {
+  position: relative;
+  padding-left: 50%;
+
+  &:before {
+    content: attr(data-header) ' ';
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 6px;
+    bottom: 0;
+    width: 45%;
+    display: flex;
+    padding-right: 10px;
+    align-items: center;
+    white-space: nowrap;
+    text-transform: capitalize;
+  }
+}
+
+@include breakpoint(md) {
+  .table {
+    display: table;
+  }
+
+  .header-row,
+  .row {
+    display: table-row;
+  }
+
+  .th,
+  .td {
+    display: table-cell;
+  }
+
+  [data-header] {
+    padding: 10px;
+
+    &:before {
+      content: none;
+    }
+  }
+}

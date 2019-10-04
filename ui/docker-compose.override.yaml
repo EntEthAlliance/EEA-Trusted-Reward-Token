@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  eea-client:
+    build:
+      context: ./client/.
+
+  eea-server:
+    build:
+      context: ./server/.
+
+  nginx:
+    image: nginx:1.17-alpine
+    restart: unless-stopped
+    volumes:
+      - ./cm/data/nginx_local:/etc/nginx/conf.d
+    ports:
+      - "80:80"
+    command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
+    depends_on:
+      - eea-client
+      - eea-server
+  postgres:
+    volumes:
+      - ./server/initdb.sql:/docker-entrypoint-initdb.d/initdb.sql

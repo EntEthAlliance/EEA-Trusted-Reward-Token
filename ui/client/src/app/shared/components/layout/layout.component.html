@@ -1,0 +1,90 @@
+<eea-header></eea-header>
+<section class="page-content flex-1">
+  <div>
+    <div
+      class="tab-selected-item mb-sm-2 mb-lg-0 justify-content-between align-items-center"
+      (click)="toggleTab('topMenu')"
+    >
+      <div>
+        <i class="icon-{{ topMenuActive.icon }} mr-2"></i>
+        {{ topMenuActive.name }}
+      </div>
+      <i class="icon-ellipsis-h"></i>
+    </div>
+    <ul class="tabs mb-sm-2 mb-lg-0" [class.hidden-item]="!fullPageMenu.topMenu">
+      <li *ngFor="let item of navItems" class="tab-item">
+        <div class="tab-link d-flex align-items-center" [class.tab-link--active]="item.active">
+          <div
+            class="link-icon-wrap d-flex justify-content-center align-items-center flex-shrink-0"
+          >
+            <i class="icon-{{ item.icon }} mr-2"></i>
+          </div>
+          {{ item.name }}
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div class="tab-content flex-1 d-flex flex-column flex-lg-row">
+    <div class="side-menu mr-lg-5">
+      <div
+        class="tab-selected-item mb-sm-2 mb-lg-0 justify-content-between align-items-center"
+        (click)="toggleTab('sideMenu')"
+      >
+        <div>
+          <i class="icon-{{ sideMenuActive.icon }} mr-2"></i>
+          {{ sideMenuActive.name }}
+        </div>
+        <i class="icon-ellipsis-h"></i>
+      </div>
+      <ul class="side-menu-tab mb-lg-0" [class.hidden-item]="!fullPageMenu.sideMenu">
+        <li *ngFor="let item of sideMenu" class="menu-link-sm-item">
+          <div
+            class="menu-link-sm d-flex align-items-center"
+            [class.menu-link-sm--active]="item.active"
+          >
+            <div
+              class="link-icon-wrap d-flex justify-content-center align-items-center flex-shrink-0"
+            >
+              <i class="icon-{{ item.icon }}"></i>
+            </div>
+            <span class="no-wrap">{{ item.name }}</span>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="flex-1 d-flex flex-column mt-sm-2 mt-lg-0">
+      <nav>
+        <div
+          class="tab-selected-item mb-sm-2 mb-lg-0 justify-content-between align-items-center"
+          (click)="toggleTab('mainMenu')"
+        >
+          <div>
+            <i class="icon-{{ mainMenuActive.icon }} mr-2"></i>
+            {{ mainMenuActive.name }}
+          </div>
+          <i class="icon-ellipsis-h"></i>
+        </div>
+        <ul class="tabs ml-lg-5 mb-sm-2 mb-lg-0" [class.hidden-item]="!fullPageMenu.mainMenu">
+          <li *ngFor="let route of routesConfig.routes" class="tab-item">
+            <a
+              class="tab-link d-flex align-items-center"
+              [routerLink]="routesConfig.basePath + '/' + route.path"
+              routerLinkActive="tab-link--active"
+              [routerLinkActiveOptions]="{ exact: true }"
+            >
+              <div
+                class="link-icon-wrap d-flex justify-content-center align-items-center flex-shrink-0"
+              >
+                <i class="icon-{{ route.data.icon }} mr-2"></i>
+              </div>
+              {{ route.data.name }}
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <div class="tab-content mt-lg-0">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,18 @@
+<eea-button
+  *ifInRole="'admin'"
+  class="mb-4 d-block"
+  [text]="'Register EEA Member'"
+  [type]="'success'"
+  [icon]="'plus'"
+  (click)="openDialog()"
+></eea-button>
+<eea-table
+  [dataSource]="tableDataSource"
+  [columns]="columns"
+>
+  <ng-template eeaTemplate="name" let-item let-row="row">
+    <div class="selectable-item cursor-pointer" (click)="onSelect(row.id)">
+      {{ item }}
+    </div>
+  </ng-template>
+</eea-table>

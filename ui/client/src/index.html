@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>EEA</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <style>
+    @font-face {
+      font-family: 'Font Awesome 5 Brands';
+      font-style: normal;
+      font-weight: 400;
+      src: url('assets/fonts/fa-brands-400.woff2') format('woff2');
+    }
+
+    @font-face {
+      font-family: 'Font Awesome 5 Free';
+      font-style: normal;
+      font-weight: 900;
+      src: url('/assets/fonts/fa-solid-900.woff2') format('woff2');
+    }
+
+    .loader {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 48px;
+      font-weight: 900;
+      font-family: 'Font Awesome 5 Free', sans-serif;
+      width: 80px;
+    }
+
+    #loader {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      display: flex;
+      width: auto;
+      background: rgba(51, 51, 51, .7);
+      opacity: 0;
+      transition: 0.3s ease;
+      visibility: hidden;
+      z-index: 1;
+    }
+
+    .loader:before {
+      content: '';
+      position: absolute;
+      width: 80px;
+      height: 80px;
+      background: #4b8df8;
+    }
+    
+    .loader:after {
+      content: '';
+      animation: spin 1.5s linear infinite;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    eea-root:empty + #loader {
+      opacity: 1;
+      visibility: visible;
+    }
+  </style>
+</head>
+<body>
+  <eea-root></eea-root>
+  <div id="loader" class="loader"></div>
+</body>
+</html>

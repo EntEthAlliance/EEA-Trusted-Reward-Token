@@ -1,0 +1,5 @@
+<eea-table [dataSource]="tableDataSource" [columns]="columns">
+  <ng-template eeaTemplate="date" let-item>
+    {{ item | date : 'MM/dd/yyyy'}}
+  </ng-template>
+</eea-table>

@@ -1,0 +1,47 @@
+// Responsive media queries
+// Small screen / phone
+$width-sm: 320px;
+// Medium screen / tablet
+$width-md: 800px; //768px !default;
+// Large screen / desktop (980 + (16 * 2)) <= container + gutters
+$width-lg: 1012px !default;
+// Extra large screen / wide desktop
+$width-xl: 1280px !default;
+
+$breakpoints: (
+  sm: $width-sm,
+  md: $width-md,
+  lg: $width-lg,
+  xl: $width-xl
+) !default;
+
+$responsive-variants: (
+  '': '',
+  sm: '-sm',
+  md: '-md',
+  lg: '-lg',
+  xl: '-xl'
+) !default;
+
+@mixin breakpoint($breakpoint) {
+  @if $breakpoint == '' {
+    @content;
+  } @else {
+    // Retrieves the value from the key
+    $value: map-get($breakpoints, $breakpoint);
+
+    // If the key exists in the map
+    @if $value != null {
+      // Prints a media query based on the value
+      @media (min-width: $value) {
+        @content;
+      }
+    }
+
+      // If the key doesn't exist in the map
+    @else {
+      @warn "Unfortunately, no value could be retrieved from `#{$breakpoint}`. "
+        + "Please make sure it is defined in `$breakpoints` map.";
+    }
+  }
+}
