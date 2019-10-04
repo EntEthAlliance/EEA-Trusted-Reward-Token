@@ -10,7 +10,7 @@ networks:
 
 services:
   eea-client:
-    image: eeastore.azurecr.io/eea-client:stable
+    image: envisionblockchain/eea-trusted-token-ui
     ports:
       - "8080:8080"
     tty: true
@@ -19,7 +19,7 @@ services:
     stdin_open: true
 
   eea-server:
-    image: eeastore.azurecr.io/eea-server
+    image: envisionblockchain/eea-trusted-token-backend
     ports:
       - "9000:9000"
     tty: true
