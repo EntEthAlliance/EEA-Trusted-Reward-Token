@@ -78,7 +78,7 @@ class EEAOperator:
 			print(f'burnRewards: {tx.hex()}')
 
 if __name__ == '__main__':
-	print ("EEA trusted token execution logic starts running in TEE.")
+	print ("EEA trusted token execution logic starts running in TEE (hardware mode).")
 	# Only the EEA admin or organization owner is able to trigger the token request and then trigger
 	# the TEE application running on worker.
 	# the following 'runcounter' module is used to forbid the (malicious) worker to actively trigger
@@ -112,19 +112,23 @@ if __name__ == '__main__':
 			if key.strip() == 'workorderid':
 				workorder_id = value.strip()
 	inputFile = '/encryptedInputs/' + workorder_id
+	contractAddress = os.environ["CONTRACTADDRESS"].strip()
 
-	print (os.environ['enclave_key'])
-
+	# print (os.environ['enclave_key'])
+	print ("Signing keying is provisioned in TEE enclave")
 	parser = argparse.ArgumentParser()
 	parser.add_argument('--input',   type=str, default=inputFile)
 	parser.add_argument('--abis',    type=str, default='/signer')
-	parser.add_argument('--address', type=str, default='0xD8ef41b5746c0a22A022AF4eB472b6654d2735df')
+	parser.add_argument('--address', type=str, default=contractAddress)
 	config = parser.parse_args()
 
 	eeaoperator = EEAOperator(config)
 
 	with open(config.input) as file:
-		[ key, raw ] = re.search('(\w*)\[\]:(.*)', file.read()).groups()
+		data = file.read()
+		print("Token request payload:")
+		print(data)
+		[ key, raw ] = re.search('(\w*)\[\]:(.*)', data).groups()
 	try:
 		getattr(eeaoperator, key)(json.loads(raw))
 	except NotImplementedError as e:
