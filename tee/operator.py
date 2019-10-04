@@ -11,6 +11,8 @@ import sys
 from web3.auto       import w3
 from web3.middleware import construct_sign_and_send_raw_middleware, geth_poa_middleware
 
+decimals = 18
+
 # Types => Success => Value (positive values are reward, negative values are penalty)
 businessRules = {
 	1: { True: +10,    False: -10},
@@ -42,7 +44,7 @@ class EEAOperator:
 					(
 						didToAddr(request_block['organization_ID']),
 						didToAddr(request['account']),
-						businessRules[request['type']][request['success']]
+						businessRules[request['type']][request['success']] * 10**decimals
 					)
 					for request in request_block['token_request']
 				)
@@ -50,20 +52,21 @@ class EEAOperator:
 			],
 			[]
 		)
+		if any(map(lambda entry: entry[2] > 0, operations)):
+			tx = self.contract.functions.batchMintRewards(
+				[  orgId for (orgId, addr, value) in operations if value > 0 ],
+				[   addr for (orgId, addr, value) in operations if value > 0 ],
+				[ +value for (orgId, addr, value) in operations if value > 0 ]
+			).transact({ 'from': self.account.address })
+			print(f'batchMintRewards: {tx.hex()}')
 
-		tx = self.contract.functions.batchMintRewards(
-			[  orgId for (orgId, addr, value) in operations if value > 0 ],
-			[   addr for (orgId, addr, value) in operations if value > 0 ],
-			[ +value for (orgId, addr, value) in operations if value > 0 ]
-		).transact({ 'from': self.account.address })
-		print(f'batchMintRewards: {tx.hex()}')
-
-		tx = self.contract.functions.batchMintPenalties(
-			[  orgId for (orgId, addr, value) in operations if value < 0 ],
-			[   addr for (orgId, addr, value) in operations if value < 0 ],
-			[ -value for (orgId, addr, value) in operations if value < 0 ]
-		).transact({ 'from': self.account.address })
-		print(f'batchMintPenalties: {tx.hex()}')
+		if any(map(lambda entry: entry[2] < 0, operations)):
+			tx = self.contract.functions.batchMintPenalties(
+				[  orgId for (orgId, addr, value) in operations if value < 0 ],
+				[   addr for (orgId, addr, value) in operations if value < 0 ],
+				[ -value for (orgId, addr, value) in operations if value < 0 ]
+			).transact({ 'from': self.account.address })
+			print(f'batchMintPenalties: {tx.hex()}')
 
 	def redeem(self, data):
 		for block in data:
