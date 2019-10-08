@@ -5,6 +5,24 @@ This is a self-contained environment based on docker and deployed with docker-co
 ![Deployment](/images/deployment-arch.png) 
 
 ## Setup and Launch
+
+### Pre-requisites
+To set up the local environment in order to run the Trusted Token application, you need the following:
+* docker
+* node.js and npm
+* [Truffle](https://www.trufflesuite.com/docs/truffle/getting-started/installation)
+
+### Docker images
+Pull down the docker images:
+
+```
+cd local
+docker-compose pull
+docker-compose -f docker-compose_tee.yaml pull
+docker-compose -f docker-compose_ui.yaml pull
+docker pull iexechub/eea-token-sim:tee-app
+```
+
 The system is comprised of 3 major components:
 * Besu blockchain
 * TEE Listener and TEE Worker nodes
@@ -16,8 +34,6 @@ Launching the system requires setting up one component at a time.
 The Besu blockchain is ready to be launched:
 
 ```
-cd local
-docker-compose pull
 docker-compose up -d
 ```
 
