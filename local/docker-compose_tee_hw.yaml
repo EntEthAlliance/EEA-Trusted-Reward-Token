@@ -24,3 +24,8 @@ volumes:
     external: true
   inputs_v:
     external: true
+
+networks:
+  default:
+    external:
+      name: local_devcon_net
