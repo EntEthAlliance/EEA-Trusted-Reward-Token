@@ -3,7 +3,7 @@
 ## How to run docker-compose locally
 
 ```
-git clone https://github.com/EnvisionBlockchain/Trusted-Token-UI.git
+git clone -b devcon --single-branch https://github.com/EntEthAlliance/EEA-Trusted-Reward-Token.git
 cd Trusted-Token-UI
 docker-compose up
 ```
