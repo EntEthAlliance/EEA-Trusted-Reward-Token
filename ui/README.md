@@ -2,7 +2,7 @@
 
 ## The EEA Trusted Token UI has two main parts: the Front End and the Server. There are three ways to experience and interact with the UI and all of it’s parts.
 
-### 1. To run the fully functional UI and experience interactions occur with the rest of the EEA Trusted Token use case infrastructure components such as the TEE and the smart contracts deployed to the Besu client, please refer to the instructions in the /local directory here: https://github.com/EntEthAlliance/EEA-Trusted-Reward-Token/tree/devcon/local
+### 1. To run the fully functional UI and experience interactions with the rest of the EEA Trusted Token use case infrastructure components such as the TEE and the smart contracts deployed to the Besu client, please refer to the instructions in the /local directory here: https://github.com/EntEthAlliance/EEA-Trusted-Reward-Token/tree/devcon/local
 
 ### 2. If you want to run the UI with limited functionality (ie. without interacting with the rest of the EEA Trusted Token use case infrastructure components such as the TEE and the smart contracts deployed to the Besu client) inside a locally deployed docker container that does all of the build for you; run the following commands listed below:
 
