@@ -1,0 +1,39 @@
+version: '3'
+
+volumes:
+  postgres_data:
+
+services:
+  eea-client:
+    image: eea-client
+    restart: unless-stopped
+    ports:
+      - 8080:8080
+    tty: true
+    depends_on:
+      - eea-server
+    stdin_open: true
+
+  eea-server:
+    image: eea-server
+    restart: unless-stopped
+    ports:
+      - "9000:9000"
+    tty: true
+    depends_on:
+      - postgres
+    stdin_open: true
+    env_file:
+      - server.env
+
+  postgres:
+    image: postgres:11
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: TrustedToken
+      POSTGRES_DB: TrustedToken
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data

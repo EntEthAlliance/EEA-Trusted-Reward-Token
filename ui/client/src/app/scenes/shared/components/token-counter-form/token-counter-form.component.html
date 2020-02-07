@@ -1,0 +1,96 @@
+<section *ngIf="currentUserBalance$ | withStatus | async as balanceState">
+  <p *ngIf="balanceState.error" class="error-message w-100 color-red">
+    {{ balanceState.error }}
+  </p>
+  <div
+    class="d-flex justify-content-between flex-wrap"
+    *ngIf="!balanceState.loading && !balanceState.error"
+  >
+    <div class="counter">
+      <h6>
+        You have
+        <span class="counter-group__title mt-5">
+          {{ userBalance.EEAReward | shortNumber: 2 }}
+        </span>
+        <span class="counter-group__text common-text">EEA Tokens</span>
+      </h6>
+    </div>
+    <form [formGroup]="form" class="form" *ngIf="!isRequestDone; else successMessage">
+      <h6>{{ currentTabType.formTitle }}</h6>
+      <div
+        class="form-group__wrap d-flex flex-direction-column"
+        [class.flex-direction-column-reverse]="getType"
+      >
+        <div class="form-group d-flex justify-content-between align-items-center">
+          <label class="common-text__sm">{{ currentTabType.formLabel[0] }}</label>
+          <select class="common-form-select" formControlName="userSelect" (change)="onSelect()">
+            <option value="" disabled [selected]="isStaticOptionSelected">
+              {{ currentTabType.formSelectDisabled }}
+            </option>
+            <option *ngFor="let item of selectData; let i = index" [ngValue]="item">
+              {{ item.name }}</option
+            >
+          </select>
+        </div>
+        <div class="form-group d-flex justify-content-between align-items-center">
+          <label class="common-text__sm">{{ currentTabType.formLabel[1] }}</label>
+          <input
+            formControlName="count"
+            class="common-form-input"
+            type="text"
+            mask="R*"
+            [patterns]="numbersOnlyInput"
+          />
+        </div>
+      </div>
+      <div class="form-group d-flex justify-content-between align-items-center">
+        <span class="common-text__sm">EEA Token Balance</span>
+        <span class="form-group__counter" *ngIf="isTokenInputValid">
+          {{ getCurrentBalance | shortNumber: 2 }}
+        </span>
+        <span *ngIf="!isTokenInputValid" class="form-group__counter error">
+          Insufficient funds
+        </span>
+      </div>
+    </form>
+    <div *ngIf="!isRequestDone" class="controls d-flex align-items-center w-100">
+      <eea-button
+        [fixedSize]="true"
+        [text]="'Cancel'"
+        [type]="'light'"
+        (click)="clearForm()"
+      ></eea-button>
+      <eea-button
+        (click)="saveData()"
+        class="ml-2"
+        [disabled]="form.invalid || !isTokenInputValid"
+        [fixedSize]="true"
+        [text]="currentTabType.formBtnTitle"
+        [type]="'success '"
+      >
+        <div class="loader loader-sm  ml-1" *ngIf="loading"></div>
+      </eea-button>
+    </div>
+  </div>
+  <div
+    *ngIf="balanceState.loading"
+    class="loader-wrap d-flex align-items-center justify-content-center"
+  >
+    <div class="loader"></div>
+  </div>
+  <ng-template #successMessage>
+    <div class="content d-flex flex-direction-column justify-content-center align-items-center">
+      <div class="icon-wrap d-flex justify-content-center align-items-center mb-2">
+        <i class="icon-check"></i>
+      </div>
+      <h6>{{ currentTabType.successMessage }}</h6>
+      <p class="common-text__sm mb-4">You can check approval status on the Requests tab.</p>
+      <eea-button
+        [text]="currentTabType.successBtn"
+        [type]="'no-border'"
+        (click)="onRefreshFormEvent()"
+      >
+      </eea-button>
+    </div>
+  </ng-template>
+</section>

@@ -1,0 +1,61 @@
+@import 'variables';
+
+.flex-1 {
+  flex: 1;
+}
+
+.justify-content-center {
+  justify-content: center;
+}
+
+.justify-content-between {
+  justify-content: space-between;
+}
+
+.justify-content-end {
+  justify-content: flex-end;
+}
+
+.align-items-center {
+  align-items: center;
+}
+
+.align-items-start {
+  align-items: flex-start;
+}
+
+.flex-direction-column {
+  flex-direction: column;
+}
+
+.flex-direction-column-reverse {
+  flex-direction: column-reverse;
+}
+
+.flex-shrink-0 {
+  flex-shrink: 0;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+@each $breakpoint, $variant in $responsive-variants {
+  @include breakpoint($breakpoint) {
+    .flex#{$variant}-row {
+      flex-direction: row;
+    }
+
+    .flex#{$variant}-column {
+      flex-direction: column;
+    }
+
+    .flex#{$variant}-wrap {
+      flex-wrap: wrap;
+    }
+
+    .flex#{$variant}-nowrap {
+      flex-wrap: nowrap;
+    }
+  }
+}

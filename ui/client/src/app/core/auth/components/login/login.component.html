@@ -1,0 +1,39 @@
+<section class="d-flex align-items-center flex-direction-column">
+  <div class="section-header">
+    <img class="section-header__logo" src="assets/images/logo.png" alt="" />
+  </div>
+  <form class="section-login-form" [formGroup]="form" (ngSubmit)="signIn()">
+    <h1 class="mb-4">Login to your account</h1>
+    <p class="common-text__sm mb-4">Enter your email and password below to login.</p>
+    <input
+      (input)="clearValidationErrors()"
+      placeholder="Email"
+      type="text"
+      class="form-control d-block w-100 mb-3"
+      formControlName="login"
+    />
+    <input
+      placeholder="Password"
+      type="password"
+      class="form-control d-block w-100 mb-3"
+      formControlName="pwd"
+      (input)="clearValidationErrors()"
+    />
+    <div class="form-controls d-flex mt-3">
+      <label class="d-flex align-items-center">
+        <input type="checkbox" formControlName="rememberUser" />
+        <div class="form-controls__checkbox d-flex justify-content-center align-items-center mr-1">
+          <i class="icon-check"></i>
+        </div>
+        <span class="common-text__sm">Remember Me</span>
+      </label>
+      <eea-button class="ml-auto" [text]="'Login'" [type]="'success'">
+        <div class="loader ml-1" *ngIf="loading"></div>
+      </eea-button>
+    </div>
+    <div *ngIf="error" class="mt-2 color-red">
+      {{ error }}
+    </div>
+  </form>
+  <div class="mt-auto mb-3 bottom-label">© {{ year }} - Enterprise Ethereum Alliance</div>
+</section>

@@ -1,0 +1,2011 @@
+{
+  "contractName": "EEATransferableToken",
+  "abi": [
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "didRegistry",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "claimsRegistry",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "eeaIssuer",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "name": "_didRegistry",
+          "type": "address"
+        },
+        {
+          "name": "_claimsRegistry",
+          "type": "address"
+        },
+        {
+          "name": "_eeaIssuer",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    }
+  ],
+  "metadata": "{\"compiler\":{\"version\":\"0.5.8+commit.23d335f2\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"constant\":true,\"inputs\":[],\"name\":\"didRegistry\",\"outputs\":[{\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"claimsRegistry\",\"outputs\":[{\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"eeaIssuer\",\"outputs\":[{\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"name\":\"_didRegistry\",\"type\":\"address\"},{\"name\":\"_claimsRegistry\",\"type\":\"address\"},{\"name\":\"_eeaIssuer\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"}],\"devdoc\":{\"methods\":{},\"title\":\"EEA Transferable Token\"},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"/home/svm/src/EEA/Trusted-Token/contracts/EEATransferableToken.sol\":\"EEATransferableToken\"},\"evmVersion\":\"petersburg\",\"libraries\":{},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"/home/svm/src/EEA/Trusted-Token/contracts/EEATransferableToken.sol\":{\"keccak256\":\"0x9186d561c54cc0f3ef3592a568c3f8e5f10afc0ad260aa923d258b00f1dcb236\",\"urls\":[\"bzzr://8b699bdbac1f42e2eded847f78032ba934692386333b003af94fab7123c221ab\"]},\"/home/svm/src/EEA/Trusted-Token/contracts/EthereumClaimsRegistry.sol\":{\"keccak256\":\"0x0bd945f56a61d40199cffe9c79aa99b3d4f628d04797a5289281af7e2f5fd103\",\"urls\":[\"bzzr://ccb304fcafc9952633119ff4c4123258d08915d8fe2f3e481a5d8f620d126165\"]},\"/home/svm/src/EEA/Trusted-Token/contracts/EthereumDIDRegistry.sol\":{\"keccak256\":\"0x71f68bef3ddf6ad26aa5a65e5c512d9f4bc240fd41023c7b60367835053f0d41\",\"urls\":[\"bzzr://a14cbd892829bc7b5c522e00f3bdc95a3fadb2cff38f08023110a32722f09b01\"]}},\"version\":1}",
+  "bytecode": "0x608060405234801561001057600080fd5b506040516060806101538339810180604052606081101561003057600080fd5b5080516020820151604090920151600080546001600160a01b039384166001600160a01b031991821617909155600180549484169482169490941790935560028054929091169190921617905560c88061008b6000396000f3fe6080604052348015600f57600080fd5b5060043610603c5760003560e01c8063577f9fb1146041578063b1a8dbc4146063578063dbf1bfb8146069575b600080fd5b6047606f565b604080516001600160a01b039092168252519081900360200190f35b6047607e565b6047608d565b6000546001600160a01b031681565b6001546001600160a01b031681565b6002546001600160a01b03168156fea165627a7a72305820e22d0390ede80ff329ca0b2c64c8cd3c435d32017dde20915076c9123762eaa40029",
+  "deployedBytecode": "0x6080604052348015600f57600080fd5b5060043610603c5760003560e01c8063577f9fb1146041578063b1a8dbc4146063578063dbf1bfb8146069575b600080fd5b6047606f565b604080516001600160a01b039092168252519081900360200190f35b6047607e565b6047608d565b6000546001600160a01b031681565b6001546001600160a01b031681565b6002546001600160a01b03168156fea165627a7a72305820e22d0390ede80ff329ca0b2c64c8cd3c435d32017dde20915076c9123762eaa40029",
+  "sourceMap": "144:741:2:-;;;594:287;8:9:-1;5:2;;;30:1;27;20:12;5:2;594:287:2;;;;;;;;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;-1:-1;594:287:2;;;;;;;;;;;739:11;:47;;-1:-1:-1;;;;;739:47:2;;;-1:-1:-1;;;;;;739:47:2;;;;;;;;792:56;;;;;;;;;;;;;;;854:9;:22;;;;;;;;;;;;;144:741;;;;;;",
+  "deployedSourceMap": "144:741:2:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;144:741:2;;;;;;;;;;;;;;;;;;;;;;;;;;;;;181:38;;;:::i;:::-;;;;-1:-1:-1;;;;;181:38:2;;;;;;;;;;;;;;225:44;;;:::i;275:24::-;;;:::i;181:38::-;;;-1:-1:-1;;;;;181:38:2;;:::o;225:44::-;;;-1:-1:-1;;;;;225:44:2;;:::o;275:24::-;;;-1:-1:-1;;;;;275:24:2;;:::o",
+  "source": "pragma solidity ^0.5.0;\n\n\nimport \"./EthereumClaimsRegistry.sol\";\nimport \"./EthereumDIDRegistry.sol\";\n\n\n/**\n * @title EEA Transferable Token\n */\ncontract EEATransferableToken {\n\n    EthereumDIDRegistry public didRegistry;\n    EthereumClaimsRegistry public claimsRegistry;\n    address public eeaIssuer;\n\n\n\n\n    function _memberCheck(address member) internal view returns (bool) {\n        bytes32 claim = claimsRegistry.getClaim(eeaIssuer, member, keccak256(abi.encodePacked(\"membership\")));\n        if (claim == keccak256(abi.encodePacked(\"true\"))){\n            return true;\n        }\n    }\n\n\n\n  constructor(address _didRegistry,\n    address _claimsRegistry,\n    address _eeaIssuer) public {\n\n    //set registries and EEA Issuer address\n    didRegistry = EthereumDIDRegistry(_didRegistry);\n    claimsRegistry = EthereumClaimsRegistry(_claimsRegistry);\n    eeaIssuer = _eeaIssuer;\n  }\n\n\n}\n",
+  "sourcePath": "/home/svm/src/EEA/Trusted-Token/contracts/EEATransferableToken.sol",
+  "ast": {
+    "absolutePath": "/home/svm/src/EEA/Trusted-Token/contracts/EEATransferableToken.sol",
+    "exportedSymbols": {
+      "EEATransferableToken": [
+        942
+      ]
+    },
+    "id": 943,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 873,
+        "literals": [
+          "solidity",
+          "^",
+          "0.5",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:23:2"
+      },
+      {
+        "absolutePath": "/home/svm/src/EEA/Trusted-Token/contracts/EthereumClaimsRegistry.sol",
+        "file": "./EthereumClaimsRegistry.sol",
+        "id": 874,
+        "nodeType": "ImportDirective",
+        "scope": 943,
+        "sourceUnit": 1076,
+        "src": "26:38:2",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "absolutePath": "/home/svm/src/EEA/Trusted-Token/contracts/EthereumDIDRegistry.sol",
+        "file": "./EthereumDIDRegistry.sol",
+        "id": 875,
+        "nodeType": "ImportDirective",
+        "scope": 943,
+        "sourceUnit": 1815,
+        "src": "65:35:2",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": "@title EEA Transferable Token",
+        "fullyImplemented": true,
+        "id": 942,
+        "linearizedBaseContracts": [
+          942
+        ],
+        "name": "EEATransferableToken",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "constant": false,
+            "id": 877,
+            "name": "didRegistry",
+            "nodeType": "VariableDeclaration",
+            "scope": 942,
+            "src": "181:38:2",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_contract$_EthereumDIDRegistry_$1814",
+              "typeString": "contract EthereumDIDRegistry"
+            },
+            "typeName": {
+              "contractScope": null,
+              "id": 876,
+              "name": "EthereumDIDRegistry",
+              "nodeType": "UserDefinedTypeName",
+              "referencedDeclaration": 1814,
+              "src": "181:19:2",
+              "typeDescriptions": {
+                "typeIdentifier": "t_contract$_EthereumDIDRegistry_$1814",
+                "typeString": "contract EthereumDIDRegistry"
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          },
+          {
+            "constant": false,
+            "id": 879,
+            "name": "claimsRegistry",
+            "nodeType": "VariableDeclaration",
+            "scope": 942,
+            "src": "225:44:2",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_contract$_EthereumClaimsRegistry_$1075",
+              "typeString": "contract EthereumClaimsRegistry"
+            },
+            "typeName": {
+              "contractScope": null,
+              "id": 878,
+              "name": "EthereumClaimsRegistry",
+              "nodeType": "UserDefinedTypeName",
+              "referencedDeclaration": 1075,
+              "src": "225:22:2",
+              "typeDescriptions": {
+                "typeIdentifier": "t_contract$_EthereumClaimsRegistry_$1075",
+                "typeString": "contract EthereumClaimsRegistry"
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          },
+          {
+            "constant": false,
+            "id": 881,
+            "name": "eeaIssuer",
+            "nodeType": "VariableDeclaration",
+            "scope": 942,
+            "src": "275:24:2",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_address",
+              "typeString": "address"
+            },
+            "typeName": {
+              "id": 880,
+              "name": "address",
+              "nodeType": "ElementaryTypeName",
+              "src": "275:7:2",
+              "stateMutability": "nonpayable",
+              "typeDescriptions": {
+                "typeIdentifier": "t_address",
+                "typeString": "address"
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 914,
+              "nodeType": "Block",
+              "src": "376:212:2",
+              "statements": [
+                {
+                  "assignments": [
+                    889
+                  ],
+                  "declarations": [
+                    {
+                      "constant": false,
+                      "id": 889,
+                      "name": "claim",
+                      "nodeType": "VariableDeclaration",
+                      "scope": 914,
+                      "src": "386:13:2",
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_bytes32",
+                        "typeString": "bytes32"
+                      },
+                      "typeName": {
+                        "id": 888,
+                        "name": "bytes32",
+                        "nodeType": "ElementaryTypeName",
+                        "src": "386:7:2",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bytes32",
+                          "typeString": "bytes32"
+                        }
+                      },
+                      "value": null,
+                      "visibility": "internal"
+                    }
+                  ],
+                  "id": 901,
+                  "initialValue": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "id": 892,
+                        "name": "eeaIssuer",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 881,
+                        "src": "426:9:2",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "id": 893,
+                        "name": "member",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 883,
+                        "src": "437:6:2",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "arguments": [
+                          {
+                            "argumentTypes": null,
+                            "arguments": [
+                              {
+                                "argumentTypes": null,
+                                "hexValue": "6d656d62657273686970",
+                                "id": 897,
+                                "isConstant": false,
+                                "isLValue": false,
+                                "isPure": true,
+                                "kind": "string",
+                                "lValueRequested": false,
+                                "nodeType": "Literal",
+                                "src": "472:12:2",
+                                "subdenomination": null,
+                                "typeDescriptions": {
+                                  "typeIdentifier": "t_stringliteral_e4d89b09a6eb94125ee9c6123f55fbaef99eabb81fcefd76640abb9269a84805",
+                                  "typeString": "literal_string \"membership\""
+                                },
+                                "value": "membership"
+                              }
+                            ],
+                            "expression": {
+                              "argumentTypes": [
+                                {
+                                  "typeIdentifier": "t_stringliteral_e4d89b09a6eb94125ee9c6123f55fbaef99eabb81fcefd76640abb9269a84805",
+                                  "typeString": "literal_string \"membership\""
+                                }
+                              ],
+                              "expression": {
+                                "argumentTypes": null,
+                                "id": 895,
+                                "name": "abi",
+                                "nodeType": "Identifier",
+                                "overloadedDeclarations": [],
+                                "referencedDeclaration": 5333,
+                                "src": "455:3:2",
+                                "typeDescriptions": {
+                                  "typeIdentifier": "t_magic_abi",
+                                  "typeString": "abi"
+                                }
+                              },
+                              "id": 896,
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": true,
+                              "lValueRequested": false,
+                              "memberName": "encodePacked",
+                              "nodeType": "MemberAccess",
+                              "referencedDeclaration": null,
+                              "src": "455:16:2",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_function_abiencodepacked_pure$__$returns$_t_bytes_memory_ptr_$",
+                                "typeString": "function () pure returns (bytes memory)"
+                              }
+                            },
+                            "id": 898,
+                            "isConstant": false,
+                            "isLValue": false,
+                            "isPure": true,
+                            "kind": "functionCall",
+                            "lValueRequested": false,
+                            "names": [],
+                            "nodeType": "FunctionCall",
+                            "src": "455:30:2",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_bytes_memory_ptr",
+                              "typeString": "bytes memory"
+                            }
+                          }
+                        ],
+                        "expression": {
+                          "argumentTypes": [
+                            {
+                              "typeIdentifier": "t_bytes_memory_ptr",
+                              "typeString": "bytes memory"
+                            }
+                          ],
+                          "id": 894,
+                          "name": "keccak256",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 5340,
+                          "src": "445:9:2",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_function_keccak256_pure$_t_bytes_memory_ptr_$returns$_t_bytes32_$",
+                            "typeString": "function (bytes memory) pure returns (bytes32)"
+                          }
+                        },
+                        "id": 899,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": true,
+                        "kind": "functionCall",
+                        "lValueRequested": false,
+                        "names": [],
+                        "nodeType": "FunctionCall",
+                        "src": "445:41:2",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bytes32",
+                          "typeString": "bytes32"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        },
+                        {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        },
+                        {
+                          "typeIdentifier": "t_bytes32",
+                          "typeString": "bytes32"
+                        }
+                      ],
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 890,
+                        "name": "claimsRegistry",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 879,
+                        "src": "402:14:2",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_contract$_EthereumClaimsRegistry_$1075",
+                          "typeString": "contract EthereumClaimsRegistry"
+                        }
+                      },
+                      "id": 891,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "getClaim",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 1039,
+                      "src": "402:23:2",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_external_view$_t_address_$_t_address_$_t_bytes32_$returns$_t_bytes32_$",
+                        "typeString": "function (address,address,bytes32) view external returns (bytes32)"
+                      }
+                    },
+                    "id": 900,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "402:85:2",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "nodeType": "VariableDeclarationStatement",
+                  "src": "386:101:2"
+                },
+                {
+                  "condition": {
+                    "argumentTypes": null,
+                    "commonType": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    },
+                    "id": 909,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftExpression": {
+                      "argumentTypes": null,
+                      "id": 902,
+                      "name": "claim",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 889,
+                      "src": "501:5:2",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_bytes32",
+                        "typeString": "bytes32"
+                      }
+                    },
+                    "nodeType": "BinaryOperation",
+                    "operator": "==",
+                    "rightExpression": {
+                      "argumentTypes": null,
+                      "arguments": [
+                        {
+                          "argumentTypes": null,
+                          "arguments": [
+                            {
+                              "argumentTypes": null,
+                              "hexValue": "74727565",
+                              "id": 906,
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": true,
+                              "kind": "string",
+                              "lValueRequested": false,
+                              "nodeType": "Literal",
+                              "src": "537:6:2",
+                              "subdenomination": null,
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_stringliteral_6273151f959616268004b58dbb21e5c851b7b8d04498b4aabee12291d22fc034",
+                                "typeString": "literal_string \"true\""
+                              },
+                              "value": "true"
+                            }
+                          ],
+                          "expression": {
+                            "argumentTypes": [
+                              {
+                                "typeIdentifier": "t_stringliteral_6273151f959616268004b58dbb21e5c851b7b8d04498b4aabee12291d22fc034",
+                                "typeString": "literal_string \"true\""
+                              }
+                            ],
+                            "expression": {
+                              "argumentTypes": null,
+                              "id": 904,
+                              "name": "abi",
+                              "nodeType": "Identifier",
+                              "overloadedDeclarations": [],
+                              "referencedDeclaration": 5333,
+                              "src": "520:3:2",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_magic_abi",
+                                "typeString": "abi"
+                              }
+                            },
+                            "id": 905,
+                            "isConstant": false,
+                            "isLValue": false,
+                            "isPure": true,
+                            "lValueRequested": false,
+                            "memberName": "encodePacked",
+                            "nodeType": "MemberAccess",
+                            "referencedDeclaration": null,
+                            "src": "520:16:2",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_function_abiencodepacked_pure$__$returns$_t_bytes_memory_ptr_$",
+                              "typeString": "function () pure returns (bytes memory)"
+                            }
+                          },
+                          "id": 907,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": true,
+                          "kind": "functionCall",
+                          "lValueRequested": false,
+                          "names": [],
+                          "nodeType": "FunctionCall",
+                          "src": "520:24:2",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_bytes_memory_ptr",
+                            "typeString": "bytes memory"
+                          }
+                        }
+                      ],
+                      "expression": {
+                        "argumentTypes": [
+                          {
+                            "typeIdentifier": "t_bytes_memory_ptr",
+                            "typeString": "bytes memory"
+                          }
+                        ],
+                        "id": 903,
+                        "name": "keccak256",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 5340,
+                        "src": "510:9:2",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_function_keccak256_pure$_t_bytes_memory_ptr_$returns$_t_bytes32_$",
+                          "typeString": "function (bytes memory) pure returns (bytes32)"
+                        }
+                      },
+                      "id": 908,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": true,
+                      "kind": "functionCall",
+                      "lValueRequested": false,
+                      "names": [],
+                      "nodeType": "FunctionCall",
+                      "src": "510:35:2",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_bytes32",
+                        "typeString": "bytes32"
+                      }
+                    },
+                    "src": "501:44:2",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "falseBody": null,
+                  "id": 913,
+                  "nodeType": "IfStatement",
+                  "src": "497:85:2",
+                  "trueBody": {
+                    "id": 912,
+                    "nodeType": "Block",
+                    "src": "546:36:2",
+                    "statements": [
+                      {
+                        "expression": {
+                          "argumentTypes": null,
+                          "hexValue": "74727565",
+                          "id": 910,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": true,
+                          "kind": "bool",
+                          "lValueRequested": false,
+                          "nodeType": "Literal",
+                          "src": "567:4:2",
+                          "subdenomination": null,
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_bool",
+                            "typeString": "bool"
+                          },
+                          "value": "true"
+                        },
+                        "functionReturnParameters": 887,
+                        "id": 911,
+                        "nodeType": "Return",
+                        "src": "560:11:2"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 915,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "_memberCheck",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 884,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 883,
+                  "name": "member",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 915,
+                  "src": "331:14:2",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 882,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "331:7:2",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "330:16:2"
+            },
+            "returnParameters": {
+              "id": 887,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 886,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 915,
+                  "src": "370:4:2",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  },
+                  "typeName": {
+                    "id": 885,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "370:4:2",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "369:6:2"
+            },
+            "scope": 942,
+            "src": "309:279:2",
+            "stateMutability": "view",
+            "superFunction": null,
+            "visibility": "internal"
+          },
+          {
+            "body": {
+              "id": 940,
+              "nodeType": "Block",
+              "src": "688:193:2",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 928,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "id": 924,
+                      "name": "didRegistry",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 877,
+                      "src": "739:11:2",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_contract$_EthereumDIDRegistry_$1814",
+                        "typeString": "contract EthereumDIDRegistry"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "arguments": [
+                        {
+                          "argumentTypes": null,
+                          "id": 926,
+                          "name": "_didRegistry",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 917,
+                          "src": "773:12:2",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_address",
+                            "typeString": "address"
+                          }
+                        }
+                      ],
+                      "expression": {
+                        "argumentTypes": [
+                          {
+                            "typeIdentifier": "t_address",
+                            "typeString": "address"
+                          }
+                        ],
+                        "id": 925,
+                        "name": "EthereumDIDRegistry",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 1814,
+                        "src": "753:19:2",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_type$_t_contract$_EthereumDIDRegistry_$1814_$",
+                          "typeString": "type(contract EthereumDIDRegistry)"
+                        }
+                      },
+                      "id": 927,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "kind": "typeConversion",
+                      "lValueRequested": false,
+                      "names": [],
+                      "nodeType": "FunctionCall",
+                      "src": "753:33:2",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_contract$_EthereumDIDRegistry_$1814",
+                        "typeString": "contract EthereumDIDRegistry"
+                      }
+                    },
+                    "src": "739:47:2",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_contract$_EthereumDIDRegistry_$1814",
+                      "typeString": "contract EthereumDIDRegistry"
+                    }
+                  },
+                  "id": 929,
+                  "nodeType": "ExpressionStatement",
+                  "src": "739:47:2"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 934,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "id": 930,
+                      "name": "claimsRegistry",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 879,
+                      "src": "792:14:2",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_contract$_EthereumClaimsRegistry_$1075",
+                        "typeString": "contract EthereumClaimsRegistry"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "arguments": [
+                        {
+                          "argumentTypes": null,
+                          "id": 932,
+                          "name": "_claimsRegistry",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 919,
+                          "src": "832:15:2",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_address",
+                            "typeString": "address"
+                          }
+                        }
+                      ],
+                      "expression": {
+                        "argumentTypes": [
+                          {
+                            "typeIdentifier": "t_address",
+                            "typeString": "address"
+                          }
+                        ],
+                        "id": 931,
+                        "name": "EthereumClaimsRegistry",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 1075,
+                        "src": "809:22:2",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_type$_t_contract$_EthereumClaimsRegistry_$1075_$",
+                          "typeString": "type(contract EthereumClaimsRegistry)"
+                        }
+                      },
+                      "id": 933,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "kind": "typeConversion",
+                      "lValueRequested": false,
+                      "names": [],
+                      "nodeType": "FunctionCall",
+                      "src": "809:39:2",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_contract$_EthereumClaimsRegistry_$1075",
+                        "typeString": "contract EthereumClaimsRegistry"
+                      }
+                    },
+                    "src": "792:56:2",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_contract$_EthereumClaimsRegistry_$1075",
+                      "typeString": "contract EthereumClaimsRegistry"
+                    }
+                  },
+                  "id": 935,
+                  "nodeType": "ExpressionStatement",
+                  "src": "792:56:2"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 938,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "id": 936,
+                      "name": "eeaIssuer",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 881,
+                      "src": "854:9:2",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_address",
+                        "typeString": "address"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "id": 937,
+                      "name": "_eeaIssuer",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 921,
+                      "src": "866:10:2",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_address",
+                        "typeString": "address"
+                      }
+                    },
+                    "src": "854:22:2",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "id": 939,
+                  "nodeType": "ExpressionStatement",
+                  "src": "854:22:2"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 941,
+            "implemented": true,
+            "kind": "constructor",
+            "modifiers": [],
+            "name": "",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 922,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 917,
+                  "name": "_didRegistry",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 941,
+                  "src": "606:20:2",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 916,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "606:7:2",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 919,
+                  "name": "_claimsRegistry",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 941,
+                  "src": "632:23:2",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 918,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "632:7:2",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 921,
+                  "name": "_eeaIssuer",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 941,
+                  "src": "661:18:2",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 920,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "661:7:2",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "605:75:2"
+            },
+            "returnParameters": {
+              "id": 923,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "688:0:2"
+            },
+            "scope": 942,
+            "src": "594:287:2",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "public"
+          }
+        ],
+        "scope": 943,
+        "src": "144:741:2"
+      }
+    ],
+    "src": "0:886:2"
+  },
+  "legacyAST": {
+    "absolutePath": "/home/svm/src/EEA/Trusted-Token/contracts/EEATransferableToken.sol",
+    "exportedSymbols": {
+      "EEATransferableToken": [
+        942
+      ]
+    },
+    "id": 943,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 873,
+        "literals": [
+          "solidity",
+          "^",
+          "0.5",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:23:2"
+      },
+      {
+        "absolutePath": "/home/svm/src/EEA/Trusted-Token/contracts/EthereumClaimsRegistry.sol",
+        "file": "./EthereumClaimsRegistry.sol",
+        "id": 874,
+        "nodeType": "ImportDirective",
+        "scope": 943,
+        "sourceUnit": 1076,
+        "src": "26:38:2",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "absolutePath": "/home/svm/src/EEA/Trusted-Token/contracts/EthereumDIDRegistry.sol",
+        "file": "./EthereumDIDRegistry.sol",
+        "id": 875,
+        "nodeType": "ImportDirective",
+        "scope": 943,
+        "sourceUnit": 1815,
+        "src": "65:35:2",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": "@title EEA Transferable Token",
+        "fullyImplemented": true,
+        "id": 942,
+        "linearizedBaseContracts": [
+          942
+        ],
+        "name": "EEATransferableToken",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "constant": false,
+            "id": 877,
+            "name": "didRegistry",
+            "nodeType": "VariableDeclaration",
+            "scope": 942,
+            "src": "181:38:2",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_contract$_EthereumDIDRegistry_$1814",
+              "typeString": "contract EthereumDIDRegistry"
+            },
+            "typeName": {
+              "contractScope": null,
+              "id": 876,
+              "name": "EthereumDIDRegistry",
+              "nodeType": "UserDefinedTypeName",
+              "referencedDeclaration": 1814,
+              "src": "181:19:2",
+              "typeDescriptions": {
+                "typeIdentifier": "t_contract$_EthereumDIDRegistry_$1814",
+                "typeString": "contract EthereumDIDRegistry"
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          },
+          {
+            "constant": false,
+            "id": 879,
+            "name": "claimsRegistry",
+            "nodeType": "VariableDeclaration",
+            "scope": 942,
+            "src": "225:44:2",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_contract$_EthereumClaimsRegistry_$1075",
+              "typeString": "contract EthereumClaimsRegistry"
+            },
+            "typeName": {
+              "contractScope": null,
+              "id": 878,
+              "name": "EthereumClaimsRegistry",
+              "nodeType": "UserDefinedTypeName",
+              "referencedDeclaration": 1075,
+              "src": "225:22:2",
+              "typeDescriptions": {
+                "typeIdentifier": "t_contract$_EthereumClaimsRegistry_$1075",
+                "typeString": "contract EthereumClaimsRegistry"
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          },
+          {
+            "constant": false,
+            "id": 881,
+            "name": "eeaIssuer",
+            "nodeType": "VariableDeclaration",
+            "scope": 942,
+            "src": "275:24:2",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_address",
+              "typeString": "address"
+            },
+            "typeName": {
+              "id": 880,
+              "name": "address",
+              "nodeType": "ElementaryTypeName",
+              "src": "275:7:2",
+              "stateMutability": "nonpayable",
+              "typeDescriptions": {
+                "typeIdentifier": "t_address",
+                "typeString": "address"
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 914,
+              "nodeType": "Block",
+              "src": "376:212:2",
+              "statements": [
+                {
+                  "assignments": [
+                    889
+                  ],
+                  "declarations": [
+                    {
+                      "constant": false,
+                      "id": 889,
+                      "name": "claim",
+                      "nodeType": "VariableDeclaration",
+                      "scope": 914,
+                      "src": "386:13:2",
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_bytes32",
+                        "typeString": "bytes32"
+                      },
+                      "typeName": {
+                        "id": 888,
+                        "name": "bytes32",
+                        "nodeType": "ElementaryTypeName",
+                        "src": "386:7:2",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bytes32",
+                          "typeString": "bytes32"
+                        }
+                      },
+                      "value": null,
+                      "visibility": "internal"
+                    }
+                  ],
+                  "id": 901,
+                  "initialValue": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "id": 892,
+                        "name": "eeaIssuer",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 881,
+                        "src": "426:9:2",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "id": 893,
+                        "name": "member",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 883,
+                        "src": "437:6:2",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "arguments": [
+                          {
+                            "argumentTypes": null,
+                            "arguments": [
+                              {
+                                "argumentTypes": null,
+                                "hexValue": "6d656d62657273686970",
+                                "id": 897,
+                                "isConstant": false,
+                                "isLValue": false,
+                                "isPure": true,
+                                "kind": "string",
+                                "lValueRequested": false,
+                                "nodeType": "Literal",
+                                "src": "472:12:2",
+                                "subdenomination": null,
+                                "typeDescriptions": {
+                                  "typeIdentifier": "t_stringliteral_e4d89b09a6eb94125ee9c6123f55fbaef99eabb81fcefd76640abb9269a84805",
+                                  "typeString": "literal_string \"membership\""
+                                },
+                                "value": "membership"
+                              }
+                            ],
+                            "expression": {
+                              "argumentTypes": [
+                                {
+                                  "typeIdentifier": "t_stringliteral_e4d89b09a6eb94125ee9c6123f55fbaef99eabb81fcefd76640abb9269a84805",
+                                  "typeString": "literal_string \"membership\""
+                                }
+                              ],
+                              "expression": {
+                                "argumentTypes": null,
+                                "id": 895,
+                                "name": "abi",
+                                "nodeType": "Identifier",
+                                "overloadedDeclarations": [],
+                                "referencedDeclaration": 5333,
+                                "src": "455:3:2",
+                                "typeDescriptions": {
+                                  "typeIdentifier": "t_magic_abi",
+                                  "typeString": "abi"
+                                }
+                              },
+                              "id": 896,
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": true,
+                              "lValueRequested": false,
+                              "memberName": "encodePacked",
+                              "nodeType": "MemberAccess",
+                              "referencedDeclaration": null,
+                              "src": "455:16:2",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_function_abiencodepacked_pure$__$returns$_t_bytes_memory_ptr_$",
+                                "typeString": "function () pure returns (bytes memory)"
+                              }
+                            },
+                            "id": 898,
+                            "isConstant": false,
+                            "isLValue": false,
+                            "isPure": true,
+                            "kind": "functionCall",
+                            "lValueRequested": false,
+                            "names": [],
+                            "nodeType": "FunctionCall",
+                            "src": "455:30:2",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_bytes_memory_ptr",
+                              "typeString": "bytes memory"
+                            }
+                          }
+                        ],
+                        "expression": {
+                          "argumentTypes": [
+                            {
+                              "typeIdentifier": "t_bytes_memory_ptr",
+                              "typeString": "bytes memory"
+                            }
+                          ],
+                          "id": 894,
+                          "name": "keccak256",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 5340,
+                          "src": "445:9:2",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_function_keccak256_pure$_t_bytes_memory_ptr_$returns$_t_bytes32_$",
+                            "typeString": "function (bytes memory) pure returns (bytes32)"
+                          }
+                        },
+                        "id": 899,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": true,
+                        "kind": "functionCall",
+                        "lValueRequested": false,
+                        "names": [],
+                        "nodeType": "FunctionCall",
+                        "src": "445:41:2",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bytes32",
+                          "typeString": "bytes32"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        },
+                        {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        },
+                        {
+                          "typeIdentifier": "t_bytes32",
+                          "typeString": "bytes32"
+                        }
+                      ],
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 890,
+                        "name": "claimsRegistry",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 879,
+                        "src": "402:14:2",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_contract$_EthereumClaimsRegistry_$1075",
+                          "typeString": "contract EthereumClaimsRegistry"
+                        }
+                      },
+                      "id": 891,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "getClaim",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 1039,
+                      "src": "402:23:2",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_external_view$_t_address_$_t_address_$_t_bytes32_$returns$_t_bytes32_$",
+                        "typeString": "function (address,address,bytes32) view external returns (bytes32)"
+                      }
+                    },
+                    "id": 900,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "402:85:2",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "nodeType": "VariableDeclarationStatement",
+                  "src": "386:101:2"
+                },
+                {
+                  "condition": {
+                    "argumentTypes": null,
+                    "commonType": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    },
+                    "id": 909,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftExpression": {
+                      "argumentTypes": null,
+                      "id": 902,
+                      "name": "claim",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 889,
+                      "src": "501:5:2",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_bytes32",
+                        "typeString": "bytes32"
+                      }
+                    },
+                    "nodeType": "BinaryOperation",
+                    "operator": "==",
+                    "rightExpression": {
+                      "argumentTypes": null,
+                      "arguments": [
+                        {
+                          "argumentTypes": null,
+                          "arguments": [
+                            {
+                              "argumentTypes": null,
+                              "hexValue": "74727565",
+                              "id": 906,
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": true,
+                              "kind": "string",
+                              "lValueRequested": false,
+                              "nodeType": "Literal",
+                              "src": "537:6:2",
+                              "subdenomination": null,
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_stringliteral_6273151f959616268004b58dbb21e5c851b7b8d04498b4aabee12291d22fc034",
+                                "typeString": "literal_string \"true\""
+                              },
+                              "value": "true"
+                            }
+                          ],
+                          "expression": {
+                            "argumentTypes": [
+                              {
+                                "typeIdentifier": "t_stringliteral_6273151f959616268004b58dbb21e5c851b7b8d04498b4aabee12291d22fc034",
+                                "typeString": "literal_string \"true\""
+                              }
+                            ],
+                            "expression": {
+                              "argumentTypes": null,
+                              "id": 904,
+                              "name": "abi",
+                              "nodeType": "Identifier",
+                              "overloadedDeclarations": [],
+                              "referencedDeclaration": 5333,
+                              "src": "520:3:2",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_magic_abi",
+                                "typeString": "abi"
+                              }
+                            },
+                            "id": 905,
+                            "isConstant": false,
+                            "isLValue": false,
+                            "isPure": true,
+                            "lValueRequested": false,
+                            "memberName": "encodePacked",
+                            "nodeType": "MemberAccess",
+                            "referencedDeclaration": null,
+                            "src": "520:16:2",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_function_abiencodepacked_pure$__$returns$_t_bytes_memory_ptr_$",
+                              "typeString": "function () pure returns (bytes memory)"
+                            }
+                          },
+                          "id": 907,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": true,
+                          "kind": "functionCall",
+                          "lValueRequested": false,
+                          "names": [],
+                          "nodeType": "FunctionCall",
+                          "src": "520:24:2",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_bytes_memory_ptr",
+                            "typeString": "bytes memory"
+                          }
+                        }
+                      ],
+                      "expression": {
+                        "argumentTypes": [
+                          {
+                            "typeIdentifier": "t_bytes_memory_ptr",
+                            "typeString": "bytes memory"
+                          }
+                        ],
+                        "id": 903,
+                        "name": "keccak256",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 5340,
+                        "src": "510:9:2",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_function_keccak256_pure$_t_bytes_memory_ptr_$returns$_t_bytes32_$",
+                          "typeString": "function (bytes memory) pure returns (bytes32)"
+                        }
+                      },
+                      "id": 908,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": true,
+                      "kind": "functionCall",
+                      "lValueRequested": false,
+                      "names": [],
+                      "nodeType": "FunctionCall",
+                      "src": "510:35:2",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_bytes32",
+                        "typeString": "bytes32"
+                      }
+                    },
+                    "src": "501:44:2",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "falseBody": null,
+                  "id": 913,
+                  "nodeType": "IfStatement",
+                  "src": "497:85:2",
+                  "trueBody": {
+                    "id": 912,
+                    "nodeType": "Block",
+                    "src": "546:36:2",
+                    "statements": [
+                      {
+                        "expression": {
+                          "argumentTypes": null,
+                          "hexValue": "74727565",
+                          "id": 910,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": true,
+                          "kind": "bool",
+                          "lValueRequested": false,
+                          "nodeType": "Literal",
+                          "src": "567:4:2",
+                          "subdenomination": null,
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_bool",
+                            "typeString": "bool"
+                          },
+                          "value": "true"
+                        },
+                        "functionReturnParameters": 887,
+                        "id": 911,
+                        "nodeType": "Return",
+                        "src": "560:11:2"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 915,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "_memberCheck",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 884,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 883,
+                  "name": "member",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 915,
+                  "src": "331:14:2",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 882,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "331:7:2",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "330:16:2"
+            },
+            "returnParameters": {
+              "id": 887,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 886,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 915,
+                  "src": "370:4:2",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  },
+                  "typeName": {
+                    "id": 885,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "370:4:2",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "369:6:2"
+            },
+            "scope": 942,
+            "src": "309:279:2",
+            "stateMutability": "view",
+            "superFunction": null,
+            "visibility": "internal"
+          },
+          {
+            "body": {
+              "id": 940,
+              "nodeType": "Block",
+              "src": "688:193:2",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 928,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "id": 924,
+                      "name": "didRegistry",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 877,
+                      "src": "739:11:2",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_contract$_EthereumDIDRegistry_$1814",
+                        "typeString": "contract EthereumDIDRegistry"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "arguments": [
+                        {
+                          "argumentTypes": null,
+                          "id": 926,
+                          "name": "_didRegistry",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 917,
+                          "src": "773:12:2",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_address",
+                            "typeString": "address"
+                          }
+                        }
+                      ],
+                      "expression": {
+                        "argumentTypes": [
+                          {
+                            "typeIdentifier": "t_address",
+                            "typeString": "address"
+                          }
+                        ],
+                        "id": 925,
+                        "name": "EthereumDIDRegistry",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 1814,
+                        "src": "753:19:2",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_type$_t_contract$_EthereumDIDRegistry_$1814_$",
+                          "typeString": "type(contract EthereumDIDRegistry)"
+                        }
+                      },
+                      "id": 927,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "kind": "typeConversion",
+                      "lValueRequested": false,
+                      "names": [],
+                      "nodeType": "FunctionCall",
+                      "src": "753:33:2",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_contract$_EthereumDIDRegistry_$1814",
+                        "typeString": "contract EthereumDIDRegistry"
+                      }
+                    },
+                    "src": "739:47:2",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_contract$_EthereumDIDRegistry_$1814",
+                      "typeString": "contract EthereumDIDRegistry"
+                    }
+                  },
+                  "id": 929,
+                  "nodeType": "ExpressionStatement",
+                  "src": "739:47:2"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 934,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "id": 930,
+                      "name": "claimsRegistry",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 879,
+                      "src": "792:14:2",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_contract$_EthereumClaimsRegistry_$1075",
+                        "typeString": "contract EthereumClaimsRegistry"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "arguments": [
+                        {
+                          "argumentTypes": null,
+                          "id": 932,
+                          "name": "_claimsRegistry",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 919,
+                          "src": "832:15:2",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_address",
+                            "typeString": "address"
+                          }
+                        }
+                      ],
+                      "expression": {
+                        "argumentTypes": [
+                          {
+                            "typeIdentifier": "t_address",
+                            "typeString": "address"
+                          }
+                        ],
+                        "id": 931,
+                        "name": "EthereumClaimsRegistry",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 1075,
+                        "src": "809:22:2",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_type$_t_contract$_EthereumClaimsRegistry_$1075_$",
+                          "typeString": "type(contract EthereumClaimsRegistry)"
+                        }
+                      },
+                      "id": 933,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "kind": "typeConversion",
+                      "lValueRequested": false,
+                      "names": [],
+                      "nodeType": "FunctionCall",
+                      "src": "809:39:2",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_contract$_EthereumClaimsRegistry_$1075",
+                        "typeString": "contract EthereumClaimsRegistry"
+                      }
+                    },
+                    "src": "792:56:2",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_contract$_EthereumClaimsRegistry_$1075",
+                      "typeString": "contract EthereumClaimsRegistry"
+                    }
+                  },
+                  "id": 935,
+                  "nodeType": "ExpressionStatement",
+                  "src": "792:56:2"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 938,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "id": 936,
+                      "name": "eeaIssuer",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 881,
+                      "src": "854:9:2",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_address",
+                        "typeString": "address"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "id": 937,
+                      "name": "_eeaIssuer",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 921,
+                      "src": "866:10:2",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_address",
+                        "typeString": "address"
+                      }
+                    },
+                    "src": "854:22:2",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "id": 939,
+                  "nodeType": "ExpressionStatement",
+                  "src": "854:22:2"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 941,
+            "implemented": true,
+            "kind": "constructor",
+            "modifiers": [],
+            "name": "",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 922,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 917,
+                  "name": "_didRegistry",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 941,
+                  "src": "606:20:2",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 916,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "606:7:2",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 919,
+                  "name": "_claimsRegistry",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 941,
+                  "src": "632:23:2",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 918,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "632:7:2",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 921,
+                  "name": "_eeaIssuer",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 941,
+                  "src": "661:18:2",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 920,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "661:7:2",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "605:75:2"
+            },
+            "returnParameters": {
+              "id": 923,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "688:0:2"
+            },
+            "scope": 942,
+            "src": "594:287:2",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "public"
+          }
+        ],
+        "scope": 943,
+        "src": "144:741:2"
+      }
+    ],
+    "src": "0:886:2"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.5.8+commit.23d335f2.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.0.12",
+  "updatedAt": "2019-09-10T14:20:38.306Z",
+  "devdoc": {
+    "methods": {},
+    "title": "EEA Transferable Token"
+  },
+  "userdoc": {
+    "methods": {}
+  }
+}

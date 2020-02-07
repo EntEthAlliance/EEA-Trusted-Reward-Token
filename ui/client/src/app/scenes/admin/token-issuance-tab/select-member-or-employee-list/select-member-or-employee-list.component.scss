@@ -1,0 +1,59 @@
+@import 'variables';
+
+.common-text__sm {
+  color: #555;
+}
+
+.dialog-content {
+  padding: 0 31px;
+  height: calc(100% - 34px);
+  position: relative;
+
+  &__wrap {
+    max-height: 285px;
+    overflow: auto;
+  }
+
+  &__item {
+    padding: 16px 0;
+
+    .common-text__sm {
+      cursor: pointer;
+      font-weight: bold;
+      color: $color-common-blue;
+      padding: 0;
+    }
+  }
+}
+
+.content {
+  min-height: 280px;
+}
+
+.content-item {
+  min-height: 280px;
+  .img-wrap {
+    background-color: $color-light-grey;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin: 0 auto 8px;
+
+    i {
+      font-size: 24px;
+      color: rgba(0, 0, 0, 0.38);
+    }
+  }
+
+  p {
+    text-align: center;
+  }
+
+  a {
+    text-decoration: none;
+    text-align: center;
+    font-weight: 500;
+    cursor: pointer;
+    color: #4E9CED;
+  }
+}

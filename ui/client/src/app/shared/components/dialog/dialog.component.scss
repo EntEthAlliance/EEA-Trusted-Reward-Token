@@ -1,0 +1,18 @@
+@import 'variables';
+
+h5 {
+  color: rgba(0, 0, 0, 0.87);
+}
+
+.dialog-header {
+  padding-bottom: 12px;
+  span {
+    font-weight: bold;
+    font-family: 'Roboto Condensed';
+    font-size: 18px;
+    line-height: 21px;
+    letter-spacing: 2px;
+    color: $color-link;
+  }
+  border-bottom: 1px solid #dddddd;
+}

@@ -19,7 +19,6 @@
     "url": "https://github.com/EntEthAlliance/Trusted-Token/issues"
   },
   "homepage": "https://github.com/EntEthAlliance/Trusted-Token#readme",
-
   "scripts": {
     "build": "rm -rf node_modules/*/.git/",
     "postinstall": "node ./tools/hashChecker.js",

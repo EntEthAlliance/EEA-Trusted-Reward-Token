@@ -1,0 +1,15 @@
+/* You can add global styles to this file, and also import other style files */
+@import "variables";
+@import "base/fonts";
+@import "base/normalize";
+
+@import "utils/mixins";
+@import "utils/display";
+@import "utils/flex";
+@import "utils/atoms";
+@import "utils/spacing";
+
+@import "common";
+
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+

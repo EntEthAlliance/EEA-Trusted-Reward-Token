@@ -1,0 +1,58 @@
+<section>
+  <div class="tab-content">
+    <div class="tab-content__header d-flex justify-content-between align-items-center">
+      <h6>
+        <span *ifInRole="'employee'">EEA Reputation Token Balance</span>
+        <span *ifInRole="'member'"> EEA Token Balance</span>
+      </h6>
+      <eea-button
+        routerLink="member-orgs"
+        [text]="'Compare to EEA members'"
+        [type]="'primary'"
+      ></eea-button>
+    </div>
+    <div
+      *ngIf="currentUserBalance$ | withStatus | async as balanceState"
+      class="tab-content__text d-flex justify-content-center mt-2 ml-auto mr-auto"
+      [class.justify-content-between]="isFullBalance"
+    >
+      <ng-container *ngIf="balanceState.value as balance">
+        <div *ngIf="balance.EEAReward !== undefined" class="tab-content__text-group">
+          <h2>{{ balance.EEAReward | shortNumber: 2 }}</h2>
+          <span class="common-text">EEA Tokens</span>
+        </div>
+        <div *ngIf="balance.EEAReputation !== undefined" class="tab-content__text-group">
+          <h2>{{ balance.EEAReputation | shortNumber: 2 }}</h2>
+          <span class="common-text">EEA Reputation</span>
+        </div>
+      </ng-container>
+      <div *ngIf="balanceState.loading" class="d-flex justify-content-center">
+        <div class="loader"></div>
+      </div>
+      <div *ngIf="balanceState.error" class="d-flex justify-content-center color-red">
+        {{ balanceState.error }}
+      </div>
+    </div>
+  </div>
+  <div *ngIf="isFullBalance" class="tab-controls">
+    <p class="common-text">
+      You can
+      <eea-button
+        routerLink="redeem"
+        class="tab-controls__item"
+        [text]="'Redeem'"
+        [type]="'success'"
+        [fixedSize]="true"
+      ></eea-button>
+      or
+      <eea-button
+        routerLink="share"
+        class="tab-controls__item"
+        [text]="'Share'"
+        [type]="'success'"
+        [fixedSize]="true"
+      ></eea-button>
+      EEA Tokens
+    </p>
+  </div>
+</section>

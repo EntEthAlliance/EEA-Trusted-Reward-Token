@@ -1,0 +1,76 @@
+@import 'variables';
+
+html {
+  box-sizing: border-box;
+}
+
+// https://css-tricks.com/inheriting-box-sizing-probably-slightly-better-best-practice/
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+body {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.428571429;
+  font-family: 'Roboto', sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  background: url('assets/images/bg.jpg');
+  color: $color-primary;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: $color-black;
+  margin: 0;
+}
+
+h1 {
+  font-style: normal;
+  font-weight: 300;
+  font-size: 96px;
+  letter-spacing: -1.5px;
+}
+
+h2 {
+  font-weight: 300;
+  font-size: 60px;
+  line-height: 70px;
+  letter-spacing: -0.5px;
+}
+
+h3 {
+  font-size: 48px;
+  line-height: 56px;
+}
+
+h4 {
+  font-size: 34px;
+  line-height: 40px;
+  letter-spacing: 0.25px;
+}
+
+h5 {
+  font-size: 24px;
+  line-height: 28px;
+}
+
+h6 {
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 23px;
+  letter-spacing: 0.15px;
+}
+
+ol, ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}

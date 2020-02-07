@@ -1,0 +1,125 @@
+@import 'variables';
+@import 'utils/mixins';
+
+header {
+  max-width: 1080px;
+  width: 94%;
+  margin: 0 auto;
+  padding: 20px 0 5px 0;
+}
+
+.logo {
+  text-align: center;
+}
+
+.logo-img {
+  width: 120px;
+}
+
+.member-sign-in__link {
+  border: 2px solid $color-link;
+  padding: 9px 15px 7px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 0.9rem;
+  color: $color-link;
+  border-radius: 10px;
+  text-transform: uppercase;
+  font-family: $font-secondary;
+}
+
+.fixed-nav__list-item {
+  margin-right: 25px;
+}
+
+.fixed-nav__item-link {
+  font-family: $font-secondary;
+  color: $color-link;
+  text-decoration: none;
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-size: 14px;
+}
+
+.fixed-nav__item-link--social {
+  color: #999;
+}
+.icon-facebook,
+.icon-twitter,
+.icon-linkedin {
+  font-family: $font-icon-brands;
+  font-weight: 400;
+}
+
+.icon-facebook:before {
+  content: '';
+}
+
+.icon-twitter:before {
+  content: '';
+}
+
+.icon-linkedin:before {
+  content: '';
+}
+
+.icon-warning:before {
+  content: '';
+}
+
+.icon-shopping-cart,
+.icon-tasks,
+.icon-warning,
+.icon-angle-down {
+  font-size: 20px;
+  color: #4464aa;
+}
+
+.status-menu-item {
+  padding: 11px 14px 7px 14px;
+
+  &:last-child {
+    margin-right: -14px;
+  }
+
+  &:hover,
+  &--active {
+    background: $color-green;
+    color: #fff;
+
+    [class^='icon-'] {
+      color: #fff;
+    }
+  }
+}
+
+.user-actions-menu {
+  position: absolute;
+  top: 100%;
+  margin-top: 5px;
+  right: 0;
+  color: $color-primary;
+  z-index: 1;
+
+  &:before {
+    content: '';
+    position: absolute;
+    top: -6px;
+    right: 10px;
+    display: inline-block;
+    border-right: 6px solid transparent;
+    border-bottom: 6px solid #fff;
+    border-left: 6px solid transparent;
+  }
+}
+
+@include breakpoint(md) {
+  .logo {
+    text-align: left;
+  }
+
+  .logo-img {
+    width: 200px;
+  }
+}

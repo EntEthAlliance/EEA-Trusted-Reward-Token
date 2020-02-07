@@ -1,0 +1,118 @@
+@import 'variables';
+
+h6,
+.common-text__sm {
+  color: $color-black;
+}
+
+.counter {
+  padding: 24px 24px 32px;
+  background-color: $color-light-grey;
+  width: 30%;
+  margin-bottom: 20px;
+
+  h6 {
+    .counter-group__title {
+      font-weight: 300;
+      font-size: 60px;
+      line-height: 70px;
+      letter-spacing: -0.5px;
+      color: $color-black;
+    }
+
+    .counter-group__title,
+    .counter-group__text {
+      color: $color-black;
+      display: block;
+      text-align: center;
+    }
+
+    .counter-group__text {
+      font-weight: normal;
+    }
+  }
+}
+
+.form {
+  padding: 16px 24px 24px;
+  width: 60%;
+  background-color: $color-light-grey;
+  margin-bottom: 20px;
+
+  h6 {
+    margin-bottom: 20px;
+  }
+
+  .form-group__wrap {
+    .form-group {
+      margin-bottom: 20px;
+    }
+  }
+
+  .form-group__counter {
+    display: inline-block;
+    min-width: 60%;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 34px;
+    color: $color-black;
+  }
+  .common-form-select,
+  .common-form-input {
+    min-width: 60%;
+    height: 34px;
+  }
+
+  .common-form-input {
+    padding: 6px 12px;
+  }
+
+  .common-form-select {
+    padding: 7px;
+  }
+
+  .error {
+    color: $color-red;
+    font-weight: normal;
+  }
+}
+
+.controls {
+  justify-content: flex-end;
+}
+
+.loader-wrap {
+  min-height: 200px;
+}
+
+.loader-sm {
+  width: auto;
+  font-size: 12px;
+
+  &:before {
+    width: auto;
+  }
+}
+
+.content {
+  background-color: $color-light-grey;
+  width: 60%;
+  padding: 24px 24px 32px;
+
+  .icon-wrap {
+    width: 27px;
+    height: 27px;
+    background-color: #5ca753;
+    border-radius: 50%;
+
+    i {
+      color: $color-light-grey;
+      font-size: 18px;
+    }
+
+    h6,
+    .common-text__sm {
+      color: $color-black;
+    }
+  }
+}

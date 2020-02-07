@@ -1,0 +1,53 @@
+version: '3.2'
+
+volumes:
+  postgres_data:
+
+networks:
+  default:
+    external:
+      name: local_devcon_net
+
+services:
+  eea-client:
+    image: envisionblockchain/eea-trusted-token-ui
+    ports:
+      - "8080:8080"
+    tty: true
+    depends_on:
+      - eea-server
+    stdin_open: true
+
+  eea-server:
+    image: envisionblockchain/eea-trusted-token-backend
+    ports:
+      - "9000:9000"
+    tty: true
+    depends_on:
+      - postgres
+    stdin_open: true
+    env_file:
+      - ./ui/server.env
+
+  postgres:
+    image: postgres:11
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: TrustedToken
+      POSTGRES_DB: TrustedToken
+      POSTGRES_PASSWORD: TrustedToken
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./ui/server/initdb.sql:/docker-entrypoint-initdb.d/initdb.sql
+
+  nginx:
+    image: nginx:1.17-alpine
+    volumes:
+      - ./ui/cm/data/nginx_local:/etc/nginx/conf.d
+    ports:
+      - "80:80"
+    command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
+    depends_on:
+      - eea-client
+      - eea-server

@@ -1,0 +1,109 @@
+<section class="tab-content" *ngIf="currentMemberList$ | withStatus | async as listState">
+  <div
+    *ngIf="listState.loading"
+    class="loader-wrap d-flex justify-content-center align-items-center"
+  >
+    <div class="loader"></div>
+  </div>
+  <p *ngIf="listState.error || error" class="error-message color-red">
+    {{ listState.error || error }}
+  </p>
+  <form class="tab-content__form mb-2" [formGroup]="form">
+    <div
+      class="form-item"
+      formArrayName="membersArray"
+      *ngFor="let member of getMembersArray(form); let i = index"
+    >
+      <div class="form-header d-flex justify-content-between align-items-start mb-3">
+        <h6>{{ currentMember[i].name }}</h6>
+        <span *ngIf="getEmployeesArray(member).length !== 0" class="form-header__title-sm"
+          >Confirm</span
+        >
+        <div
+          class="form-header__title-wrap d-flex align-items-start"
+          [class.justify-content-end]="getEmployeesArray(member).length === 0"
+          [class.justify-content-between]="getEmployeesArray(member).length !== 0"
+        >
+          <span *ngIf="getEmployeesArray(member).length !== 0" class="form-header__title-sm"
+            >Type</span
+          >
+          <button (click)="clearForm(i + 1)" class="close-btn btn">&#10005;</button>
+        </div>
+      </div>
+      <div [formGroupName]="i">
+        <div
+          formArrayName="employeesArray"
+          *ngFor="let employee of getEmployeesArray(member); let j = index"
+          class="form-group"
+        >
+          <div [formGroupName]="j" class="d-flex justify-content-between align-items-center mt-2">
+            <input
+              class="common-text__sm form-group__input form-control"
+              type="text"
+              formControlName="name"
+            />
+            <div class="form-radio d-flex">
+              <label class="radio-button">
+                <input type="radio" [checked]="true" [value]="true" formControlName="confirm" />
+                <span class="fake-radiobutton">
+                  <span>Yes</span>
+                </span>
+              </label>
+              <label class="radio-button">
+                <input type="radio" [value]="false" formControlName="confirm" />
+                <span class="fake-radiobutton">
+                  <span>No</span>
+                </span>
+              </label>
+            </div>
+            <div class="form-group__select d-flex align-items-center justify-content-end flex-1">
+              <select
+                class="common-form-select common-text__sm d-flex flex-1"
+                formControlName="rewardReasons"
+              >
+                <option value="0" disabled [selected]="true">Select reward reason</option>
+                <option *ngFor="let item of rewardReasons; let i = index" value="{{ item.id }}">
+                  {{ item.name }}</option
+                >
+              </select>
+              <button (click)="removeItem(j, i)" class="close-btn btn">&#10005;</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <eea-button
+        *ngIf="isMemberSelected"
+        (click)="employeesList[i] && openDialog('employee', i)"
+        [text]="'Add Employee'"
+        [type]="'no-border'"
+        [icon]="'plus'"
+      ></eea-button>
+    </div>
+  </form>
+  <div class="tab-content__controls" *ngIf="listState.value as memberList">
+    <eea-button
+      (click)="openDialog('member')"
+      [text]="'Add EEA member'"
+      [type]="'no-border'"
+      [icon]="'plus'"
+    ></eea-button>
+  </div>
+  <div *ngIf="isMemberSelected" class="tab-controls d-flex justify-content-end mt-6">
+    <eea-button
+      (click)="clearForm()"
+      class="mr-3"
+      [text]="'Cancel'"
+      [type]="'light'"
+      [fixedSize]="true"
+    ></eea-button>
+    <eea-button
+      [disabled]="form.invalid"
+      (click)="saveFormData()"
+      [text]="'Issue'"
+      [type]="'success'"
+      [fixedSize]="true"
+    >
+      <div class="loader loader-sm  ml-1" *ngIf="loading"></div>
+    </eea-button>
+  </div>
+</section>

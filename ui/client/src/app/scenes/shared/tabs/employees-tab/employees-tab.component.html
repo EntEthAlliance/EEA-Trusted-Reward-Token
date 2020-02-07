@@ -1,0 +1,21 @@
+<eea-button
+  *ifInRole="'member'"
+  class="mb-4 d-block"
+  [text]="'Register employee'"
+  [type]="'success'"
+  [icon]="'plus'"
+  (click)="openDialog()"
+></eea-button>
+<div class="select-group mb-4" *ngIf="this.userRole !== 'member' && memberList">
+  <label class="common-text__sm mr-6">EEA Member</label>
+  <select class="common-form-select common-text__sm" (change)="setFilter($event)"
+  [formControl]="selectedMemberId">
+    <option value="0">Select EEA Member</option>
+    <option *ngFor="let item of memberList" value="{{ item.id }}"> {{ item.name }}</option>
+  </select>
+</div>
+<eea-table [dataSource]="tableDataSource" [columns]="columns">
+  <ng-template eeaTemplate="date" let-item>
+    {{ item | date: 'MM/dd/yyyy' }}
+  </ng-template>
+</eea-table>

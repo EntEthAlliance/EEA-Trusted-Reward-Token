@@ -1,0 +1,37 @@
+h5 {
+  font-weight: normal;
+}
+form {
+  margin: 0 -6px;
+}
+
+.form-group {
+  .common-text__sm {
+    color: rgba(0, 0, 0, 0.38);
+  }
+
+  .common-form-input {
+    height: 34px;
+    padding: 6px 12px;
+    background-color: #ffffff;
+  }
+}
+
+.form-success {
+  height: 100%;
+
+  .form-success__text {
+    width: 80%;
+    text-align: center;
+    margin: 40px auto;
+  }
+}
+
+.loader {
+  width: auto;
+  font-size: 12px;
+
+  &:before {
+    width: auto;
+  }
+}

@@ -8,6 +8,7 @@ npm-debug.log*
 
 # Dependencies
 node_modules/
+package-lock.json
 
 # Coverage
 coverage
@@ -34,3 +35,8 @@ uploads/*
 
 # Flattened Contracts
 Flattened_Contracts/
+
+local/besu/node1/database
+local/besu/node1/besu.ports
+local/besu/node2/database
+local/besu/node2/besu.ports

@@ -1,0 +1,85 @@
+<header class="d-flex flex-column flex-md-row">
+  <div class="logo">
+    <a routerLink="/">
+      <img src="assets/images/logo.png" class="logo-img" width="200" alt="" />
+    </a>
+  </div>
+  <div class="mt-0 mt-md-3 ml-auto">
+    <div class="d-none d-md-flex">
+      <a
+        href="https://member.entethalliance.org"
+        target="_blank"
+        class="member-sign-in__link d-inline-block ml-auto"
+        >Access the Collaboration Site</a
+      >
+    </div>
+    <div class="d-none d-md-flex mt-3">
+      <ul class="fixed-nav__list d-flex ml-auto">
+        <li class="fixed-nav__list-item fixed-nav__list-item--has-sub">
+          <a target="_blank" class="fixed-nav__item-link" href="https://entethalliance.org/"
+            >Main Website</a
+          >
+        </li>
+        <li class="fixed-nav__list-item">
+          <a target="_blank" class="fixed-nav__item-link" href="https://entethalliance.org/contact/"
+            >Contact</a
+          >
+        </li>
+        <li class="fixed-nav__list-item fixed-nav__list-item--social">
+          <a
+            class="fixed-nav__item-link fixed-nav__item-link--social"
+            href="https://www.facebook.com/EntEthAlliance/"
+            target="_blank"
+            ><i class="icon-facebook"></i
+          ></a>
+        </li>
+        <li class="fixed-nav__list-item fixed-nav__list-item--social">
+          <a
+            class="fixed-nav__item-link fixed-nav__item-link--social"
+            href="https://twitter.com/EntEthAlliance"
+            target="_blank"
+            ><i class="icon-twitter"></i
+          ></a>
+        </li>
+        <li class="fixed-nav__list-item fixed-nav__list-item--social mr-0">
+          <a
+            class="fixed-nav__item-link fixed-nav__item-link--social"
+            href="https://www.linkedin.com/company-beta/11119890/"
+            target="_blank"
+            ><i class="icon-linkedin"></i
+          ></a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="d-flex mt-0 mt-md-6">
+      <ul class="status-menu d-flex ml-auto align-items-center">
+        <li class="status-menu-item"><i class="icon-shopping-cart"></i></li>
+        <li class="status-menu-item"><i class="icon-warning"></i></li>
+        <li class="status-menu-item"><i class="icon-tasks"></i></li>
+        <li
+          class="status-menu-item user-actions position-relative"
+          [class.status-menu-item--active]="userMenuOpened"
+        >
+          <div
+            *ngIf="authService.user$ | async as user"
+            (click)="userMenuOpened = !userMenuOpened; $event.stopPropagation()"
+            class="d-flex align-items-center cursor-pointer"
+          >
+            {{ user.name }} ({{ user.role }})
+            <i class="icon-angle-down ml-2"></i>
+          </div>
+          <div
+            class="user-actions-menu card"
+            *ngIf="userMenuOpened"
+            (clickOutside)="userMenuOpened = false"
+          >
+            <ul>
+              <li class="cursor-pointer no-wrap" (click)="logout()">Log out</li>
+            </ul>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</header>

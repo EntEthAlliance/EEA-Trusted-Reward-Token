@@ -1,0 +1,68 @@
+<eea-table
+  *ngIf="!isSelected; else selectedRequestTemplate"
+  [dataSource]="tableDataSource"
+  [columns]="columns"
+>
+  <ng-template eeaTemplate="name" let-item let-row="row">
+    <div class="d-inline-block selectable-item cursor-pointer" (click)="onSelect(row.id)">
+      {{ item }}
+    </div>
+  </ng-template>
+  <ng-template eeaTemplate="date" let-item>
+    {{ item | date: 'MM/dd/yyyy' }}
+  </ng-template>
+</eea-table>
+
+<ng-template #selectedRequestTemplate>
+  <section>
+    <div class="content">
+      <p *ngIf="error" class="error-message color-red">
+        {{ error }}
+      </p>
+      <h6>EEA Token Redemption</h6>
+      <div class="content-group d-flex justify-content-between align-items-center">
+        <span class="common-text__sm">Redeemed by</span>
+        <span class="content-group__info">{{ selectedRequest.member }}</span>
+      </div>
+      <div class="content-group  d-flex justify-content-between align-items-center">
+        <span class="common-text__sm">Redeemed for</span>
+        <span class="content-group__info">{{ selectedRequest.redeemfor }}</span>
+      </div>
+      <div class="content-group  d-flex justify-content-between align-items-center">
+        <span class="common-text__sm">Quantity</span>
+        <span class="content-group__info">{{ selectedRequest.redeemcount }}</span>
+      </div>
+      <div class="content-group  d-flex justify-content-between align-items-center">
+        <span class="common-text__sm"> EEA Tokens Redeemed</span>
+        <span class="content-group__info">{{ selectedRequest.tokencount }}</span>
+      </div>
+    </div>
+    <div class="controls d-flex align-items-center justify-content-between">
+      <eea-button
+        [text]="'Back'"
+        [type]="'light'"
+        [fixedSize]="true"
+        (click)="closeRequest()"
+      ></eea-button>
+      <div>
+        <eea-button
+          class="mr-2"
+          [text]="'Cancel'"
+          [type]="'danger'"
+          [fixedSize]="true"
+          (click)="improveRequest(false)"
+        >
+          <div class="loader ml-1" *ngIf="loading.cancel"></div>
+        </eea-button>
+        <eea-button
+          [text]="'Approve'"
+          [type]="'success'"
+          [fixedSize]="true"
+          (click)="improveRequest(true)"
+        >
+          <div class="loader ml-1" *ngIf="loading.approve"></div>
+        </eea-button>
+      </div>
+    </div>
+  </section>
+</ng-template>

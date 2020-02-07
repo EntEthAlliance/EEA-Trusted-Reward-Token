@@ -1,0 +1,63 @@
+<form [formGroup]="form" *ngIf="!isFormSubmitted">
+  <div class="form-group d-flex flex-direction-column mb-3">
+    <label class="common-text__sm">
+      Name
+      <input class="common-form-input flex-1 mt-1 w-100" type="text" formControlName="name" />
+    </label>
+  </div>
+  <div class="form-group d-flex flex-direction-column mb-3">
+    <label class="common-text__sm"
+      >Email
+      <input
+        class="common-form-input flex-1 mt-1 w-100"
+        type="email"
+        formControlName="email"
+        autocomplete="off"
+        (input)="clearValidationErrors()"
+      />
+    </label>
+  </div>
+  <div class="form-group d-flex flex-direction-column mb-4">
+    <label class="common-text__sm">
+      Password
+      <input class="common-form-input flex-1 w-100" type="password" formControlName="password" />
+    </label>
+  </div>
+  <div *ngIf="error" class="my-2 color-red">
+    {{ error }}
+  </div>
+  <div class="form-controls">
+    <eea-button
+      [disabled]="form.invalid"
+      (click)="onSubmit()"
+      [text]="'Save'"
+      [type]="'primary'"
+    >
+      <div class="loader ml-1" *ngIf="loading"></div>
+    </eea-button>
+    <eea-button
+      (click)="closeDialog()"
+      class="ml-2"
+      [text]="'Cancel'"
+      [type]="'light'"
+    ></eea-button>
+  </div>
+</form>
+<div
+  class="form-success d-flex flex-direction-column justify-content-center"
+  *ngIf="isFormSubmitted"
+>
+  <div class="form-success__text">
+    <h5>Your registration form was successfully submitted.</h5>
+    <p class="common-text__sm">
+      We will review your submission and will notify you by email once the review process is
+      complete.
+    </p>
+  </div>
+  <eea-button
+    class="form-success__control"
+    (click)="closeDialog(true)"
+    [text]="'Close'"
+    [type]="'primary'"
+  ></eea-button>
+</div>

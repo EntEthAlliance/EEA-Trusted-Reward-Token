@@ -1,0 +1,10 @@
+<div *ngIf="error" class="error mb-3 color-red">
+  {{ error }}
+</div>
+<eea-token-counter-form
+  [error]="error"
+  [type]="'share'"
+  (save)="sendForm($event)"
+  (clearErrorState)="clearErrorState()"
+  [loading]="loading"
+></eea-token-counter-form>

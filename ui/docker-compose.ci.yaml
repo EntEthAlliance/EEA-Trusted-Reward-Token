@@ -1,0 +1,47 @@
+version: '3'
+
+volumes:
+  sim_v:
+    external: true
+
+services:
+  eea-client:
+    image: '${CONTAINER_REGISTRY}/eea-client:${TAG}'
+
+  eea-server:
+    image: '${CONTAINER_REGISTRY}/eea-server:${TAG}'
+
+  teelistener:
+    image: iexechub/eea-token:listener-sim
+    restart: unless-stopped
+    tty: true
+    stdin_open: true
+    command: python3 /app/tee_listener.py
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - sim_v:/app/mode_sim/data
+      - ./data/teelistener/sign_key:/run/secrets/sign_key
+    ports:
+      - 5000:5000
+
+  nginx:
+    image: nginx:1.17-alpine
+    restart: unless-stopped
+    volumes:
+      - ./data/nginx:/etc/nginx/conf.d
+      - ./data/certbot/conf:/etc/letsencrypt
+      - ./data/certbot/www:/var/www/certbot
+    ports:
+      - "80:80"
+      - "443:443"
+    command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
+    depends_on:
+      - eea-client
+      - eea-server
+  certbot:
+    image: certbot/certbot
+    restart: unless-stopped
+    volumes:
+      - ./data/certbot/conf:/etc/letsencrypt
+      - ./data/certbot/www:/var/www/certbot
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
