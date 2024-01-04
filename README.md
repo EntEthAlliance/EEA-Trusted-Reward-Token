@@ -6,7 +6,7 @@
 
 @see [Truffle]<https://github.com/trufflesuite/truffle>
 
-@see [Web3j]<http://web3js.readthedocs.io/en/1.0/>
+@see [Web3js]<http://web3js.readthedocs.io/en/1.0/>
 
 @see [Ganache]<https://github.com/trufflesuite/ganache-core>
 
